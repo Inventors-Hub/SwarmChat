@@ -96,3 +96,4 @@ class StreamableSimulation(HeadlessSimulation):
         """Stop the simulation."""
         self.running = False
         super().stop()
+        pg.quit()       # Quit the Pygame environment
