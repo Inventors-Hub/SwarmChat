@@ -1,11 +1,12 @@
-import speech_text
-import text_speech
+# import speech_text
+# import text_speech
 import gradio as gr
 from simulator_env import StreamableSimulation, MyAgent, MyConfig, MyWindow
 import time
 import threading
-
-
+import speech_processing
+import text_processing
+import safety_module
 
 class GradioStreamer:
     _instance = None
@@ -91,7 +92,12 @@ class GradioStreamer:
             self.sim = None  # Reset the simulation instance
 
 def test(temp):
-    return "test", "safe"
+    return "test"
+
+def stop_gradio_interface():
+    raise Exception("Simulation stopped!")
+
+
 
 def create_gradio_interface():
     streamer = GradioStreamer()
@@ -126,6 +132,7 @@ def create_gradio_interface():
                 with gr.Row():
                     with gr.Column():
                         microphone_input = gr.Audio(sources="microphone", type="filepath", label="🎙️ Record Audio")
+                        safety_checkbox = gr.Checkbox(label="Turn off Safety Model")
                     with gr.Column():
                         output_text_audio = gr.Textbox(label="📄 Translated Instructions")
                         safty_check_audio = gr.Textbox(label="✅ Safety Check")
@@ -134,14 +141,32 @@ def create_gradio_interface():
 
                 simulation_output = gr.Image(label="Live Stream", streaming=True, visible=False)
                 stop_button = gr.Button("Stop Simulation")
-
+                
                 translate_button_audio.click(
-                    fn=speech_text.translate_audio,
+                    fn=speech_processing.translate_audio,
                     # fn=test,
                     inputs=microphone_input,
-                    outputs=[output_text_audio, safty_check_audio]).success(
-                        fn=on_translate_or_process,outputs=simulation_output)
-                
+                    outputs=output_text_audio
+                ).then(
+                    fn=safety_module.check_safety, 
+                    inputs=[output_text_audio,safety_checkbox], 
+                    outputs=safty_check_audio
+                ).then(
+                    fn=lambda x: x if x == "Safe" else stop_gradio_interface(),
+                    inputs=safty_check_audio, 
+                    outputs=None
+                ).success(
+                    fn=on_translate_or_process,
+                    outputs=simulation_output
+                )
+
+                # translate_button_audio.click(
+                #     fn=speech_processing.translate_audio,inputs=microphone_input,outputs=output_text_audio
+                #     ).then(fn=safety_module.check_safety, inputs=output_text_audio, outputs= safty_check_audio
+                #     ).success(fn=on_translate_or_process,outputs=simulation_output
+                #     )
+
+                                
                 stop_button.click(fn=on_stop, outputs=simulation_output,  js="window.location.reload()")
                 demo.load(fn=streamer.stream, outputs=simulation_output)
 
@@ -154,8 +179,8 @@ def create_gradio_interface():
                 """)
                 with gr.Row():
                     with gr.Column():
-                        text_input = gr.Textbox(
-                            lines=5, placeholder="Enter your instructions here...", label="📝 Input Text")
+                        text_input = gr.Textbox(lines=4, placeholder="Enter your instructions here...", label="📝 Input Text")
+                        safety_checkbox_text = gr.Checkbox(label="Turn off Safety Model")
                     with gr.Column():
                         output_text_text = gr.Textbox(label="📄 Processed Commands", lines=5)
                         safty_check_text = gr.Textbox(label="✅ Safety Check")
@@ -166,11 +191,31 @@ def create_gradio_interface():
                 stop_button = gr.Button("Stop Simulation")
 
                 process_button_text.click(
-                    fn=text_speech.process_text_input,
+                    fn=text_processing.translate_text,
                     # fn=test,
                     inputs=text_input,
-                    outputs=[output_text_text, safty_check_text]
-                ).success(fn=on_translate_or_process,outputs=simulation_output)
+                    outputs=output_text_text
+                ).then(
+                    fn=safety_module.check_safety, 
+                    inputs=[output_text_text,safety_checkbox_text], 
+                    outputs=safty_check_text
+                ).then(
+                    fn=lambda x: x if x == "Safe" else stop_gradio_interface(), 
+                    inputs=safty_check_text, 
+                    outputs=None
+                ).success(
+                    fn=on_translate_or_process,
+                    outputs=simulation_output
+                )
+
+
+                # process_button_text.click(
+                #     fn=text_speech.process_text_input,
+                #     # fn=test,
+                #     inputs=text_input,
+                #     outputs=[output_text_text, safty_check_text]
+                # ).success(fn=on_translate_or_process,outputs=simulation_output)
+
                 stop_button.click(fn=on_stop, outputs=simulation_output, js="window.location.reload()")        
                 demo.load(fn=streamer.stream, outputs=simulation_output)
     

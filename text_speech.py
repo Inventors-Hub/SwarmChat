@@ -5,6 +5,7 @@ import safety_module
 import speech_text
 
 
+
 def process_text_input(text):
 
     safety_status = safety_module.check_safety(text)  # Check safety first
