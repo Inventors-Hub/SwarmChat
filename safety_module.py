@@ -6,7 +6,11 @@ model_path = r"G:\SwarmChat\model\llama-guard-3-8b-q4_k_m.gguf"
 llm = Llama(model_path=model_path, n_ctx=1024)
 
 
-def check_safety(text):
+def check_safety(text, checkbox):
+
+    if checkbox:
+        return "Safe"
+
     categories = {
         "S1": "Violent Crimes.",
         "S2": "Non-Violent Crimes.",
@@ -52,4 +56,7 @@ def check_safety(text):
         return "Safe"
     else:
         unsafe_categories = categories[response.split("unsafe", 1)[-1].strip()]
-        return f"Unsafe: This prompt categorized as '{unsafe_categories}'"
+        return f"Unsafe: This prompt is categorized as '{unsafe_categories}'"
+
+        # unsafe_categories = categories[response.split("unsafe", 1)[-1].strip()]
+        # return f"Unsafe: This prompt categorized as '{unsafe_categories}'"
