@@ -1,48 +1,40 @@
-import torch
-from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
-
-import io
-from pydub import AudioSegment
+from transformers import SeamlessM4Tv2Model, AutoProcessor
 import numpy as np
+import torch
+from pydub import AudioSegment
 
-import safety_module
-
-
-# Setup device and data types
-device = "cuda" if torch.cuda.is_available() else "cpu"
-torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
-
-# Load the model and processor
-model_id = "openai/whisper-medium"
-model = AutoModelForSpeechSeq2Seq.from_pretrained(
-    model_id, torch_dtype=torch_dtype, low_cpu_mem_usage=True).to(device)
-processor = AutoProcessor.from_pretrained(model_id)
-
-# Create a pipeline for automatic speech recognition with translation
-pipe = pipeline(
-    "automatic-speech-recognition",
-    model=model,
-    tokenizer=processor.tokenizer,
-    feature_extractor=processor.feature_extractor,
-    device=0 if torch.cuda.is_available() else -1,)
+# Load processor and model
+processor = AutoProcessor.from_pretrained("facebook/seamless-m4t-v2-large")
+model = SeamlessM4Tv2Model.from_pretrained("facebook/seamless-m4t-v2-large")
 
 def translate_audio(audio_file):
-    # Translate using the pipeline
-    result = pipe(audio_file, generate_kwargs={"task": "translate"})
-    translated_text = result["text"]
-    return translated_text
-
-#     # Check for safety in the translated speech
-#     safety_status = safety_module.check_safety(translated_text)
-#     if safety_status.startswith("Unsafe"):
-#         return None, safety_status
-
-#     else:
-#         return translated_text, safety_status
+    if audio_file is None:
+        return "No audio file detected. Please try again."
     
+    try:
+        # Set the device (use GPU if available)
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        model.to(device)
 
-# def handle_audio_translation(audio_file):
-#     translated_text, safety_status = translate_audio(audio_file)
-#     if translated_text is None:  # Unsafe content detected
-#         raise "Translation blocked due to unsafe content."
-#     return translated_text, safety_status
+        # Reset audio file pointer and load audio
+        audio = AudioSegment.from_file(audio_file, format="wav")
+        audio = audio.set_frame_rate(16000).set_channels(1)
+
+        # Convert audio to float32 NumPy array
+        audio_array = np.array(audio.get_array_of_samples()).astype(np.float32) / 32768.0
+
+        # Process input
+        audio_inputs = processor(audios=audio_array, sampling_rate=16000, return_tensors="pt")
+        audio_inputs = {key: val.to(device) for key, val in audio_inputs.items()}  # Ensure tensors are on the correct device
+
+        # Generate translation
+        output_tokens = model.generate(**audio_inputs, tgt_lang="eng", generate_speech=False)
+
+        # Extract token IDs from the generated output
+        token_ids = output_tokens.sequences
+        # Decode token IDs to text
+        translated_text_from_audio = processor.batch_decode(token_ids, skip_special_tokens=True)[0]
+
+        return translated_text_from_audio
+    except Exception as e:
+        return f"Error during audio translation: {e}"

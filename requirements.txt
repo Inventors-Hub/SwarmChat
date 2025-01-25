@@ -3,6 +3,7 @@ openai-whisper==20240930
 numpy==2.0.0
 gTTS==2.5.4
 torch==2.5.1
+torchaudio==2.5.1
 transformers==4.48.0
 llama_cpp_python==0.3.6
 pydub==0.25.1
@@ -14,4 +15,6 @@ matplotlib==3.10.0
 nltk==3.9.1
 rouge-score==0.1.2
 evaluate==0.4.3
-
+protobuf==5.29.3
+sentencepiece==0.2.0
+librosa==0.10.2.post1
