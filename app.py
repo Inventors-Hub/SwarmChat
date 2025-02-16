@@ -1,12 +1,14 @@
-# import speech_text
-# import text_speech
 import gradio as gr
-from simulator_env import StreamableSimulation, MyAgent, MyConfig, MyWindow
+from pygame import Vector2
+from simulator_env import StreamableSimulation, SwarmAgent, MyConfig, MyWindow
 import time
 import threading
+import queue
 import speech_processing
 import text_processing
 import safety_module
+
+
 
 class GradioStreamer:
     _instance = None
@@ -24,50 +26,118 @@ class GradioStreamer:
             self.sim = None
             self.sim_thread = None
             self.initialized = True
+            self.quit = False
     
     def update_frame(self, frame):
         self.latest_frame = frame
-    
-    def run_simulation(self):
-        if self.sim is None:
-            config = MyConfig(
-                radius=25,
-                visualise_chunks=True,
-                movement_speed=2
-            )
-            self.sim = StreamableSimulation(config=config)
-            self.sim.batch_spawn_agents(10, MyAgent, ["images/white.png", "images/red.png"])
 
-        while self.sim.running and self.running:
-            self.sim.tick()
-            if not self.sim.frame_queue.empty():
-                frame = self.sim.frame_queue.get()
-                self.update_frame(frame)
-            time.sleep(1 / 30)
-    
+    def run_simulation(self):
+            # Instantiate simulation and agents here:
+            
+            nest_pos = Vector2(450, 400)
+            target_pos = Vector2(200, 100)
+            agent_images_paths = ["./images/white.png", "./images/green.png", "./images/red circle.png"]
+            config = MyConfig(radius=250, visualise_chunks=True, movement_speed=2)
+            self.sim = StreamableSimulation(config=config)
+            loaded_agent_images = self.sim._load_image(agent_images_paths)
+
+            # Create agents (each agent builds its own BT in its __init__)
+            for _ in range(50):
+                agents_pos = Vector2(450, 400)
+                agent = SwarmAgent(
+                    images=loaded_agent_images,
+                    simulation=self.sim,
+                    pos=agents_pos,
+                    nest_pos=nest_pos,
+                    target_pos=target_pos
+                )
+                self.sim._agents.add(agent)
+                self.sim._all.add(agent)
+            # (Optionally spawn obstacles and sites.)
+            self.sim.spawn_obstacle("./images/rect_obst.png", 350, 100)
+            self.sim.spawn_obstacle("./images/rect_obst (1).png", 100, 350)
+            self.sim.spawn_site("./images/rect.png", 200, 100)
+            self.sim.spawn_site("./images/nest.png", 450, 400)
+
+
+            start_time = time.time()  # Record the start time
+            
+            while self.running:
+                self.sim.tick()
+                
+                if not self.sim.frame_queue.empty():
+                    frame = self.sim.frame_queue.get()
+                    self.update_frame(frame)    
+
+                time.sleep(1/30)  # Maintain a frame rate of ~30 FPS
+                # # Stop after 1 minute
+                if time.time() - start_time >= 60:
+                    print("Simulation stopped after 1 minute.")
+                    break
+
+            
+
     def stream(self):
-        while self.running:
-            if self.latest_frame is not None:
+        while True:
+            if self.sim is not None and self.latest_frame is not None:
                 yield self.latest_frame
+            else:
+                # Optionally, yield a blank image or None.
+                yield None
             time.sleep(1/30)
 
 
     def start_simulation(self):
         """Start the simulation, creating a new thread if necessary."""
         if not self.sim_thread or not self.sim_thread.is_alive():
-            self.running = True
+            self.running = True      # Reset running flag
+            self.quit = False        # Reset quit flag
+            self.latest_frame = None # Clear out the old frame
             self.sim_thread = threading.Thread(target=self.run_simulation, daemon=True)
             self.sim_thread.start()
-    
-    def stop_simulation(self):
-        """Stop the simulation and reset the state."""
-        self.running = False
+
+
+    def clear_frame_queue(self):
         if self.sim:
-            self.sim.stop()  # Stop the simulation and clean up
-            self.sim = None  # Reset the simulation instance
+            try:
+                while True:
+                    self.sim.frame_queue.get_nowait()
+            except queue.Empty:
+                pass
+
+
+
+    def stop_simulation(self):
+        print("Stopping Simulation...")
+        self.running = False
+        self.quit = True
+        if self.sim:
+            for agent in self.sim._agents:
+                agent.bt_active = False
+            self.sim.running = False
+            self.sim.stop()
+            self.clear_frame_queue()
+            self.sim = None
+        if self.sim_thread and self.sim_thread.is_alive():
+            self.sim_thread.join(timeout=2)
+            print("Simulation thread terminated.")
+        self.latest_frame = None  # Clear the displayed frame
+        print("Simulation stopped successfully.")
+
+
+
+
+            
 
 def test(temp):
     return "test"
+
+def test_safe(temp, checkbox):
+    return "Safe"
+
+def test_LLM_generate_BT(temp):
+    print(temp)
+    return None
 
 def stop_gradio_interface():
     raise Exception("Simulation stopped!")
@@ -82,8 +152,8 @@ def create_gradio_interface():
         return gr.update(visible=True)
     
     def on_stop():
+        print("Simulation on_stop")
         streamer.stop_simulation()
-        
         return gr.update(visible=False)
     
 
@@ -124,6 +194,7 @@ def create_gradio_interface():
                     outputs=output_text_audio
                 ).then(
                     fn=safety_module.check_safety, 
+                    # fn=test_safe,
                     inputs=[output_text_audio,safety_checkbox], 
                     outputs=safty_check_audio
                 ).then(
@@ -131,13 +202,18 @@ def create_gradio_interface():
                     inputs=safty_check_audio, 
                     outputs=None
                 ).success(
+                    fn=test_LLM_generate_BT,
+                    inputs=output_text_audio, 
+                    outputs=None
+                ).success(                    
                     fn=on_translate_or_process,
                     outputs=simulation_output
                 )
 
-          
-                stop_button.click(fn=on_stop, outputs=simulation_output,  js="window.location.reload()")
-                demo.load(fn=streamer.stream, outputs=simulation_output)
+                # stop_button.click(fn=on_stop, outputs=simulation_output)
+            # stop_button.click(fn=on_stop, outputs=simulation_output)#.then(js="window.location.reload()")
+            stop_button.click(fn=on_stop,outputs=simulation_output)#.then(js="window.location.reload()")
+            demo.load(fn=streamer.stream, outputs=simulation_output)
 
             # Tab for text input
             with gr.Tab("📝 Text Input"):
@@ -166,6 +242,7 @@ def create_gradio_interface():
                     outputs=output_text_text
                 ).then(
                     fn=safety_module.check_safety, 
+                    # fn=test_safe,
                     inputs=[output_text_text,safety_checkbox_text], 
                     outputs=safty_check_text
                 ).then(
@@ -173,11 +250,15 @@ def create_gradio_interface():
                     inputs=safty_check_text, 
                     outputs=None
                 ).success(
+                    fn=test_LLM_generate_BT,
+                    inputs=output_text_text, 
+                    outputs=None
+                ).success(                    
                     fn=on_translate_or_process,
                     outputs=simulation_output
                 )
-
-                stop_button.click(fn=on_stop, outputs=simulation_output, js="window.location.reload()")        
+                stop_button.click(fn=on_stop,outputs=simulation_output)#.then(fn=reload_page,outputs=None ,js="window.location.reload()")
+                # stop_button.click(fn=on_stop, outputs=simulation_output, js="window.location.reload()")
                 demo.load(fn=streamer.stream, outputs=simulation_output)
     
     return demo
