@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="BehaviorTree">
+  <BehaviorTree ID="BehaviorTree">
+    <Sequence name="Root Sequence">
+      <!-- First: Find Target and change its color to red -->
+      <Fallback name="Find Target">
+      <Sequence name="Find Target">
+        <is_target_reached/>
+        <change_color_to_red/>
+        <form_line/>
+      </Sequence>
+        <wander/>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+
+  <!-- Define the Node Models used in the BT -->
+  <TreeNodesModel>
+    <Condition ID="is_target_reached"/>
+    <Action ID="change_color_to_red"/>
+    <Action ID="form_line"/>
+    <Action ID="wander"/>
+  </TreeNodesModel>
+</root>

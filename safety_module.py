@@ -2,7 +2,7 @@ from llama_cpp import Llama
 
 
 # Load the Llama model for safety classification
-model_path = r"G:\SwarmChat\model\llama-guard-3-8b-q4_k_m.gguf"
+model_path = r"G:\Inventors Hub Projects\SwarmChat\model\llama-guard-3-8b-q4_k_m.gguf"
 llm = Llama(model_path=model_path, n_ctx=1024)
 
 

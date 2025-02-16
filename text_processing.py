@@ -1,9 +1,19 @@
 from llama_cpp import Llama
-import safety_module
+import os
+import struct
+print(struct.calcsize("P") * 8, "bit")
 
-model_path_9b = r"G:\SwarmChat\model\EuroLLM-9B-Instruct-Q4_K_M.gguf"
 
-llm_9b = Llama(model_path=model_path_9b, n_ctx=1024)
+model_path = r"G:\Inventors Hub Projects\SwarmChat\model\EuroLLM-9B-Instruct-Q4_K_M.gguf"
+print("Model exists?", os.path.exists(model_path))
+
+try:
+    # Try initializing with some extra parameters if available
+    llm = Llama(model_path=model_path, n_ctx=1024)#, verbose=True)
+    print("Llama backend initialized successfully!")
+except Exception as e:
+    print("Initialization failed with error:", e)
+
 
 
 # Function to process text using EuroLLM
@@ -18,7 +28,7 @@ def translate_text(text):
     <|im_end|>
     <|im_start|>assistant
     """
-    output = llm_9b(input_prompt, max_tokens=1024, temperature=0)
+    output = llm(input_prompt, max_tokens=1024, temperature=0)
     # print('\n\nOutput: ',output,'\n\n')
     translated_text = output.get("choices", [{}])[0].get("text", "").strip()
 
