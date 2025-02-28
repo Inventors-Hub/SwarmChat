@@ -69,55 +69,16 @@ def parse_behavior_trees(xml_file: str) -> List[Node]:
 # 2. Functions that will be executed by the BT (your actions, conditions, etc.)
 ########################################################################
 
-# def change_color_to_green():
-#     print("Changing color to green.")
-#     return pt.common.Status.SUCCESS
 
-# def change_color_to_red():
-#     print("Changing color to red.")
-#     return pt.common.Status.SUCCESS
-
-# def check_for_distance(x: float, y: float,z: float):
-#     distance = abs(x - y)
-#     print(f"Checking distance: {distance}")
-#     return pt.common.Status.FAILURE if distance < 10 else pt.common.Status.FAILURE
-
-# def form_line():
-#     print("Forming a line.")
-#     return pt.common.Status.SUCCESS
-
-# def is_agent_in_nest(agent_in_nest: bool = True):
-#     print("is_agent_in_nest")
-#     return pt.common.Status.SUCCESS if agent_in_nest else pt.common.Status.FAILURE
-
-# def is_line_formed(line_formed: bool = True):
-#     print("is_line_formed")
-#     return pt.common.Status.SUCCESS if line_formed else pt.common.Status.FAILURE
-
-
-# def is_target_reached(target_reached: bool = True):
-#     print("is_target_reached")
-#     return pt.common.Status.SUCCESS if target_reached else pt.common.Status.FAILURE
-
-
-# def say(message: str):
-#     print(message)
-#     return pt.common.Status.SUCCESS
-
-# def test1(x: int, y: int, z: int):
-#     z = x + y
-#     print(f"Control operation: x={x}, y={y}, z={z}")
-#     return pt.common.Status.SUCCESS
-
-# def testDecorator(a: int,b: int, c: int):
-#     b = a * 2
-#     c = b + 10
-#     print(f"testDecorator: a={a}, b={b}, c={c}")
-#     return pt.common.Status.SUCCESS
-
-# def wander():
-#     print("Wandering...")
-#     return pt.common.Status.SUCCESS
+def get_function_mapping():
+    from simulator_env import SwarmAgent
+    mapping = {
+        name: func
+        for name, func in SwarmAgent.__dict__.items()
+        if callable(func) and not name.startswith("_") and name not in ['update','_inject_agent','obstacle','_speak']
+    }
+    # print("mapping: \n", mapping)
+    return mapping
 
 ########################################################################
 # 3. Helpers and Custom py_trees Behavior Wrappers
@@ -136,36 +97,6 @@ def convert_param(val: str):
         except ValueError:
             return val
 
-# Mapping of function names (as used in XML tags) to the actual functions.
-# function_mapping = {
-#     'change_color_to_green': simu.SwarmAgent.change_color_to_green,
-#     'change_color_to_red': simu.SwarmAgent.change_color_to_red,
-#     'check_for_distance': simu.SwarmAgent.check_for_distance,
-#     'form_line': simu.SwarmAgent.form_line,
-#     'is_agent_in_nest': simu.SwarmAgent.is_agent_in_nest,
-#     'is_line_formed': simu.SwarmAgent.is_line_formed,
-#     'is_target_reached': simu.SwarmAgent.is_target_reached,
-#     'say': simu.SwarmAgent.say,
-#     'test1': simu.SwarmAgent.test1,
-#     'testDecorator': simu.SwarmAgent.testDecorator,
-#     'wander': simu.SwarmAgent.wander,
-# }
-
-def get_function_mapping():
-    from simulator_env import SwarmAgent
-    return {
-        'change_color_to_green': SwarmAgent.change_color_to_green,
-        'change_color_to_red': SwarmAgent.change_color_to_red,
-        'check_for_distance': SwarmAgent.check_for_distance,
-        'form_line': SwarmAgent.form_line,
-        'is_agent_in_nest': SwarmAgent.is_agent_in_nest,
-        'is_line_formed': SwarmAgent.is_line_formed,
-        'is_target_reached': SwarmAgent.is_target_reached,
-        'say': SwarmAgent.say,
-        'test1': SwarmAgent.test1,
-        'testDecorator': SwarmAgent.testDecorator,
-        'wander': SwarmAgent.wander,
-    }
 
 
 
@@ -236,7 +167,7 @@ def build_behavior(node: Node, subtree_mapping: Dict[str, Node]) -> pt.behaviour
     # Define which tags represent which kinds of nodes.
     composite_tags = ["Sequence", "Fallback"]
     repeat_tags = ["Repeat"]
-    decorator_tags = ["testDecorator"]
+    decorator_tags = ['testDecorator',"Inverter", "Success", "Failure", "AlwaysFailure", "AlwaysSuccess", "ForceSuccess", "ForceFailure"]
     control_tags = ["test1"]
 
     mapping = get_function_mapping()
@@ -260,7 +191,7 @@ def build_behavior(node: Node, subtree_mapping: Dict[str, Node]) -> pt.behaviour
             composite.add_child(build_behavior(child, subtree_mapping))
         return composite
 
-    elif node.tag == "Repeat":
+    elif node.tag in repeat_tags:
         if len(node.children) != 1:
             print("Repeat node must have exactly one child!")
         child_behavior = build_behavior(node.children[0], subtree_mapping)
@@ -323,6 +254,23 @@ def build_behavior(node: Node, subtree_mapping: Dict[str, Node]) -> pt.behaviour
 # 5. Main: Parse XML, Build the py_trees Tree, and Execute It
 ########################################################################
 
+def print_node(node, indent=0):
+    ind = "  " * indent
+    print(f"{ind}{node.tag}: {node.attributes}")
+    # Optionally print any ports
+    for port_type, port_list in node.ports.items():
+        for port in port_list:
+            print(f"{ind}  {port_type}: {port}")
+    for child in node.children:
+        print_node(child, indent + 1)
+
+# Usage in your main:
+if __name__ == "__main__":
+    file_path = 'tree.xml'
+    trees = parse_behavior_trees(file_path)
+    for tree in trees:
+        print_node(tree)
+
 # if __name__ == "__main__":
 #     # The XML file with your behavior tree.
 #     file_path = 'tree.xml'
@@ -330,28 +278,8 @@ def build_behavior(node: Node, subtree_mapping: Dict[str, Node]) -> pt.behaviour
 #     # 1. Parse the XML into a list of BehaviorTree nodes.
 #     trees = parse_behavior_trees(file_path)
 #     # Build a mapping of BehaviorTree ID to Node.
+#     print(trees)
 #     subtree_mapping = { tree.attributes.get("ID"): tree for tree in trees }
-    
-#     # 2. Determine the main tree to execute from the root attribute.
-#     xml_tree = ET.parse(file_path)
-#     xml_root = xml_tree.getroot()
-#     main_tree_id = xml_root.attrib.get("main_tree_to_execute")
-#     if not main_tree_id:
-#         print("No main_tree_to_execute specified in the XML.")
-#         exit(1)
-#     if main_tree_id not in subtree_mapping:
-#         print(f"Main tree with ID {main_tree_id} not found!")
-#         exit(1)
-#     main_tree_node = subtree_mapping[main_tree_id]
-    
-#     # 3. Build the py_trees tree from the main BehaviorTree Node.
-#     root_behavior = build_behavior(main_tree_node, subtree_mapping)
-    
-#     # 4. Create and set up the py_trees BehaviourTree.
-#     behaviour_tree = pt.trees.BehaviourTree(root=root_behavior)
-#     behaviour_tree.setup(timeout=15)
-    
-#     # 5. Tick the tree a few times so that the functions get executed.
-#     for i in range(10):
-#         print(f"\n=== Tick {i+1} ===")
-#         behaviour_tree.tick()
+#     print()
+
+#     print(subtree_mapping)

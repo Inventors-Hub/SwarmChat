@@ -28,6 +28,12 @@ SwarmChat is an innovative project that enables intuitive communication with swa
   - Agents are controlled by behavior trees defined in an XML file (`tree.xml`), using the `py_trees` framework.
   - Real-time simulation updates streamed via a Gradio web interface.
 
+- **Behavior Tree Generator**:
+
+  - DeepSeek leverages a Llama-based model to dynamically generate behavior trees in XML format.
+  - Automatically extracts available behaviors from the SwarmAgent class and constructs a detailed prompt using a predefined XML template.
+  - Generates and saves new behavior tree configurations (updating tree.xml) based on user-specified tasks.
+
 - **Integrated Interface**:
   - A unified Gradio web interface for both audio and text inputs.
   - Live streaming of the simulation environment.
@@ -52,6 +58,7 @@ SwarmChat is an innovative project that enables intuitive communication with swa
   - **Speech Processing**: `facebook/seamless-m4t-v2-large` for audio transcription and translation.
   - **Text Processing**: EuroLLM (EuroLLM-9B-Instruct-Q4_K_M.gguf) for text translation.
   - **Safety Classification**: LLaMA Guard (llama-guard-3-8b-q4_k_m.gguf) for content safety assessment.
+  - **Behavior Tree Generation**: DeepSeek (using a Llama-based model DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf) for creating and updating behavior tree configurations.
 
 - **Behavior Trees**:
   - Agents utilize behavior trees—parsed from XML and built with `py_trees`—to dictate their actions within the simulation.
@@ -73,6 +80,7 @@ SwarmChat is an innovative project that enables intuitive communication with swa
 
 - Place the EuroLLM model file (`EuroLLM-9B-Instruct-Q4_K_M.gguf`) at the specified path in `text_processing.py`.
 - Place the LLaMA Guard model file (`llama-guard-3-8b-q4_k_m.gguf`) at the specified path in `safety_module.py`.
+- Place the DeepSeek model file (`DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf`) at the specified path in `bt_generator.py`.
 
 4. **Run the Application**:
    ```bash
@@ -81,3 +89,23 @@ SwarmChat is an innovative project that enables intuitive communication with swa
 5. **Access the Interface**:
 
    Open your browser and navigate to http://127.0.0.1:7860 to start using SwarmChat.
+
+## Overview of Modules
+
+- **app.py**  
+  The main application integrates audio/text processing, behavior tree generation, and the live simulation. It sets up the Gradio interface, handles simulation streaming, and routes user inputs to the appropriate processing modules.
+
+- **speech_processing.py**  
+  Implements audio transcription and translation using the `facebook/seamless-m4t-v2-large` model.
+
+- **text_processing.py**  
+  Translates text commands using EuroLLM (EuroLLM-9B-Instruct-Q4_K_M.gguf).
+
+- **safety_module.py**  
+  Utilizes LLaMA Guard to assess the safety of incoming commands, ensuring compliance with safety policies.
+
+- **bt_generator.py**  
+  Dynamically generates behavior trees in XML format by extracting behaviors from the SwarmAgent class, constructing a prompt, and querying a Llama-based model. The generated XML is saved to `tree.xml` for simulation use.
+
+- **simulator_env.py**  
+  Powers the simulation environment, manages agent behaviors using XML-defined behavior trees, and handles real-time simulation updates.

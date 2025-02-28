@@ -4,10 +4,11 @@ from simulator_env import StreamableSimulation, SwarmAgent, MyConfig, MyWindow
 import time
 import threading
 import queue
+
 import speech_processing
 import text_processing
-import safety_module
-
+# import safety_module
+import bt_generator
 
 
 class GradioStreamer:
@@ -35,7 +36,7 @@ class GradioStreamer:
             # Instantiate simulation and agents here:
             
             nest_pos = Vector2(450, 400)
-            target_pos = Vector2(200, 100)
+            target_pos = Vector2(300, 200)
             agent_images_paths = ["./images/white.png", "./images/green.png", "./images/red circle.png"]
             config = MyConfig(radius=250, visualise_chunks=True, movement_speed=2)
             self.sim = StreamableSimulation(config=config)
@@ -54,13 +55,22 @@ class GradioStreamer:
                 self.sim._agents.add(agent)
                 self.sim._all.add(agent)
             # (Optionally spawn obstacles and sites.)
-            self.sim.spawn_obstacle("./images/rect_obst.png", 350, 100)
+            self.sim.spawn_obstacle("./images/rect_obst.png", 350, 50)
             self.sim.spawn_obstacle("./images/rect_obst (1).png", 100, 350)
-            self.sim.spawn_site("./images/rect.png", 200, 100)
+
+            self.sim.spawn_site("./images/rect.png", 300, 200)
             self.sim.spawn_site("./images/nest.png", 450, 400)
 
 
             start_time = time.time()  # Record the start time
+            # while self.sim.running:
+            #     self.sim.tick()
+            #     for agent in self.sim._agents:
+            #         agent.bt.tick_once()  # Continuously update BTs
+            #     if not self.sim.frame_queue.empty():
+            #         frame = self.sim.frame_queue.get()
+            #         self.update_frame(frame)
+            #     time.sleep(1/30)
             
             while self.running:
                 self.sim.tick()
@@ -70,8 +80,8 @@ class GradioStreamer:
                     self.update_frame(frame)    
 
                 time.sleep(1/30)  # Maintain a frame rate of ~30 FPS
-                # # Stop after 1 minute
-                if time.time() - start_time >= 60:
+                # Stop after 1 minute
+                if time.time() - start_time >= 120:
                     print("Simulation stopped after 1 minute.")
                     break
 
@@ -178,9 +188,10 @@ def create_gradio_interface():
                     with gr.Column():
                         microphone_input = gr.Audio(sources=["microphone"], type="filepath", label="🎙️ Record Audio")
                         safety_checkbox = gr.Checkbox(label="Turn off Safety Model")
+                        safty_check_audio = gr.Textbox(label="✅ Safety Check")
                     with gr.Column():
                         output_text_audio = gr.Textbox(label="📄 Translated Instructions")
-                        safty_check_audio = gr.Textbox(label="✅ Safety Check")
+                        generated_BT_audio = gr.Textbox(label="Generated behavior tree")
 
                 translate_button_audio = gr.Button("Send Audio")
 
@@ -193,8 +204,8 @@ def create_gradio_interface():
                     inputs=microphone_input,
                     outputs=output_text_audio
                 ).then(
-                    fn=safety_module.check_safety, 
-                    # fn=test_safe,
+                    # fn=safety_module.check_safety, 
+                    fn=test_safe,
                     inputs=[output_text_audio,safety_checkbox], 
                     outputs=safty_check_audio
                 ).then(
@@ -202,9 +213,9 @@ def create_gradio_interface():
                     inputs=safty_check_audio, 
                     outputs=None
                 ).success(
-                    fn=test_LLM_generate_BT,
+                    fn=bt_generator.generate_behavior_tree,
                     inputs=output_text_audio, 
-                    outputs=None
+                    outputs=generated_BT_audio
                 ).success(                    
                     fn=on_translate_or_process,
                     outputs=simulation_output
@@ -226,9 +237,10 @@ def create_gradio_interface():
                     with gr.Column():
                         text_input = gr.Textbox(lines=4, placeholder="Enter your instructions here...", label="📝 Input Text")
                         safety_checkbox_text = gr.Checkbox(label="Turn off Safety Model")
+                        safty_check_text = gr.Textbox(label="✅ Safety Check")
                     with gr.Column():
                         output_text_text = gr.Textbox(label="📄 Processed Commands", lines=5)
-                        safty_check_text = gr.Textbox(label="✅ Safety Check")
+                        generated_BT_text = gr.Textbox(label="Generated behavior tree")
 
                 process_button_text = gr.Button("Send Text")
 
@@ -241,8 +253,8 @@ def create_gradio_interface():
                     inputs=text_input,
                     outputs=output_text_text
                 ).then(
-                    fn=safety_module.check_safety, 
-                    # fn=test_safe,
+                    # fn=safety_module.check_safety, 
+                    fn=test_safe,
                     inputs=[output_text_text,safety_checkbox_text], 
                     outputs=safty_check_text
                 ).then(
@@ -250,9 +262,9 @@ def create_gradio_interface():
                     inputs=safty_check_text, 
                     outputs=None
                 ).success(
-                    fn=test_LLM_generate_BT,
+                    fn=bt_generator.generate_behavior_tree,
                     inputs=output_text_text, 
-                    outputs=None
+                    outputs=generated_BT_text
                 ).success(                    
                     fn=on_translate_or_process,
                     outputs=simulation_output

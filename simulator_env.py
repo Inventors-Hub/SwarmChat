@@ -1,6 +1,5 @@
 import math
 import time
-import threading
 import pygame as pg
 from vi import Agent, Config, Window, HeadlessSimulation
 from typing import Optional
@@ -10,6 +9,9 @@ from pygame.math import Vector2
 import py_trees as pt
 import parser
 import xml.etree.ElementTree as ET
+
+import threading
+import pyttsx3
 
 class MyWindow(Window):
     """Custom window class for simulation."""
@@ -32,27 +34,6 @@ class MyConfig(Config):
 
 
 
-# class MyAgent(Agent):
-#     """Custom agent with adjustable movement."""
-#     def __init__(self, images, simulation, pos=None, move=None):
-#         # Call the parent class's constructor
-#         super().__init__(images=images, simulation=simulation, pos=pos, move=move)
-
-#         # Add any custom initialization logic here
-#         self.custom_property = "I am a custom agent"
-
-#     def update(self):
-#         # Add custom update logic for the agent here
-#         # Example: Change image when in proximity to other agents
-#         in_proximity = self.in_proximity_accuracy().count()
-#         if in_proximity > 0:
-#             self.change_image(1)
-#         else:
-#             self.change_image(0)
-
-
-
-
 class SwarmAgent(Agent):
     def __init__(self, images, simulation, pos, nest_pos, target_pos):
         super().__init__(images=images, simulation=simulation)
@@ -68,15 +49,18 @@ class SwarmAgent(Agent):
         self.obstacle_radius = 5
         self.state = "seeking"
         self.bt_active = True  # Add a flag
+        self.tts_engine = pyttsx3.init()  # Initialize text-to-speech engine
 
-        # Load and build the BT from XML:
+
         file_path = "tree.xml"
         trees = parser.parse_behavior_trees(file_path)
         subtree_mapping = { tree.attributes.get("ID"): tree for tree in trees }
+
         
         xml_tree = ET.parse(file_path)
         xml_root = xml_tree.getroot()
         main_tree_id = xml_root.attrib.get("main_tree_to_execute")
+        
         if not main_tree_id or main_tree_id not in subtree_mapping:
             raise ValueError("Main tree not found in the XML!")
         main_tree_node = subtree_mapping[main_tree_id]
@@ -105,7 +89,130 @@ class SwarmAgent(Agent):
     #     # self.root_node.run(self)
 
     def say(self, message: str):
-        # print(message)
+        # Initialize lists if they don't already exist
+        if not hasattr(self, 'old_message'):
+            self.old_message = []
+                
+        # Only speak the message if it has not been spoken before (i.e. not in old_message)
+        if message not in self.old_message:
+            self.tts_engine.say(message)
+            self.tts_engine.runAndWait()
+            self.old_message.append(message)
+            
+        return pt.common.Status.SUCCESS
+
+    
+    # def flocking(self):
+    #     """
+    #     Compute a flocking steering vector using:
+    #      - Separation: steer away from nearby agents.
+    #      - Alignment: match the average heading of nearby agents.
+    #      - Cohesion: move toward the average position of neighbors.
+    #     Adjusts the agent’s move vector accordingly.
+    #     """
+    #     nearby_agents = list(self.in_proximity_accuracy().without_distance())
+    #     if not nearby_agents:
+    #         return pt.common.Status.SUCCESS
+        
+    #     separation = Vector2(0, 0)
+    #     alignment = Vector2(0, 0)
+    #     cohesion = Vector2(0, 0)
+        
+    #     for other in nearby_agents:
+    #         separation += (self.pos - other.pos)
+    #         alignment += other.move
+    #         cohesion += other.pos
+        
+    #     n = len(nearby_agents)
+    #     alignment /= n
+    #     cohesion /= n
+    #     cohesion = cohesion - self.pos
+        
+    #     # Weigh the contributions (tweak these weights as needed)
+    #     flock_vector = 0.5 * separation + 0.3 * alignment + 0.2 * cohesion
+        
+    #     # Update the agent's movement vector
+    #     self.move += flock_vector
+    #     # Cap the velocity
+    #     max_speed = self.config.movement_speed
+    #     if self.move.length() > max_speed:
+    #         self.move.scale_to_length(max_speed)
+    #     return pt.common.Status.SUCCESS
+    def flocking(self):
+        """
+        Adjust the agent's move vector to align with nearby agents while maintaining a minimum separation distance.
+        The agent blends its current movement toward the average movement (alignment) and away from agents that are too close (separation).
+        """
+        nearby_agents = list(self.in_proximity_accuracy().without_distance())
+        if not nearby_agents:
+            return pt.common.Status.SUCCESS
+
+        alignment = Vector2(0, 0)
+        separation = Vector2(0, 0)
+        separation_count = 0
+
+        # Desired minimum separation distance (adjust as needed)
+        separation_threshold = 3
+
+        # Calculate alignment and separation contributions.
+        for other in nearby_agents:
+            alignment += other.move
+            
+            diff = self.pos - other.pos
+            distance = diff.length()
+            if 0 < distance < separation_threshold:
+                # The closer the neighbor, the stronger the repulsive force.
+                separation += diff.normalize() * (separation_threshold - distance)
+                separation_count += 1
+
+        # Average the alignment vector over all neighbors.
+        alignment /= len(nearby_agents)
+        
+        # If any agents are too close, average the separation vector.
+        if separation_count > 0:
+            separation /= separation_count
+
+        # Blend the two influences. Here, alignment has a stronger influence than separation.
+        # Adjust the blend factor (e.g., 0.3) to control separation influence.
+        blended_force = alignment.lerp(separation, 0.3)
+        
+        # Smoothly blend the current move with the blended force.
+        self.move = self.move.lerp(blended_force, 0.5)
+        
+        # Normalize and scale to the configured movement speed.
+        if self.move.length() > 0:
+            self.move = self.move.normalize() * self.config.movement_speed
+
+        # Update position and apply wrap-around if necessary.
+        self.pos += self.move
+        self.there_is_no_escape()
+        
+        return pt.common.Status.SUCCESS
+
+
+    
+    def align_with_swarm(self):
+        """
+        Adjust the agent's move vector to better align with the average movement of nearby agents.
+        """
+        nearby_agents = list(self.in_proximity_accuracy().without_distance())
+        if not nearby_agents:
+            return pt.common.Status.SUCCESS
+
+        avg_direction = Vector2(0, 0)
+        for other in nearby_agents:
+            avg_direction += other.move
+        avg_direction /= len(nearby_agents)
+        
+        # Blend current movement with average direction.
+        self.move = self.move.lerp(avg_direction, 0.5)
+        if self.move.length() > 0:
+            self.move = self.move.normalize() * self.config.movement_speed
+
+        # Update position and wrap-around if necessary.
+        self.pos += self.move
+        self.there_is_no_escape()
+        
         return pt.common.Status.SUCCESS
  
     def obstacle(self):
@@ -155,28 +262,42 @@ class SwarmAgent(Agent):
         if self.target_reached_flag:            
             return pt.common.Status.SUCCESS
         return pt.common.Status.FAILURE
+    
+    def change_color(self, color):
+        """
+        Action node: Change the agent's color to the specified color. Returns: Always returns True, indicating the action was executed.
+        """
+        color = color.lower()
+        if color == "white":
+            self.change_image(0)
+        elif color == "green":
+            self.change_image(1)
+        elif color == "red":
+            self.change_image(2)
+
+        return pt.common.Status.SUCCESS
         
 
-    def change_color_to_green(self):
-        """
-        Action node: Change the agent's color to green. Returns: Always returns True, indicating the action was executed.
-        """
-        self.change_image(1)
-        return pt.common.Status.SUCCESS
+    # def change_color_to_green(self):
+    #     """
+    #     Action node: Change the agent's color to green. Returns: Always returns True, indicating the action was executed.
+    #     """
+    #     self.change_image(1)
+    #     return pt.common.Status.SUCCESS
     
-    def change_color_to_white(self):
-        """
-        Action node: Change the agent's color to white. Returns: Always returns True, indicating the action was executed.
-        """
-        self.change_image(0)  
-        return pt.common.Status.SUCCESS
+    # def change_color_to_white(self):
+    #     """
+    #     Action node: Change the agent's color to white. Returns: Always returns True, indicating the action was executed.
+    #     """
+    #     self.change_image(0)  
+    #     return pt.common.Status.SUCCESS
     
-    def change_color_to_red(self):
-        """
-        Action node: Change the agent's color to red. Returns: Always returns True, indicating the action was executed.
-        """
-        self.change_image(2)  
-        return pt.common.Status.SUCCESS
+    # def change_color_to_red(self):
+    #     """
+    #     Action node: Change the agent's color to red. Returns: Always returns True, indicating the action was executed.
+    #     """
+    #     self.change_image(2)  
+    #     return pt.common.Status.SUCCESS
     
 
     def is_agent_in_nest(self):
@@ -220,7 +341,13 @@ class SwarmAgent(Agent):
         """
         Condition node: Check if the path ahead of the agent is clear of obstacles. Returns: True if no obstacles are detected ahead, False if obstacles are present.
         """
-        return not self.obstacle()
+
+        # return not self.obstacle()
+
+        if not self.obstacle():
+            return pt.common.Status.SUCCESS
+        else:
+            return pt.common.Status.FAILURE
     
     def is_line_formed(self):
         """
@@ -252,20 +379,22 @@ class SwarmAgent(Agent):
         return pt.common.Status.SUCCESS
     
 
-    def check_for_distance(self, x: float, y: float, z: float):
-        # Implement a check or simply return a default value.
-        # print("Checking distance:", abs(x - y))
-        return pt.common.Status.FAILURE
 
-    def test1(self, x: int, y: int, z: int):
-        # Example implementation.
-        # print(f"Control operation in test1: x={x}, y={y}, z={x+y}")
-        return pt.common.Status.SUCCESS
+    # # for testing
+    # def check_for_distance(self, x: float, y: float, z: float):
+    #     # Implement a check or simply return a default value.
+    #     print("Checking distance:", abs(x - y))
+    #     return pt.common.Status.FAILURE
 
-    def testDecorator(self, a: int, b: int, c: int):
-        # Example implementation.
-        # print(f"Decorator: a={a}, b={a*2}, c={(a*2)+10}")
-        return pt.common.Status.SUCCESS
+    # def test1(self, x: int, y: int, z: int):
+    #     # Example implementation.
+    #     print(f"Control operation in test1: x={x}, y={y}, z={x+y}")
+    #     return pt.common.Status.SUCCESS
+
+    # def testDecorator(self, a: int, b: int, c: int):
+    #     # Example implementation.
+    #     print(f"Decorator: a={a}, b={a*2}, c={(a*2)+10}")
+    #     return pt.common.Status.SUCCESS
 
 
 
@@ -285,7 +414,7 @@ class StreamableSimulation(HeadlessSimulation):
         self._background.fill((0, 0, 0))
 
         self.frame_queue = Queue(maxsize=30)
-        # self.running = True
+        self.running = True
         self._frame_lock = threading.Lock()
 
     
@@ -329,6 +458,7 @@ class StreamableSimulation(HeadlessSimulation):
         super().stop()
         pg.quit()       # Quit the Pygame environment
         
+
 
 
 
