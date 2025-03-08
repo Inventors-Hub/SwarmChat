@@ -5,10 +5,10 @@ import time
 import threading
 import queue
 
-import speech_processing
-import text_processing
+# import speech_processing
+# import text_processing
 # import safety_module
-import bt_generator
+# import bt_generator
 
 
 class GradioStreamer:
@@ -199,8 +199,8 @@ def create_gradio_interface():
                 stop_button = gr.Button("Stop Simulation")
                 
                 translate_button_audio.click(
-                    fn=speech_processing.translate_audio,
-                    # fn=test,
+                    # fn=speech_processing.translate_audio,
+                    fn=test,
                     inputs=microphone_input,
                     outputs=output_text_audio
                 ).then(
@@ -213,7 +213,8 @@ def create_gradio_interface():
                     inputs=safty_check_audio, 
                     outputs=None
                 ).success(
-                    fn=bt_generator.generate_behavior_tree,
+                    # fn=bt_generator.generate_behavior_tree,
+                    fn=test_LLM_generate_BT,
                     inputs=output_text_audio, 
                     outputs=generated_BT_audio
                 ).success(                    
@@ -248,8 +249,8 @@ def create_gradio_interface():
                 stop_button = gr.Button("Stop Simulation")
 
                 process_button_text.click(
-                    fn=text_processing.translate_text,
-                    # fn=test,
+                    # fn=text_processing.translate_text,
+                    fn=test,
                     inputs=text_input,
                     outputs=output_text_text
                 ).then(
@@ -262,7 +263,8 @@ def create_gradio_interface():
                     inputs=safty_check_text, 
                     outputs=None
                 ).success(
-                    fn=bt_generator.generate_behavior_tree,
+                    # fn=bt_generator.generate_behavior_tree,
+                    fn=test_LLM_generate_BT,
                     inputs=output_text_text, 
                     outputs=generated_BT_text
                 ).success(                    

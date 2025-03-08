@@ -1,0 +1,313 @@
+###
+SYSTEM:
+<<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+
+INSTRUCTIONS:
+It is CRITICAL to use only the following behaviors structured as a dictionary: 
+{
+    `InitializeSensors`: Action Node: Initialize all sensor modules. Always returns SUCCESS.;
+    `CheckBatteryLevel`: Condition Node: Verify if battery level is above threshold. Returns SUCCESS if above, FAILURE otherwise.;
+    `ReportLowBattery`: Action Node: Send low battery alert. Always returns SUCCESS.;
+    `EnterLowPowerMode`: Action Node: Transition to low power mode. Always returns SUCCESS.;
+    `NavigateToWaypoint`: Action Node: Navigate to a specified waypoint. Always returns SUCCESS.;
+    `IsWaypointReached`: Condition Node: Check if the waypoint has been reached. Returns SUCCESS if reached, FAILURE otherwise.;
+    `ResumeNormalOperation`: Action Node: Resume normal operations after reaching waypoint. Always returns SUCCESS.;
+    `ShutdownSensors`: Action Node: Safely shutdown all sensors. Always returns SUCCESS.;
+}. 
+To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+
+USER COMMAND:
+generate behavior tree to "initialize sensors, check battery level; if battery is low, report and enter low power mode; otherwise, navigate to waypoint and resume normal operation". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="BatteryManagement">
+  <BehaviorTree ID="BatteryManagement">
+    <Sequence>
+      <InitializeSensors/>
+      <CheckBatteryLevel/>
+      <Fallback>
+        <Sequence>
+          <ReportLowBattery/>
+          <EnterLowPowerMode/>
+        </Sequence>
+        <Sequence>
+          <NavigateToWaypoint waypoint="{Waypoint1}"/>
+          <IsWaypointReached/>
+          <ResumeNormalOperation/>
+        </Sequence>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Action ID="InitializeSensors" editable="true"/>
+    <Condition ID="CheckBatteryLevel"/>
+    <Action ID="ReportLowBattery" editable="true"/>
+    <Action ID="EnterLowPowerMode" editable="true"/>
+    <Action ID="NavigateToWaypoint" editable="true">
+      <input_port name="waypoint"/>
+    </Action>
+    <Condition ID="IsWaypointReached"/>
+    <Action ID="ResumeNormalOperation" editable="true"/>
+    <Control ID="Fallback" editable="true"/>
+    <Control ID="Sequence" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+
+###
+SYSTEM:
+<<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+
+INSTRUCTIONS:
+It is CRITICAL to use only the following behaviors structured as a dictionary: 
+{
+    `DetectEnemy`: Condition Node: Detect presence of an enemy. Returns SUCCESS if detected, FAILURE otherwise.;
+    `EvadeEnemy`: Action Node: Perform evasive maneuvers to avoid enemy. Always returns SUCCESS.;
+    `EngageEnemy`: Action Node: Engage the detected enemy. Always returns SUCCESS.;
+    `MonitorEnvironment`: Action Node: Continuously monitor the surrounding environment. Always returns SUCCESS.;
+    `IsHealthLow`: Condition Node: Check if the agent's health is below a safe threshold. Returns SUCCESS if low, FAILURE otherwise.;
+    `SeekHealthPack`: Action Node: Navigate to the nearest health pack. Always returns SUCCESS.;
+    `IsHealthPackReached`: Condition Node: Verify if the health pack location has been reached. Returns SUCCESS if reached, FAILURE otherwise.;
+    `RestoreHealth`: Action Node: Restore the agent's health. Always returns SUCCESS.;
+}. 
+To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+
+USER COMMAND:
+generate behavior tree to "monitor environment; if enemy detected and health is sufficient, engage enemy; if health is low, seek and restore health". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="CombatBehavior">
+  <BehaviorTree ID="CombatBehavior">
+    <Sequence>
+      <MonitorEnvironment/>
+      <Fallback>
+        <Sequence>
+          <DetectEnemy/>
+          <IsHealthLow/>
+          <Fallback>
+            <Sequence>
+              <EngageEnemy/>
+            </Sequence>
+            <Sequence>
+              <SeekHealthPack/>
+              <IsHealthPackReached/>
+              <RestoreHealth/>
+            </Sequence>
+          </Fallback>
+        </Sequence>
+        <Sequence>
+          <IsHealthLow/>
+          <Fallback>
+            <Sequence>
+              <SeekHealthPack/>
+              <IsHealthPackReached/>
+              <RestoreHealth/>
+            </Sequence>
+          </Fallback>
+        </Sequence>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Action ID="DetectEnemy" editable="true"/>
+    <Condition ID="DetectEnemy"/>
+    <Action ID="EvadeEnemy" editable="true"/>
+    <Action ID="EngageEnemy" editable="true"/>
+    <Action ID="MonitorEnvironment" editable="true"/>
+    <Condition ID="IsHealthLow"/>
+    <Action ID="SeekHealthPack" editable="true"/>
+    <Condition ID="IsHealthPackReached"/>
+    <Action ID="RestoreHealth" editable="true"/>
+    <Control ID="Fallback" editable="true"/>
+    <Control ID="Sequence" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+
+###
+SYSTEM:
+<<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+
+INSTRUCTIONS:
+It is CRITICAL to use only the following behaviors structured as a dictionary: 
+{
+    `StartPatrol`: Action Node: Begin patrol route. Always returns SUCCESS.;
+    `CheckIntrusion`: Condition Node: Detect if there is an intrusion. Returns SUCCESS if intrusion detected, FAILURE otherwise.;
+    `NotifySecurity`: Action Node: Send notification to security team. Always returns SUCCESS.;
+    `PausePatrol`: Action Node: Temporarily halt patrol operations. Always returns SUCCESS.;
+    `ResumePatrol`: Action Node: Resume patrol operations after handling intrusion. Always returns SUCCESS.;
+    `LogIntrusion`: Action Node: Log intrusion event details. Always returns SUCCESS.;
+    `IsSecurityAvailable`: Condition Node: Check if security team is available. Returns SUCCESS if available, FAILURE otherwise.;
+    `HandleWithLocalMeasures`: Action Node: Deploy local security measures to handle intrusion. Always returns SUCCESS.;
+}. 
+To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+
+USER COMMAND:
+generate behavior tree to "start patrol; continuously check for intrusion; if intrusion detected, notify security if available, otherwise handle with local measures and log the event". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="PatrolAndResponse">
+  <BehaviorTree ID="PatrolAndResponse">
+    <Sequence>
+      <StartPatrol/>
+      <Fallback>
+        <Sequence>
+          <CheckIntrusion/>
+          <Fallback>
+            <Sequence>
+              <IsSecurityAvailable/>
+              <NotifySecurity/>
+              <PausePatrol/>
+              <ResumePatrol/>
+            </Sequence>
+            <Sequence>
+              <HandleWithLocalMeasures/>
+              <LogIntrusion/>
+              <PausePatrol/>
+              <ResumePatrol/>
+            </Sequence>
+          </Fallback>
+        </Sequence>
+        <ContinuePatrol/>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Action ID="StartPatrol" editable="true"/>
+    <Condition ID="CheckIntrusion"/>
+    <Action ID="NotifySecurity" editable="true"/>
+    <Action ID="PausePatrol" editable="true"/>
+    <Action ID="ResumePatrol" editable="true"/>
+    <Action ID="HandleWithLocalMeasures" editable="true"/>
+    <Action ID="LogIntrusion" editable="true"/>
+    <Condition ID="IsSecurityAvailable"/>
+    <Control ID="Fallback" editable="true"/>
+    <Control ID="Sequence" editable="true"/>
+    <Action ID="ContinuePatrol" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+
+###
+SYSTEM:
+<<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+
+INSTRUCTIONS:
+It is CRITICAL to use only the following behaviors structured as a dictionary: 
+{
+    `MonitorTemperature`: Condition Node: Check if temperature is within safe range. Returns SUCCESS if safe, FAILURE otherwise.;
+    `ActivateCoolingSystem`: Action Node: Activate cooling mechanisms. Always returns SUCCESS.;
+    `DeactivateCoolingSystem`: Action Node: Deactivate cooling mechanisms. Always returns SUCCESS.;
+    `SendTemperatureAlert`: Action Node: Send temperature warning alert. Always returns SUCCESS.;
+    `LogTemperatureReading`: Action Node: Record the current temperature reading. Always returns SUCCESS.;
+    `IsCoolingEffective`: Condition Node: Verify if cooling has reduced temperature to safe levels. Returns SUCCESS if effective, FAILURE otherwise.;
+    `EscalateAlert`: Action Node: Escalate alert to higher authorities. Always returns SUCCESS.;
+    `MaintainCurrentState`: Action Node: Continue maintaining the current operational state. Always returns SUCCESS.;
+}. 
+To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+
+USER COMMAND:
+generate behavior tree to "continuously monitor temperature; if temperature is high, activate cooling system and verify effectiveness; if cooling is ineffective, escalate alert; otherwise, maintain current state and log reading". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="TemperatureControl">
+  <BehaviorTree ID="TemperatureControl">
+    <Sequence>
+      <MonitorTemperature/>
+      <Fallback>
+        <Sequence>
+          <ActivateCoolingSystem/>
+          <IsCoolingEffective/>
+          <Sequence>
+            <MaintainCurrentState/>
+            <LogTemperatureReading/>
+          </Sequence>
+        </Sequence>
+        <Sequence>
+          <ActivateCoolingSystem/>
+          <EscalateAlert/>
+          <LogTemperatureReading/>
+        </Sequence>
+      </Fallback>
+      <Fallback>
+        <MaintainCurrentState/>
+        <LogTemperatureReading/>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="MonitorTemperature"/>
+    <Action ID="ActivateCoolingSystem" editable="true"/>
+    <Condition ID="IsCoolingEffective"/>
+    <Action ID="MaintainCurrentState" editable="true"/>
+    <Action ID="LogTemperatureReading" editable="true"/>
+    <Action ID="EscalateAlert" editable="true"/>
+    <Control ID="Fallback" editable="true"/>
+    <Control ID="Sequence" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+
+###
+SYSTEM:
+<<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+
+INSTRUCTIONS:
+It is CRITICAL to use only the following behaviors structured as a dictionary: 
+{
+    `StartDataCollection`: Action Node: Initiate data collection process. Always returns SUCCESS.;
+    `CheckDataIntegrity`: Condition Node: Verify the integrity of collected data. Returns SUCCESS if intact, FAILURE otherwise.;
+    `StoreData`: Action Node: Store collected data securely. Always returns SUCCESS.;
+    `ClearDataCache`: Action Node: Clear temporary data cache. Always returns SUCCESS.;
+    `HandleDataCorruption`: Action Node: Execute data corruption handling protocol. Always returns SUCCESS.;
+    `NotifyDataManager`: Action Node: Notify data manager of data issues. Always returns SUCCESS.;
+    `IsDataManagerAvailable`: Condition Node: Check if data manager is available for notification. Returns SUCCESS if available, FAILURE otherwise.;
+    `RetryDataCollection`: Action Node: Retry the data collection process. Always returns SUCCESS.;
+}. 
+To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+
+USER COMMAND:
+generate behavior tree to "start data collection; check data integrity; if data is intact, store data and clear cache; if corrupted, notify data manager if available, otherwise retry data collection and handle corruption". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="DataManagement">
+  <BehaviorTree ID="DataManagement">
+    <Sequence>
+      <StartDataCollection/>
+      <CheckDataIntegrity/>
+      <Fallback>
+        <Sequence>
+          <StoreData/>
+          <ClearDataCache/>
+        </Sequence>
+        <Fallback>
+          <Sequence>
+            <IsDataManagerAvailable/>
+            <NotifyDataManager/>
+          </Sequence>
+          <Sequence>
+            <RetryDataCollection/>
+            <HandleDataCorruption/>
+          </Sequence>
+        </Fallback>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Action ID="StartDataCollection" editable="true"/>
+    <Condition ID="CheckDataIntegrity"/>
+    <Action ID="StoreData" editable="true"/>
+    <Action ID="ClearDataCache" editable="true"/>
+    <Action ID="HandleDataCorruption" editable="true"/>
+    <Action ID="NotifyDataManager" editable="true"/>
+    <Condition ID="IsDataManagerAvailable"/>
+    <Action ID="RetryDataCollection" editable="true"/>
+    <Control ID="Fallback" editable="true"/>
+    <Control ID="Sequence" editable="true"/>
+  </TreeNodesModel>
+</root>

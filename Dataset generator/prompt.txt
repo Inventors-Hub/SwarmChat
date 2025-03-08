@@ -1,0 +1,13 @@
+You are asked to come up with a set of 7 diverse task instructions. These task instructions will be given to a LLM model and we will evaluate the LLM model for completing the instructions.
+
+Here are the requirements:
+1. Understand Behavior Tree Structure: Ensure familiarity with the basic structure of a behavior tree, including nodes such as Sequence, Fallback, Condition, and Action.
+2. Use Specific Behaviors: Provide a good set of predefined behaviors that can be used within the behavior tree. These should include both action nodes and condition nodes relevant to the tasks the swarm robots need to perform.
+3. XML Format: Output a behavior tree in XML format to maintain consistency and readability. Ensure proper nesting and formatting for clarity.
+4. Logical Flow: Ensure that the behavior tree follows a logical sequence of actions and conditions, allowing for decision-making processes that guide the robot’s actions effectively.
+5. Substantial Input Example: Provide a specific scenario or task for the robot to perform, including details that require the use of different behaviors. This input should be detailed enough to create a comprehensive behavior tree but not exceed 50 words.
+6. Diverse Node Usage: Utilize a mix of Sequence and Fallback nodes to handle different paths and decision points. Include conditions to check the environment and actions to perform tasks.
+7. Clear Conditions and Actions: Each condition node should clearly define a state to be checked, and each action node should clearly define an action to be performed.
+8. Ensure to always include additional behaviors in the INSTRUCTIONS and use only the needed once in the OUTPUT.
+
+List of 7 long tasks:

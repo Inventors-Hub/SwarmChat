@@ -167,8 +167,8 @@ def build_behavior(node: Node, subtree_mapping: Dict[str, Node]) -> pt.behaviour
     # Define which tags represent which kinds of nodes.
     composite_tags = ["Sequence", "Fallback"]
     repeat_tags = ["Repeat"]
-    decorator_tags = ['testDecorator',"Inverter", "Success", "Failure", "AlwaysFailure", "AlwaysSuccess", "ForceSuccess", "ForceFailure"]
-    control_tags = ["test1"]
+    decorator_tags = ["Inverter","AlwaysFailure", "AlwaysSuccess"]
+    control_tags = []
 
     mapping = get_function_mapping()
 
@@ -272,14 +272,14 @@ if __name__ == "__main__":
         print_node(tree)
 
 # if __name__ == "__main__":
-#     # The XML file with your behavior tree.
-#     file_path = 'tree.xml'
+    # The XML file with your behavior tree.
+    # file_path = 'tree.xml'
     
-#     # 1. Parse the XML into a list of BehaviorTree nodes.
-#     trees = parse_behavior_trees(file_path)
-#     # Build a mapping of BehaviorTree ID to Node.
-#     print(trees)
-#     subtree_mapping = { tree.attributes.get("ID"): tree for tree in trees }
-#     print()
+    # # 1. Parse the XML into a list of BehaviorTree nodes.
+    # trees = parse_behavior_trees(file_path)
+    # # Build a mapping of BehaviorTree ID to Node.
+    # print(trees)
+    # subtree_mapping = { tree.attributes.get("ID"): tree for tree in trees }
+    # print()
 
-#     print(subtree_mapping)
+    # print(subtree_mapping)
