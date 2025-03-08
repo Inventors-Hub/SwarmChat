@@ -4,19 +4,18 @@ import re
 from llama_cpp import Llama
 
 # Load the Llama model for safety classification
-model_path = r"G:\Inventors Hub Projects\SwarmChat\model\DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf"
+model_path = r"G:\Inventors Hub Projects\SwarmChat\model\DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf"
 llm = Llama(model_path=model_path, n_ctx=1024*4)
 
 def call_behaviors() -> dict:
     behavior_dict = {}
     for name, attribute in SwarmAgent.__dict__.items():
         if callable(attribute) and not name.startswith("_") \
-            and not name.startswith("update") \
-            and not name.startswith("obstacle"):
+            and not name.startswith("update") and not name.startswith("obstacle"):
             doc = attribute.__doc__
             if doc is not None:
-                # Remove common indentation and extra whitespace/newlines
-                cleaned_doc = textwrap.dedent(doc).strip()
+                # Dedent, strip, and join into one line by replacing newlines and tabs
+                cleaned_doc = " ".join(textwrap.dedent(doc).strip().split())
             else:
                 cleaned_doc = ""
             behavior_dict[name] = cleaned_doc
@@ -50,67 +49,19 @@ def generate_behavior_tree(task_prompt: str) -> str:
     """
     behaviors = call_behaviors()
     behaviors_text = "\n".join(f"{name}: {doc}" for name, doc in behaviors.items())
-    
-    # XML template as expected output example.
-    xml_template = """<?xml version="1.0" encoding="UTF-8"?>
-    <root BTCPP_format="3" main_tree_to_execute="FindAndFlock">
-    <BehaviorTree ID="FindAndFlock">
-        <Sequence name="Main Sequence">
-        <Fallback name="Find Goal">
-            <Sequence>
-            <is_target_detected/>
-            <change_color color="red"/>
-            <flocking/>
-            </Sequence>
-            <wander/>
-        </Fallback>
-        <!-- Subtree call to handle returning to nest -->
-        <Sequence name="Return To Nest">
-            <is_agent_in_nest/>
-            <SubTree ID="BackToNest" __shared_blackboard="true"/>
-        </Sequence>
-        </Sequence>
-    </BehaviorTree>
-
-    <!-- Subtree definition for returning to nest -->
-    <BehaviorTree ID="BackToNest">
-        <Sequence name="BackToNest Sequence">
-        <change_color color="green"/>
-        </Sequence>
-    </BehaviorTree>
-
-    <TreeNodesModel>
-        <Condition ID="is_target_detected"/>
-        <Action ID="wander"/>
-        <Action ID="flocking"/>
-        <Action ID="change_color" editable="true">
-        <input_port name="color"/>
-        </Action>
-        <Condition ID="is_agent_in_nest"/>
-        <SubTree ID="BackToNest"/>
-    </TreeNodesModel>
-    </root>
-    """
-        
+           
     # Construct a plain prompt that instructs the model to generate XML strictly following the example.
     plain_prompt = f"""
-    Generate a behavior tree in XML format for the following task:
-    "{task_prompt}"
-
-    Use only the following behaviors (do not invent any new ones):
-    {behaviors_text}
-
+    <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+    INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {behaviors_text} to construct behavior tree in XML format to the following command, including in the behaviour tree a behaviour that is not in the provided dictionary can result in damage to the agents, and potentially humans, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+    USER COMMAND: generate behavior tree to "{task_prompt}". Take a step back and think deeply about the behavior you need for this command. Take another step back and think of the xml structure and the behavior you used.
     The output MUST follow this XML structure exactly, including:
     - A root element with BTCPP_format and main_tree_to_execute attributes.
     - A <BehaviorTree> element with an inner structure of Sequences, Fallback, Conditions, and Actions.
     - A <TreeNodesModel> section listing all node models.
     - No additional text or commentary outside the XML.
-
-    Example XML Format:
-    {xml_template}
-
-    Please output only the XML.
-    Response:
+    Output only the XML behavior tree without extra text.
+    OUTPUT:
     """
 
     print(plain_prompt)

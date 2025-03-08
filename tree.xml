@@ -1,21 +1,32 @@
-<root BTCPP_format="3" main_tree_to_execute="FindAndFlock">
-    <BehaviorTree ID="FindAndFlock">
-        <Sequence name="Main Sequence">
-            <Condition name="is_target_detected">
-                <Action name="change_color" color="red"/>
-            </Condition>
-            <flocking/>
-            <wander/>
+<root BTCPP_format="3" main_tree_to_execute="FindAndReturn">
+  <BehaviorTree ID="FindAndReturn">
+    <Sequence name="Main Sequence">
+      <Fallback name="Find Goal">
+        <Sequence>
+          <is_obstacle_detected/>
+          <avoid_obstacle/>
+          <change_color color="red"/>
         </Sequence>
-        <Fallback name="Avoid Obstacles">
-            <Sequence>
-                <Condition name="is_obstacle_detected">
-                    <Action name="avoid_obstacle"/>
-                </Condition>
-            </Sequence>
-            <Condition name="is_target_reached">
-                <Action name="task_completed"/>
-            </Condition>
-        </Fallback>
-    </BehaviorTree>
+        <wander/>
+      </Fallback>      
+      <Fallback name="Return Home">
+        <Sequence>
+          <is_agent_in_nest/>
+          <change_color color="green"/>
+        </Sequence>
+        <wander/>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <!-- just for the nodes -->
+  <TreeNodesModel>
+    <Condition ID="is_obstacle_detected"/>
+    <Condition ID="is_target_reached"/>
+    <Action ID="avoid_obstacle"/>    
+    <Action ID="change_color" editable="true">
+      <input_port name="color"/>
+    </Action>
+    <Condition ID="is_agent_in_nest"/>
+    <Action ID="wander"/>
+  </TreeNodesModel>
 </root>

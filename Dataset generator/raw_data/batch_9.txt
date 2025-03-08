@@ -1,0 +1,1871 @@
+###
+
+ SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {DetectObstacle: Condition node: Detect if there is an obstacle in the path. Returns SUCCESS if obstacle is detected, FAILURE otherwise.; NavigateAround: Action Node: Maneuver around the detected obstacle. Always returns SUCCESS.; ContinuePath: Action Node: Continue moving along the original path. Always returns SUCCESS.; StopMovement: Action Node: Halt all movements. Always returns SUCCESS}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "continuously check for obstacles; if an obstacle is detected, navigate around it; otherwise, continue along the path; if unable to navigate, stop movement". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="ObstacleAvoidance">
+  <BehaviorTree ID="ObstacleAvoidance">
+    <Fallback name="Obstacle Handling">
+      <Sequence>
+        <DetectObstacle/>
+        <NavigateAround/>
+      </Sequence>
+      <ContinuePath/>
+    </Fallback>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="DetectObstacle" editable="true"/>
+    <Action ID="NavigateAround" editable="true"/>
+    <Action ID="ContinuePath" editable="true"/>
+    <Action ID="StopMovement" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+ SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {IsTargetVisible: Condition node: Check if the target is visible. Returns SUCCESS if visible, FAILURE otherwise.; AimAtTarget: Action Node: Adjust the weapon to aim at the target. Always returns SUCCESS.; FireWeapon: Action Node: Fire the weapon at the target. Always returns SUCCESS.; PatrolArea: Action Node: Patrol the designated area. Always returns SUCCESS}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "if the target is visible, aim and fire; otherwise, patrol the area". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="EngagementBehavior">
+  <BehaviorTree ID="EngagementBehavior">
+    <Fallback name="EngageOrPatrol">
+      <Sequence>
+        <IsTargetVisible/>
+        <AimAtTarget/>
+        <FireWeapon/>
+      </Sequence>
+      <PatrolArea/>
+    </Fallback>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="IsTargetVisible" editable="true"/>
+    <Action ID="AimAtTarget" editable="true"/>
+    <Action ID="FireWeapon" editable="true"/>
+    <Action ID="PatrolArea" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+ SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {CheckTemperature: Condition node: Verify if the temperature is within safe limits. Returns SUCCESS if safe, FAILURE otherwise.; ActivateCoolingSystem: Action Node: Turn on the cooling system. Always returns SUCCESS.; LogTemperature: Action Node: Record the current temperature in the system logs. Always returns SUCCESS.; ContinueOperation: Action Node: Proceed with normal operations. Always returns SUCCESS}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "check temperature; if unsafe, activate cooling and log temperature; otherwise, continue operations". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="TemperatureControl">
+  <BehaviorTree ID="TemperatureControl">
+    <Sequence>
+      <CheckTemperature/>
+      <Fallback name="HandleTemperature">
+        <Sequence>
+          <ActivateCoolingSystem/>
+          <LogTemperature/>
+        </Sequence>
+        <ContinueOperation/>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="CheckTemperature" editable="true"/>
+    <Action ID="ActivateCoolingSystem" editable="true"/>
+    <Action ID="LogTemperature" editable="true"/>
+    <Action ID="ContinueOperation" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+ SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {IsBatteryLow: Condition node: Determine if the battery level is below the threshold. Returns SUCCESS if low, FAILURE otherwise.; RechargeBattery: Action Node: Initiate battery recharging process. Always returns SUCCESS.; NotifyUser: Action Node: Send a notification to the user about the battery status. Always returns SUCCESS.; PerformTask: Action Node: Execute the main assigned task. Always returns SUCCESS}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "continuously monitor battery; if low, recharge and notify the user; if not low, perform the main task". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="BatteryManagement">
+  <BehaviorTree ID="BatteryManagement">
+    <Fallback name="ManageBattery">
+      <Sequence>
+        <IsBatteryLow/>
+        <Sequence>
+          <RechargeBattery/>
+          <NotifyUser/>
+        </Sequence>
+      </Sequence>
+      <PerformTask/>
+    </Fallback>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="IsBatteryLow" editable="true"/>
+    <Action ID="RechargeBattery" editable="true"/>
+    <Action ID="NotifyUser" editable="true"/>
+    <Action ID="PerformTask" editable="true"/>
+  </TreeNodesModel>
+</root>
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {CheckBattery: Condition node: Check the battery level. Returns SUCCESS if battery is sufficient, FAILURE otherwise.; MoveBase: Action Node: Move the agent to a specified goal. Always returns SUCCESS.; SaySomething: Action Node: Speak a message. Always returns SUCCESS.; ReactiveSequence: Control Node: Executes its children in order and restarts if a child returns RUNNING}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "execute two move strategies: one reactive strategy that continuously checks battery and then moves, and a simple strategy that checks battery only once before moving". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="MoveStrategies">
+  <BehaviorTree ID="MoveSimple">
+    <Sequence>
+      <CheckBattery/>
+      <SaySomething message="mission started"/>
+      <MoveBase goal="1;2;0.5"/>
+      <SaySomething message="mission completed"/>
+    </Sequence>
+  </BehaviorTree>
+  <BehaviorTree ID="MoveStrategies">
+    <ReactiveSequence>
+      <CheckBattery/>
+      <Sequence>
+        <SaySomething message="mission started"/>
+        <MoveBase goal="1;2;0.5"/>
+        <SaySomething message="mission started"/>
+      </Sequence>
+    </ReactiveSequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="CheckBattery" editable="true"/>
+    <Action ID="MoveBase" editable="true">
+      <input_port name="goal"/>
+    </Action>
+    <Action ID="SaySomething" editable="true">
+      <input_port name="message"/>
+    </Action>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {rotate_in_circle: Action Node: Rotate the robot in a circle. Always returns SUCCESS.; is_robot_in_range: Condition node: Check if the robot is within 6 inches of its starting location. Returns SUCCESS if within range, FAILURE otherwise.; wander: Action Node: Perform a wandering action. Always returns SUCCESS.; task_completed: Action Node: Indicate task completion. Always returns SUCCESS}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "Rotate in a circle within 6 inches of current location". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="RotateCircle">
+  <BehaviorTree ID="RotateCircle">
+    <Sequence name="Main Sequence">
+      <Fallback name="Rotation Decision">
+        <Sequence>
+          <is_robot_in_range/>
+          <rotate_in_circle/>
+          <task_completed/>
+        </Sequence>
+        <wander/>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="is_robot_in_range"/>
+    <Action ID="rotate_in_circle"/>
+    <Action ID="task_completed" editable="true"/>
+    <Action ID="wander" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {follow_leader: Action Node: Follow the leader robot. Always returns SUCCESS.; identify_leader: Action Node: Identify and save the leader robot's ID. Always returns SUCCESS.; return_to_leader: Action Node: Return to the leader robot. Always returns SUCCESS.; is_leader_reachable: Condition node: Check if the leader is within communication range. Returns SUCCESS if reachable, FAILURE otherwise.; in_formation: Condition node: Check if the swarm is in formation. Returns SUCCESS if in formation, FAILURE otherwise}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "Follow the leader robot in formation with the rest of the swarm." Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="FollowLeader">
+  <BehaviorTree ID="FollowLeader">
+    <Sequence name="Main Sequence">
+      <Fallback name="Leader Decision">
+        <Sequence>
+          <in_formation/>
+          <return_to_leader/>
+        </Sequence>
+        <Sequence>
+          <identify_leader/>
+          <is_leader_reachable/>
+          <follow_leader/>
+        </Sequence>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Action ID="follow_leader"/>
+    <Action ID="identify_leader"/>
+    <Condition ID="in_formation"/>
+    <Condition ID="is_leader_reachable"/>
+    <Action ID="return_to_leader"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {CheckTemperature: Condition node: Check if the environment temperature is within operational range. Returns SUCCESS if safe, FAILURE otherwise.; CoolDown: Action Node: Activate cooling systems. Always returns SUCCESS.; HeatUp: Action Node: Activate heating systems. Always returns SUCCESS.; MoveToSafeZone: Action Node: Move the robot to a predefined safe zone. Always returns SUCCESS.; MonitorTemperature: Action Node: Continuously monitor the temperature. Always returns SUCCESS.}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "Maintain optimal temperature by cooling down or heating up as needed and move to a safe zone if temperature is out of range". Ensure logical flow and proper usage of conditions and actions.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="TemperatureControl">
+  <BehaviorTree ID="TemperatureControl">
+    <ReactiveSequence name="Main Reactive Sequence">
+      <MonitorTemperature/>
+      <Fallback name="Temperature Decision">
+        <Sequence>
+          <CheckTemperature/>
+          <SaySomething message="Temperature is optimal."/>
+        </Sequence>
+        <Fallback name="Adjust Temperature">
+          <Sequence>
+            <CheckTemperature/>
+            <CoolDown/>
+            <SaySomething message="Cooling down activated."/>
+          </Sequence>
+          <Sequence>
+            <CheckTemperature/>
+            <HeatUp/>
+            <SaySomething message="Heating up activated."/>
+          </Sequence>
+        </Fallback>
+        <MoveToSafeZone/>
+      </Fallback>
+    </ReactiveSequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="CheckTemperature" editable="true"/>
+    <Action ID="CoolDown" editable="true"/>
+    <Action ID="HeatUp" editable="true"/>
+    <Action ID="MoveToSafeZone" editable="true"/>
+    <Action ID="MonitorTemperature" editable="true"/>
+    <Action ID="SaySomething" editable="true">
+      <input_port name="message"/>
+    </Action>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {DetectObstacle: Condition node: Detect if there is an obstacle in the path. Returns SUCCESS if obstacle detected, FAILURE otherwise.; AvoidObstacle: Action Node: Maneuver to avoid the detected obstacle. Always returns SUCCESS.; ProceedForward: Action Node: Move forward in the current direction. Always returns SUCCESS.; TurnLeft: Action Node: Turn the robot to the left. Always returns SUCCESS.; TurnRight: Action Node: Turn the robot to the right. Always returns SUCCESS.; ScanArea: Action Node: Scan the surrounding area for obstacles. Always returns SUCCESS;. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "Navigate forward, scan for obstacles, and avoid them by turning left or right as necessary". Ensure the behavior tree handles multiple obstacle scenarios.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="ObstacleAvoidance">
+  <BehaviorTree ID="ObstacleAvoidance">
+    <ReactiveSequence name="Main Reactive Sequence">
+      <ProceedForward/>
+      <ScanArea/>
+      <Fallback name="Obstacle Handling">
+        <Sequence>
+          <DetectObstacle/>
+          <AvoidObstacle/>
+        </Sequence>
+        <Sequence>
+          <DetectObstacle/>
+          <TurnLeft/>
+          <SaySomething message="Obstacle avoided by turning left."/>
+        </Sequence>
+        <Sequence>
+          <DetectObstacle/>
+          <TurnRight/>
+          <SaySomething message="Obstacle avoided by turning right."/>
+        </Sequence>
+      </Fallback>
+    </ReactiveSequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="DetectObstacle" editable="true"/>
+    <Action ID="AvoidObstacle" editable="true"/>
+    <Action ID="ProceedForward" editable="true"/>
+    <Action ID="TurnLeft" editable="true"/>
+    <Action ID="TurnRight" editable="true"/>
+    <Action ID="ScanArea" editable="true"/>
+    <Action ID="SaySomething" editable="true">
+      <input_port name="message"/>
+    </Action>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {FindItem: Action Node: Search for a specific item in the environment. Always returns SUCCESS.; PickUpItem: Action Node: Pick up the identified item. Always returns SUCCESS.; DropItem: Action Node: Drop the carried item at a designated location. Always returns SUCCESS.; IsItemFound: Condition node: Check if the specific item has been found. Returns SUCCESS if found, FAILURE otherwise.; IsCarryingItem: Condition node: Check if the robot is currently carrying an item. Returns SUCCESS if carrying, FAILURE otherwise.}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "Search for an item, pick it up upon finding, and drop it at the designated location". Ensure the behavior tree handles cases where the item is not found initially.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="ItemRetrieval">
+  <BehaviorTree ID="ItemRetrieval">
+    <Sequence name="Main Sequence">
+      <Fallback name="Search and Retrieve">
+        <Sequence>
+          <IsItemFound/>
+          <PickUpItem/>
+          <DropItem/>
+          <SaySomething message="Item successfully retrieved and dropped."/>
+        </Sequence>
+        <Sequence>
+          <FindItem/>
+          <SaySomething message="Item found, proceeding to pick up."/>
+        </Sequence>
+        <Sequence>
+          <FindItem/>
+          <SaySomething message="Item not found, continuing search."/>
+        </Sequence>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Action ID="FindItem" editable="true"/>
+    <Action ID="PickUpItem" editable="true"/>
+    <Action ID="DropItem" editable="true"/>
+    <Condition ID="IsItemFound" editable="true"/>
+    <Condition ID="IsCarryingItem" editable="true"/>
+    <Action ID="SaySomething" editable="true">
+      <input_port name="message"/>
+    </Action>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {CheckCommunication: Condition node: Verify communication link with base station. Returns SUCCESS if connected, FAILURE otherwise.; SendStatus: Action Node: Send current status to base station. Always returns SUCCESS.; Reconnect: Action Node: Attempt to reconnect to base station. Always returns SUCCESS.; PatrolArea: Action Node: Patrol the designated area. Always returns SUCCESS.; ReportIssue: Action Node: Report any detected issues to base station. Always returns SUCCESS.; StopPatrolling: Action Node: Halt patrolling activities. Always returns SUCCESS;. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "Ensure continuous communication with the base station while patrolling, attempt reconnection if communication is lost, and report issues when detected". Ensure the behavior tree prioritizes communication checks over patrolling.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="CommunicationPatrol">
+  <BehaviorTree ID="CommunicationPatrol">
+    <ReactiveSequence name="Main Reactive Sequence">
+      <CheckCommunication/>
+      <Fallback name="Communication Handling">
+        <Sequence>
+          <CheckCommunication/>
+          <SendStatus/>
+        </Sequence>
+        <Sequence>
+          <Reconnect/>
+          <SaySomething message="Reconnecting to base station."/>
+        </Sequence>
+        <Sequence>
+          <ReportIssue/>
+          <StopPatrolling/>
+          <SaySomething message="Communication lost. Patrolling stopped."/>
+        </Sequence>
+      </Fallback>
+      <PatrolArea/>
+    </ReactiveSequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="CheckCommunication" editable="true"/>
+    <Action ID="SendStatus" editable="true"/>
+    <Action ID="Reconnect" editable="true"/>
+    <Action ID="PatrolArea" editable="true"/>
+    <Action ID="ReportIssue" editable="true"/>
+    <Action ID="StopPatrolling" editable="true"/>
+    <Action ID="SaySomething" editable="true">
+      <input_port name="message"/>
+    </Action>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {ChargeBattery: Action Node: Connect to charging station and charge battery. Always returns SUCCESS.; IsBatteryLow: Condition node: Check if the battery level is below the threshold. Returns SUCCESS if low, FAILURE otherwise.; ResumeTasks: Action Node: Resume previous tasks after charging. Always returns SUCCESS.; NotifyLowBattery: Action Node: Notify team about low battery status. Always returns SUCCESS.; Idle: Action Node: Remain idle until further instructions. Always returns SUCCESS;. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "Monitor battery level, notify team when low, return to charging station, and resume tasks after charging". Ensure the behavior tree handles continuous monitoring and task resumption.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="BatteryManagement">
+  <BehaviorTree ID="BatteryManagement">
+    <ReactiveSequence name="Main Reactive Sequence">
+      <IsBatteryLow/>
+      <Fallback name="Battery Handling">
+        <Sequence>
+          <IsBatteryLow/>
+          <NotifyLowBattery/>
+          <ChargeBattery/>
+          <ResumeTasks/>
+          <SaySomething message="Battery charged. Resuming tasks."/>
+        </Sequence>
+        <Sequence>
+          <Idle/>
+          <SaySomething message="Battery level sufficient. Continuing tasks."/>
+        </Sequence>
+      </Fallback>
+    </ReactiveSequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Action ID="ChargeBattery" editable="true"/>
+    <Condition ID="IsBatteryLow" editable="true"/>
+    <Action ID="ResumeTasks" editable="true"/>
+    <Action ID="NotifyLowBattery" editable="true"/>
+    <Action ID="Idle" editable="true"/>
+    <Action ID="SaySomething" editable="true">
+      <input_port name="message"/>
+    </Action>
+  </TreeNodesModel>
+</root>
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>  
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_search_complete: Condition node: Check if the search is complete. Returns SUCCESS if complete, FAILURE otherwise.; move_to_next_area: Action Node: Move the agent to the next search area. Always returns SUCCESS.; scan_for_survivors: Action Node: Scan the area for survivors. Always returns SUCCESS.; is_survivor_detected: Condition node: Check if a survivor is detected. Returns SUCCESS if detected, FAILURE otherwise.; call_for_rescue: Action Node: Call for rescue. Always returns SUCCESS.; mark_area_searched: Action Node: Mark the area as searched. Always returns SUCCESS.; emergency_shutdown: Action Node: Perform an emergency shutdown. Always returns SUCCESS.}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).  
+USER COMMAND: generate behavior tree to "if search is complete then move to next area and scan for survivors; if a survivor is detected, call for rescue, otherwise mark the area as searched". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.  
+OUTPUT:  
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="SearchAndRescue">
+  <BehaviorTree ID="SearchAndRescue">
+    <Sequence>
+      <is_search_complete/>
+      <Selector>
+        <Sequence>
+          <move_to_next_area/>
+          <scan_for_survivors/>
+          <Selector>
+            <Sequence>
+              <is_survivor_detected/>
+              <call_for_rescue/>
+            </Sequence>
+            <mark_area_searched/>
+          </Selector>
+        </Sequence>
+      </Selector>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Selector" editable="true"/>
+    <Action ID="call_for_rescue"/>
+    <Condition ID="is_search_complete"/>
+    <Condition ID="is_survivor_detected"/>
+    <Action ID="mark_area_searched"/>
+    <Action ID="move_to_next_area"/>
+    <Action ID="scan_for_survivors"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>  
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {detect_traffic_light: Condition node: Detect the current traffic light color. Returns SUCCESS if green, FAILURE if red.; stop_vehicle: Action Node: Stop the vehicle. Always returns SUCCESS.; proceed_vehicle: Action Node: Continue driving. Always returns SUCCESS.; honk_horn: Action Node: Honk the vehicle's horn. Always returns SUCCESS.; is_path_clear: Condition node: Check if the path is clear. Returns SUCCESS if clear, FAILURE otherwise.; wait: Action Node: Wait for a specified duration. Always returns SUCCESS.; turn_signal: Action Node: Activate the turn signal. Always returns SUCCESS.}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).  
+USER COMMAND: generate behavior tree to "if the traffic light is red then stop the vehicle and honk the horn; if green and the path is clear, proceed; otherwise wait". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.  
+OUTPUT:  
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="TrafficControl">
+  <BehaviorTree ID="TrafficControl">
+    <Sequence>
+      <detect_traffic_light/>
+      <Fallback>
+        <Sequence>
+          <Condition ID="detect_traffic_light" />
+          <Fallback>
+            <Sequence>
+              <Condition ID="is_path_clear"/>
+              <proceed_vehicle/>
+            </Sequence>
+            <wait/>
+          </Fallback>
+        </Sequence>
+        <Sequence>
+          <stop_vehicle/>
+          <honk_horn/>
+        </Sequence>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Sequence" editable="true"/>
+    <Control ID="Fallback" editable="true"/>
+    <Condition ID="detect_traffic_light"/>
+    <Condition ID="is_path_clear"/>
+    <Action ID="proceed_vehicle" editable="true"/>
+    <Action ID="stop_vehicle" editable="true"/>
+    <Action ID="honk_horn" editable="true"/>
+    <Action ID="wait" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>  
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_battery_low: Condition node: Check if the battery level is low. Returns SUCCESS if low, FAILURE otherwise.; return_to_base: Action Node: Navigate the robot back to the base station. Always returns SUCCESS.; continue_patrolling: Action Node: Continue patrolling the designated area. Always returns SUCCESS.; recharge_battery: Action Node: Recharge the robot's battery. Always returns SUCCESS.; report_status: Action Node: Report current status to the control center. Always returns SUCCESS.; is_obstacle_detected: Condition node: Check if an obstacle is detected in the path. Returns SUCCESS if detected, FAILURE otherwise.; avoid_obstacle: Action Node: Maneuver to avoid the obstacle. Always returns SUCCESS.; log_event: Action Node: Log the current event. Always returns SUCCESS.}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).  
+USER COMMAND: generate behavior tree to "if the battery is low then return to base and recharge; otherwise continue patrolling and report status". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.  
+OUTPUT:  
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="PatrolManagement">
+  <BehaviorTree ID="PatrolManagement">
+    <Sequence>
+      <is_battery_low/>
+      <Fallback>
+        <Sequence>
+          <return_to_base/>
+          <recharge_battery/>
+        </Sequence>
+        <Sequence>
+          <continue_patrolling/>
+          <report_status/>
+        </Sequence>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Sequence" editable="true"/>
+    <Control ID="Fallback" editable="true"/>
+    <Condition ID="is_battery_low"/>
+    <Action ID="return_to_base" editable="true"/>
+    <Action ID="recharge_battery" editable="true"/>
+    <Action ID="continue_patrolling" editable="true"/>
+    <Action ID="report_status" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>  
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_temperature_high: Condition node: Check if the temperature exceeds the threshold. Returns SUCCESS if high, FAILURE otherwise.; activate_cooling_system: Action Node: Turn on the cooling system. Always returns SUCCESS.; shutdown_system: Action Node: Perform a system shutdown. Always returns SUCCESS.; monitor_temperature: Action Node: Continuously monitor the temperature. Always returns SUCCESS.; send_alert: Action Node: Send an alert to the maintenance team. Always returns SUCCESS.; is_maintenance_required: Condition node: Determine if maintenance is needed. Returns SUCCESS if needed, FAILURE otherwise.; perform_maintenance: Action Node: Perform necessary maintenance tasks. Always returns SUCCESS.; log_temperature: Action Node: Log the current temperature reading. Always returns SUCCESS.;}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).  
+USER COMMAND: generate behavior tree to "if the temperature is high then activate the cooling system and send an alert; if maintenance is required, perform maintenance, otherwise shut down the system". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.  
+OUTPUT:  
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="TemperatureControl">
+  <BehaviorTree ID="TemperatureControl">
+    <Sequence>
+      <is_temperature_high/>
+      <Selector>
+        <Sequence>
+          <activate_cooling_system/>
+          <send_alert/>
+          <Fallback>
+            <is_maintenance_required/>
+            <Sequence>
+              <perform_maintenance/>
+              <shutdown_system/>
+            </Sequence>
+          </Fallback>
+        </Sequence>
+        <shutdown_system/>
+      </Selector>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Sequence" editable="true"/>
+    <Control ID="Selector" editable="true"/>
+    <Condition ID="is_temperature_high"/>
+    <Condition ID="is_maintenance_required"/>
+    <Action ID="activate_cooling_system" editable="true"/>
+    <Action ID="send_alert" editable="true"/>
+    <Action ID="perform_maintenance" editable="true"/>
+    <Action ID="shutdown_system" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>  
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_door_locked: Condition node: Check if the door is locked. Returns SUCCESS if locked, FAILURE otherwise.; unlock_door: Action Node: Unlock the door. Always returns SUCCESS.; open_door: Action Node: Open the door. Always returns SUCCESS.; close_door: Action Node: Close the door. Always returns SUCCESS.; secure_door: Action Node: Secure the door after use. Always returns SUCCESS.; is_person_at_door: Condition node: Check if a person is at the door. Returns SUCCESS if present, FAILURE otherwise.; greet_person: Action Node: Greet the person at the door. Always returns SUCCESS.; deny_entry: Action Node: Deny entry to unauthorized persons. Always returns SUCCESS.; log_access: Action Node: Log the access attempt. Always returns SUCCESS.;}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).  
+USER COMMAND: generate behavior tree to "if a person is at the door then check if the door is locked; if locked, unlock and open the door and greet the person; otherwise deny entry and log the access". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.  
+OUTPUT:  
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="DoorManagement">
+  <BehaviorTree ID="DoorManagement">
+    <Sequence>
+      <is_person_at_door/>
+      <Selector>
+        <Sequence>
+          <is_door_locked/>
+          <unlock_door/>
+          <open_door/>
+          <greet_person/>
+        </Sequence>
+        <Sequence>
+          <deny_entry/>
+          <log_access/>
+        </Sequence>
+      </Selector>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Sequence" editable="true"/>
+    <Control ID="Selector" editable="true"/>
+    <Condition ID="is_person_at_door"/>
+    <Condition ID="is_door_locked"/>
+    <Action ID="unlock_door" editable="true"/>
+    <Action ID="open_door" editable="true"/>
+    <Action ID="greet_person" editable="true"/>
+    <Action ID="deny_entry" editable="true"/>
+    <Action ID="log_access" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>  
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_inventory_full: Condition node: Check if the inventory is full. Returns SUCCESS if full, FAILURE otherwise.; collect_item: Action Node: Collect an item from the environment. Always returns SUCCESS.; deposit_items: Action Node: Deposit collected items at the storage. Always returns SUCCESS.; scan_environment: Action Node: Scan the environment for items. Always returns SUCCESS.; report_inventory: Action Node: Report the current inventory status. Always returns SUCCESS.; is_storage_accessible: Condition node: Check if the storage area is accessible. Returns SUCCESS if accessible, FAILURE otherwise.; notify_operator: Action Node: Notify the operator of any issues. Always returns SUCCESS.; move_to_storage: Action Node: Move towards the storage area. Always returns SUCCESS.;}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).  
+USER COMMAND: generate behavior tree to "continuously scan the environment and collect items; if the inventory is full, check if storage is accessible; if accessible, move to storage and deposit items; otherwise, notify the operator and report inventory". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.  
+OUTPUT:  
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="InventoryManagement">
+  <BehaviorTree ID="InventoryManagement">
+    <Sequence>
+      <scan_environment/>
+      <collect_item/>
+      <Fallback>
+        <is_inventory_full/>
+        <Sequence>
+          <is_storage_accessible/>
+          <move_to_storage/>
+          <deposit_items/>
+        </Sequence>
+        <Sequence>
+          <notify_operator/>
+          <report_inventory/>
+        </Sequence>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Sequence" editable="true"/>
+    <Control ID="Fallback" editable="true"/>
+    <Condition ID="is_inventory_full"/>
+    <Condition ID="is_storage_accessible"/>
+    <Action ID="scan_environment" editable="true"/>
+    <Action ID="collect_item" editable="true"/>
+    <Action ID="move_to_storage" editable="true"/>
+    <Action ID="deposit_items" editable="true"/>
+    <Action ID="notify_operator" editable="true"/>
+    <Action ID="report_inventory" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>  
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_intrusion_detected: Condition node: Determine if an intrusion has been detected. Returns SUCCESS if detected, FAILURE otherwise.; alert_security: Action Node: Alert the security team. Always returns SUCCESS.; investigate_area: Action Node: Investigate the detected area. Always returns SUCCESS.; secure_boundary: Action Node: Secure the perimeter boundary. Always returns SUCCESS.; is_system_online: Condition node: Check if all security systems are online. Returns SUCCESS if online, FAILURE otherwise.; restart_systems: Action Node: Restart any offline security systems. Always returns SUCCESS.; perform_diagnostics: Action Node: Perform system diagnostics. Always returns SUCCESS.; notify_administration: Action Node: Notify the administration about the security status. Always returns SUCCESS.;}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).  
+USER COMMAND: generate behavior tree to "if an intrusion is detected then alert security and investigate the area; after investigation, secure the boundary. If system is not online, restart systems and perform diagnostics, then notify administration". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.  
+OUTPUT:  
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="SecurityResponse">
+  <BehaviorTree ID="SecurityResponse">
+    <Sequence>
+      <is_intrusion_detected/>
+      <Sequence>
+        <alert_security/>
+        <investigate_area/>
+        <secure_boundary/>
+      </Sequence>
+      <Fallback>
+        <is_system_online/>
+        <Sequence>
+          <restart_systems/>
+          <perform_diagnostics/>
+          <notify_administration/>
+        </Sequence>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Sequence" editable="true"/>
+    <Control ID="Fallback" editable="true"/>
+    <Condition ID="is_intrusion_detected"/>
+    <Condition ID="is_system_online"/>
+    <Action ID="alert_security" editable="true"/>
+    <Action ID="investigate_area" editable="true"/>
+    <Action ID="secure_boundary" editable="true"/>
+    <Action ID="restart_systems" editable="true"/>
+    <Action ID="perform_diagnostics" editable="true"/>
+    <Action ID="notify_administration" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>  
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_task_assigned: Condition node: Check if a new task has been assigned. Returns SUCCESS if assigned, FAILURE otherwise.; fetch_resource: Action Node: Fetch the required resource for the task. Always returns SUCCESS.; execute_task: Action Node: Execute the assigned task. Always returns SUCCESS.; report_completion: Action Node: Report task completion to the supervisor. Always returns SUCCESS.; idle: Action Node: Remain idle until a new task is assigned. Always returns SUCCESS.; is_resource_available: Condition node: Check if the necessary resources are available. Returns SUCCESS if available, FAILURE otherwise.; request_resource: Action Node: Request the required resource from the inventory. Always returns SUCCESS.;}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).  
+USER COMMAND: generate behavior tree to "if a task is assigned, check if resources are available; if available, fetch resources and execute the task then report completion; otherwise, request resources". If no task is assigned, remain idle. Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.  
+OUTPUT:  
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="TaskManagement">
+  <BehaviorTree ID="TaskManagement">
+    <Fallback>
+      <Sequence>
+        <is_task_assigned/>
+        <Selector>
+          <Sequence>
+            <is_resource_available/>
+            <fetch_resource/>
+            <execute_task/>
+            <report_completion/>
+          </Sequence>
+          <request_resource/>
+        </Selector>
+      </Sequence>
+      <idle/>
+    </Fallback>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Fallback" editable="true"/>
+    <Control ID="Sequence" editable="true"/>
+    <Condition ID="is_task_assigned"/>
+    <Condition ID="is_resource_available"/>
+    <Action ID="fetch_resource" editable="true"/>
+    <Action ID="execute_task" editable="true"/>
+    <Action ID="report_completion" editable="true"/>
+    <Action ID="request_resource" editable="true"/>
+    <Action ID="idle" editable="true"/>
+  </TreeNodesModel>
+</root>
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>  
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {detect_obstacle: Condition node: Check if an obstacle is detected. Returns SUCCESS if detected, FAILURE otherwise.; avoid_obstacle: Action Node: Maneuver to avoid the detected obstacle. Always returns SUCCESS.; proceed_forward: Action Node: Move forward towards the goal. Always returns SUCCESS.; scan_area: Action Node: Perform a 360-degree scan of the surroundings. Always returns SUCCESS}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).  
+USER COMMAND: generate behavior tree to "if an obstacle is detected then avoid it and proceed forward, otherwise scan the area". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.  
+OUTPUT:  
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="ObstacleAvoidance">
+  <BehaviorTree ID="ObstacleAvoidance">
+    <Selector name="Obstacle Selector">
+      <Sequence name="Navigate Path">
+        <detect_obstacle/>
+        <avoid_obstacle maneuver=""/>
+        <proceed_forward speed=""/>
+      </Sequence>
+      <scan_area/>
+    </Selector>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Selector" editable="true"/>
+    <Condition ID="detect_obstacle"/>
+    <Action ID="avoid_obstacle" editable="true">
+      <input_port name="maneuver"/>
+    </Action>
+    <Action ID="proceed_forward" editable="true">
+      <input_port name="speed"/>
+    </Action>
+    <Action ID="scan_area" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>  
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {low_battery: Condition node: Check if the battery level is low. Returns SUCCESS if low, FAILURE otherwise.; return_to_base: Action Node: Navigate back to the charging station. Always returns SUCCESS.; continue_operation: Action Node: Continue performing the current task. Always returns SUCCESS.; notify_status: Action Node: Send a status update to the control center. Always returns SUCCESS}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).  
+USER COMMAND: generate behavior tree to "if the battery is low then return to base and notify status, otherwise continue operation". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.  
+OUTPUT:  
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="EnergyManagement">
+  <BehaviorTree ID="EnergyManagement">
+    <Sequence name="Battery Check">
+      <low_battery/>
+      <return_to_base location="ChargingStation"/>
+      <notify_status message="Battery Low"/>
+    </Sequence>
+    <continue_operation/>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="low_battery"/>
+    <Action ID="return_to_base" editable="true">
+      <input_port name="location"/>
+    </Action>
+    <Action ID="notify_status" editable="true">
+      <input_port name="message"/>
+    </Action>
+    <Action ID="continue_operation" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>  
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {detect_leader: Condition node: Check if the leader robot is in sight. Returns SUCCESS if detected, FAILURE otherwise.; follow_leader: Action Node: Follow the detected leader. Always returns SUCCESS.; search_leader: Action Node: Search for the leader in the vicinity. Always returns SUCCESS.; maintain_formation: Action Node: Adjust position to maintain formation. Always returns SUCCESS}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).  
+USER COMMAND: generate behavior tree to "if the leader is detected then follow the leader and maintain formation, otherwise search for the leader". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.  
+OUTPUT:  
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="FormationControl">
+  <BehaviorTree ID="FormationControl">
+    <Selector name="Leader Selector">
+      <Sequence name="Follow Leader">
+        <detect_leader/>
+        <follow_leader speed=""/>
+        <maintain_formation spacing=""/>
+      </Sequence>
+      <search_leader/>
+    </Selector>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Selector" editable="true"/>
+    <Condition ID="detect_leader"/>
+    <Action ID="follow_leader" editable="true">
+      <input_port name="speed"/>
+    </Action>
+    <Action ID="maintain_formation" editable="true">
+      <input_port name="spacing"/>
+    </Action>
+    <Action ID="search_leader" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>  
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {detect_enemy: Condition node: Detect if an enemy is present. Returns SUCCESS if detected, FAILURE otherwise.; engage_enemy: Action Node: Engage the detected enemy. Always returns SUCCESS.; retreat: Action Node: Retreat to a safe location. Always returns SUCCESS.; patrol_area: Action Node: Continue patrolling the area. Always returns SUCCESS}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).  
+USER COMMAND: generate behavior tree to "if an enemy is detected then engage the enemy, otherwise patrol the area". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.  
+OUTPUT:  
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="EnemyEngagement">
+  <BehaviorTree ID="EnemyEngagement">
+    <Selector name="Combat Selector">
+      <Sequence name="Engage Enemy">
+        <detect_enemy/>
+        <engage_enemy weapon="laser"/>
+      </Sequence>
+      <patrol_area route="default"/>
+    </Selector>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Selector" editable="true"/>
+    <Condition ID="detect_enemy"/>
+    <Action ID="engage_enemy" editable="true">
+      <input_port name="weapon"/>
+    </Action>
+    <Action ID="patrol_area" editable="true">
+      <input_port name="route"/>
+    </Action>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>  
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {detect_resource: Condition node: Check if a valuable resource is nearby. Returns SUCCESS if detected, FAILURE otherwise.; collect_resource: Action Node: Collect the detected resource. Always returns SUCCESS.; analyze_environment: Action Node: Analyze the current environment for resources. Always returns SUCCESS.; report_findings: Action Node: Report the findings to the base station. Always returns SUCCESS}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).  
+USER COMMAND: generate behavior tree to "if a resource is detected then collect it and report findings, otherwise analyze the environment". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.  
+OUTPUT:  
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="ResourceCollection">
+  <BehaviorTree ID="ResourceCollection">
+    <Selector name="Resource Selector">
+      <Sequence name="Gather Resources">
+        <detect_resource/>
+        <collect_resource tool="gripper"/>
+        <report_findings destination="base_station"/>
+      </Sequence>
+      <analyze_environment method="scan"/>
+    </Selector>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Selector" editable="true"/>
+    <Condition ID="detect_resource"/>
+    <Action ID="collect_resource" editable="true">
+      <input_port name="tool"/>
+    </Action>
+    <Action ID="report_findings" editable="true">
+      <input_port name="destination"/>
+    </Action>
+    <Action ID="analyze_environment" editable="true">
+      <input_port name="method"/>
+    </Action>
+  </TreeNodesModel>
+</root>
+
+###
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {CheckEnemy: Condition node: Check for the presence of enemies. Returns SUCCESS if enemy detected, FAILURE otherwise.; NavigateToSafeZone: Action Node: Move the agent to a designated safe zone. Always returns SUCCESS.; AlertTeam: Action Node: Notify team members. Always returns SUCCESS.; PatrolArea: Action Node: Patrol the designated area. Always returns SUCCESS}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "continuously patrol the area, but if an enemy is detected, navigate to safe zone and alert the team." Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="PatrolAndRespond">
+  <BehaviorTree ID="PatrolAndRespond">
+    <Fallback name="Safety Check">
+      <Sequence name="Respond to Enemy">
+        <CheckEnemy/>
+        <NavigateToSafeZone/>
+        <AlertTeam/>
+      </Sequence>
+      <PatrolArea/>
+    </Fallback>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="CheckEnemy" editable="true"/>
+    <Action ID="NavigateToSafeZone" editable="true">
+      <input_port name="safe_zone_location"/>
+    </Action>
+    <Action ID="AlertTeam" editable="true"/>
+    <Action ID="PatrolArea" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {IsResourceAvailable: Condition node: Check if the required resource is available. Returns SUCCESS if available, FAILURE otherwise.; CollectResource: Action Node: Collect the specified resource. Always returns SUCCESS.; NotifyFailure: Action Node: Notify about the failure to collect resources. Always returns SUCCESS.; Idle: Action Node: Remain idle. Always returns SUCCESS}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "check for available resources, collect them if available, otherwise notify failure and remain idle." Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="ResourceManagement">
+  <BehaviorTree ID="ResourceManagement">
+    <Sequence name="ManageResources">
+      <IsResourceAvailable/>
+      <CollectResource resource_type="minerals"/>
+      <Fallback name="Failure Handling">
+        <NotifyFailure/>
+        <Idle/>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="IsResourceAvailable" editable="true"/>
+    <Action ID="CollectResource" editable="true">
+      <input_port name="resource_type"/>
+    </Action>
+    <Action ID="NotifyFailure" editable="true"/>
+    <Action ID="Idle" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {IsBatteryLow: Condition node: Check if the battery level is below threshold. Returns SUCCESS if low, FAILURE otherwise.; ReturnToBase: Action Node: Move the agent back to the base for recharging. Always returns SUCCESS.; RechargeBattery: Action Node: Recharge the agent's battery. Always returns SUCCESS.; ContinueMission: Action Node: Proceed with the current mission. Always returns SUCCESS}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "if the battery is low, return to base and recharge; otherwise, continue the current mission." Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="BatteryManagement">
+  <BehaviorTree ID="BatteryManagement">
+    <Fallback name="Battery Check">
+      <Sequence name="Recharge Sequence">
+        <IsBatteryLow/>
+        <ReturnToBase/>
+        <RechargeBattery/>
+      </Sequence>
+      <ContinueMission/>
+    </Fallback>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="IsBatteryLow" editable="true"/>
+    <Action ID="ReturnToBase" editable="true">
+      <input_port name="base_location"/>
+    </Action>
+    <Action ID="RechargeBattery" editable="true"/>
+    <Action ID="ContinueMission" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {IsObstacleDetected: Condition node: Detect if there is an obstacle in the path. Returns SUCCESS if obstacle detected, FAILURE otherwise.; AvoidObstacle: Action Node: Maneuver to avoid the detected obstacle. Always returns SUCCESS.; ProceedToGoal: Action Node: Continue moving towards the goal. Always returns SUCCESS.; EmitWarning: Action Node: Emit a warning signal. Always returns SUCCESS}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "continously proceed to the goal, but avoid any detected obstacles and emit a warning when an obstacle is encountered." Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="Navigation">
+  <BehaviorTree ID="Navigation">
+    <Fallback name="Obstacle Handling">
+      <Sequence name="HandleObstacle">
+        <IsObstacleDetected/>
+        <AvoidObstacle/>
+        <EmitWarning/>
+      </Sequence>
+      <ProceedToGoal/>
+    </Fallback>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="IsObstacleDetected" editable="true"/>
+    <Action ID="AvoidObstacle" editable="true"/>
+    <Action ID="EmitWarning" editable="true"/>
+    <Action ID="ProceedToGoal" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {IsTaskComplete: Condition node: Check if the current task is complete. Returns SUCCESS if complete, FAILURE otherwise.; StartNextTask: Action Node: Initiate the next task in the queue. Always returns SUCCESS.; LogCompletion: Action Node: Log the completion of the task. Always returns SUCCESS.; Wait: Action Node: Wait for a specified duration. Always returns SUCCESS}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "check if the task is complete, if so log the completion and start the next task; otherwise, wait and recheck." Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="TaskManagement">
+  <BehaviorTree ID="TaskManagement">
+    <Sequence name="ManageTasks">
+      <IsTaskComplete/>
+      <LogCompletion/>
+      <StartNextTask/>
+    </Sequence>
+    <Wait duration="5"/>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="IsTaskComplete" editable="true"/>
+    <Action ID="LogCompletion" editable="true">
+      <input_port name="log_message"/>
+    </Action>
+    <Action ID="StartNextTask" editable="true"/>
+    <Action ID="Wait" editable="true">
+      <input_port name="duration"/>
+    </Action>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_obstacle_ahead: Condition node: Check if there is an obstacle ahead. Returns SUCCESS if an obstacle is detected, FAILURE otherwise.; avoid_obstacle: Action Node: Maneuver to avoid the detected obstacle. Always returns SUCCESS.; patrol_area: Action Node: Move the agent along a predefined patrol path. Always returns SUCCESS.; return_to_base: Action Node: Navigate the agent back to the base location. Always returns SUCCESS.; is_low_light: Condition node: Check if the environment lighting is low. Returns SUCCESS if low, FAILURE otherwise.; activate_light: Action Node: Turn on the agent's lighting system. Always returns SUCCESS.; deactivate_light: Action Node: Turn off the agent's lighting system. Always returns SUCCESS.;}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "navigate the agent to patrol the area continuously, avoid obstacles when detected, and activate lights when in low light conditions". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="PatrolBehavior">
+  <BehaviorTree ID="PatrolBehavior">
+    <ReactiveSequence>
+      <is_obstacle_ahead/>
+      <avoid_obstacle/>
+    </ReactiveSequence>
+    <ReactiveSequence>
+      <is_low_light/>
+      <activate_light/>
+    </ReactiveSequence>
+    <patrol_area/>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="is_obstacle_ahead" editable="true"/>
+    <Action ID="avoid_obstacle" editable="true"/>
+    <Condition ID="is_low_light" editable="true"/>
+    <Action ID="activate_light" editable="true"/>
+    <Action ID="patrol_area" editable="true"/>
+    <Action ID="return_to_base" editable="true"/>
+    <Action ID="deactivate_light" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_payload_available: Condition node: Check if a payload is available for pickup. Returns SUCCESS if available, FAILURE otherwise.; pick_up_payload: Action Node: Engage mechanism to pick up the payload. Always returns SUCCESS.; is_transporting: Condition node: Check if the agent is currently transporting a payload. Returns SUCCESS if yes, FAILURE otherwise.; drop_payload: Action Node: Release the payload at the designated location. Always returns SUCCESS.; navigate_to_location: Action Node: Move the agent to a specified location. Always returns SUCCESS.; report_status: Action Node: Send a status update message. Always returns SUCCESS.; charge_battery: Action Node: Initiate battery charging process. Always returns SUCCESS.;}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "if a payload is available, pick it up and navigate to the delivery location to drop it; if not transporting, navigate to the charging station". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="PayloadDelivery">
+  <BehaviorTree ID="PayloadDelivery">
+    <Fallback name="HandlePayload">
+      <Sequence>
+        <is_payload_available/>
+        <pick_up_payload/>
+        <navigate_to_location location="delivery_point"/>
+        <drop_payload/>
+      </Sequence>
+      <Fallback name="CheckTransport">
+        <is_transporting/>
+        <navigate_to_location location="charging_station"/>
+      </Fallback>
+    </Fallback>
+    <report_status/>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="is_payload_available" editable="true"/>
+    <Action ID="pick_up_payload" editable="true"/>
+    <Condition ID="is_transporting" editable="true"/>
+    <Action ID="drop_payload" editable="true"/>
+    <Action ID="navigate_to_location" editable="true">
+      <input_port name="location"/>
+    </Action>
+    <Action ID="report_status" editable="true"/>
+    <Action ID="charge_battery" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_enemy_detected: Condition node: Check if an enemy is detected in the vicinity. Returns SUCCESS if detected, FAILURE otherwise.; engage_enemy: Action Node: Initiate combat with the detected enemy. Always returns SUCCESS.; retreat: Action Node: Move the agent to a safe location. Always returns SUCCESS.; is_health_low: Condition node: Check if the agent's health is below a threshold. Returns SUCCESS if low, FAILURE otherwise.; seek_medication: Action Node: Navigate to a medical station to heal. Always returns SUCCESS.; patrol_area: Action Node: Continue patrolling the designated area. Always returns SUCCESS.; send_alert: Action Node: Send an alert message to the base. Always returns SUCCESS.;}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "if an enemy is detected, engage; if health is low, retreat and seek medication; otherwise, continue patrolling". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="CombatBehavior">
+  <BehaviorTree ID="CombatBehavior">
+    <Fallback name="EnemyEngagement">
+      <Sequence>
+        <is_enemy_detected/>
+        <engage_enemy/>
+        <send_alert/>
+      </Sequence>
+      <Fallback name="HealthCheck">
+        <Sequence>
+          <is_health_low/>
+          <retreat/>
+          <seek_medication/>
+        </Sequence>
+        <patrol_area/>
+      </Fallback>
+    </Fallback>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="is_enemy_detected" editable="true"/>
+    <Action ID="engage_enemy" editable="true"/>
+    <Action ID="retreat" editable="true"/>
+    <Condition ID="is_health_low" editable="true"/>
+    <Action ID="seek_medication" editable="true"/>
+    <Action ID="patrol_area" editable="true"/>
+    <Action ID="send_alert" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_resource_nearby: Condition node: Check if a resource is available nearby. Returns SUCCESS if available, FAILURE otherwise.; collect_resource: Action Node: Gather the detected resource. Always returns SUCCESS.; is_storage_full: Condition node: Check if the storage is full. Returns SUCCESS if full, FAILURE otherwise.; deposit_resources: Action Node: Transfer collected resources to storage. Always returns SUCCESS.; explore_area: Action Node: Move the agent to explore new areas. Always returns SUCCESS.; communicate_with_hub: Action Node: Send collected data to the central hub. Always returns SUCCESS.; deactivate_sensor: Action Node: Turn off unnecessary sensors to save power. Always returns SUCCESS.; seek_refill: Action Node: Navigate to a refilling station. Always returns SUCCESS.;}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "if a resource is nearby, collect and deposit it if storage is not full; otherwise, explore the area and communicate with the hub". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="ResourceManagement">
+  <BehaviorTree ID="ResourceManagement">
+    <Fallback name="ResourceHandling">
+      <Sequence>
+        <is_resource_nearby/>
+        <collect_resource/>
+        <Fallback name="StorageCheck">
+          <Sequence>
+            <is_storage_full/>
+            <navigate_to_location location="deposit_point"/>
+            <deposit_resources/>
+          </Sequence>
+          <seek_refill/>
+        </Fallback>
+      </Sequence>
+      <Sequence>
+        <explore_area/>
+        <communicate_with_hub/>
+      </Sequence>
+    </Fallback>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="is_resource_nearby" editable="true"/>
+    <Action ID="collect_resource" editable="true"/>
+    <Condition ID="is_storage_full" editable="true"/>
+    <Action ID="deposit_resources" editable="true"/>
+    <Action ID="explore_area" editable="true"/>
+    <Action ID="communicate_with_hub" editable="true"/>
+    <Action ID="deactivate_sensor" editable="true"/>
+    <Action ID="seek_refill" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_weather_bad: Condition node: Check if the current weather conditions are adverse. Returns SUCCESS if bad, FAILURE otherwise.; seek_shelter: Action Node: Navigate the agent to a safe shelter location. Always returns SUCCESS.; continue_operation: Action Node: Proceed with the current task. Always returns SUCCESS.; is_battery_charging: Condition node: Check if the battery is currently charging. Returns SUCCESS if charging, FAILURE otherwise.; wait_for_charge: Action Node: Remain stationary until the battery is charged. Always returns SUCCESS.; resume_tasks: Action Node: Resume normal operations after charging. Always returns SUCCESS.; is_maintenance_required: Condition node: Check if the agent requires maintenance. Returns SUCCESS if maintenance is needed, FAILURE otherwise.; perform_maintenance: Action Node: Carry out maintenance procedures. Always returns SUCCESS.;}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "if weather is bad, seek shelter; if not charging, continue operation; if maintenance is required, perform maintenance". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="OperationalSafety">
+  <BehaviorTree ID="OperationalSafety">
+    <Fallback name="WeatherCheck">
+      <Sequence>
+        <is_weather_bad/>
+        <seek_shelter/>
+      </Sequence>
+      <Fallback name="BatteryCheck">
+        <Sequence>
+          <is_battery_charging/>
+          <wait_for_charge/>
+        </Sequence>
+        <Fallback name="MaintenanceCheck">
+          <Sequence>
+            <is_maintenance_required/>
+            <perform_maintenance/>
+          </Sequence>
+          <continue_operation/>
+        </Fallback>
+      </Fallback>
+    </Fallback>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="is_weather_bad" editable="true"/>
+    <Action ID="seek_shelter" editable="true"/>
+    <Action ID="continue_operation" editable="true"/>
+    <Condition ID="is_battery_charging" editable="true"/>
+    <Action ID="wait_for_charge" editable="true"/>
+    <Action ID="resume_tasks" editable="true"/>
+    <Condition ID="is_maintenance_required" editable="true"/>
+    <Action ID="perform_maintenance" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {detect_intrusion: Condition node: Check if an unauthorized intrusion is detected. Returns SUCCESS if detected, FAILURE otherwise.; alert_security: Action Node: Send an alert to the security team. Always returns SUCCESS.; lock_down: Action Node: Initiate lock-down procedures. Always returns SUCCESS.; is_patrol_route_clear: Condition node: Check if the current patrol route is clear of obstacles. Returns SUCCESS if clear, FAILURE otherwise.; navigate_route: Action Node: Move the agent along the patrol route. Always returns SUCCESS.; report_patrol_status: Action Node: Send a patrol status report to the base. Always returns SUCCESS.; is_area_secure: Condition node: Check if the area is secure. Returns SUCCESS if secure, FAILURE otherwise.; resume_patrol: Action Node: Continue patrolling after securing the area. Always returns SUCCESS.;}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "if an intrusion is detected, alert security and lock down; if patrol route is clear, navigate the route and report status; otherwise, check if the area is secure and resume patrol". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="SecurityPatrol">
+  <BehaviorTree ID="SecurityPatrol">
+    <Fallback name="IntrusionHandling">
+      <Sequence>
+        <detect_intrusion/>
+        <alert_security/>
+        <lock_down/>
+      </Sequence>
+      <Fallback name="PatrolMonitoring">
+        <Sequence>
+          <is_patrol_route_clear/>
+          <navigate_route/>
+          <report_patrol_status/>
+        </Sequence>
+        <Sequence>
+          <is_area_secure/>
+          <resume_patrol/>
+        </Sequence>
+      </Fallback>
+    </Fallback>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="detect_intrusion" editable="true"/>
+    <Action ID="alert_security" editable="true"/>
+    <Action ID="lock_down" editable="true"/>
+    <Condition ID="is_patrol_route_clear" editable="true"/>
+    <Action ID="navigate_route" editable="true"/>
+    <Action ID="report_patrol_status" editable="true"/>
+    <Condition ID="is_area_secure" editable="true"/>
+    <Action ID="resume_patrol" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_obstacle_detected: Condition node: Check if an obstacle is detected. Returns SUCCESS if detected, FAILURE otherwise.; avoid_obstacle: Action Node: Perform obstacle avoidance maneuvers. Always returns SUCCESS.; move_forward: Action Node: Move the agent forward. Always returns SUCCESS.; is_path_clear: Condition node: Check if the path is clear. Returns SUCCESS if clear, FAILURE otherwise.; stop_movement: Action Node: Stop the agent's movement. Always returns SUCCESS.; is_agent_idle: Condition node: Check if the agent is idle. Returns SUCCESS if idle, FAILURE otherwise.; resume_patrol: Action Node: Resume patrol activities. Always returns SUCCESS.;}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "if an obstacle is detected, avoid it and then move forward; otherwise, check if the path is clear to continue moving forward or stop if idle". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="ObstacleAvoidance">
+  <BehaviorTree ID="ObstacleAvoidance">
+    <Sequence name="Main Sequence">
+      <Fallback name="Check and Avoid Obstacle">
+        <Sequence>
+          <is_obstacle_detected/>
+          <avoid_obstacle/>
+          <move_forward/>
+        </Sequence>
+        <Fallback name="Path Check">
+          <Sequence>
+            <is_path_clear/>
+            <move_forward/>
+          </Sequence>
+          <Sequence>
+            <is_agent_idle/>
+            <stop_movement/>
+          </Sequence>
+        </Fallback>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="is_obstacle_detected"/>
+    <Action ID="avoid_obstacle" editable="true"/>
+    <Action ID="move_forward" editable="true"/>
+    <Condition ID="is_path_clear"/>
+    <Condition ID="is_agent_idle"/>
+    <Action ID="stop_movement" editable="true"/>
+    <Action ID="resume_patrol" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_message_received: Condition node: Check if a message has been received. Returns SUCCESS if received, FAILURE otherwise.; process_message: Action Node: Process the received message. Always returns SUCCESS.; send_acknowledgment: Action Node: Send an acknowledgment message. Always returns SUCCESS.; listen: Action Node: Continuously listen for messages. Always returns SUCCESS.; perform_task: Action Node: Execute the assigned task. Always returns SUCCESS.;}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "listen for messages; if a message is received, process it and send an acknowledgment; otherwise, continue performing the assigned task". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="CommunicationHandler">
+  <BehaviorTree ID="CommunicationHandler">
+    <Sequence name="Main Sequence">
+      <listen/>
+      <Fallback name="Handle Message">
+        <Sequence>
+          <is_message_received/>
+          <process_message/>
+          <send_acknowledgment/>
+        </Sequence>
+        <perform_task/>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="is_message_received"/>
+    <Action ID="process_message" editable="true"/>
+    <Action ID="send_acknowledgment" editable="true"/>
+    <Action ID="listen" editable="true"/>
+    <Action ID="perform_task" editable="true"/>
+  </TreeNodesModel>
+</root>
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_energy_low: Condition node: Check if the energy level is low. Returns SUCCESS if low, FAILURE otherwise.; harvest_energy: Action Node: Initiate energy harvesting routines. Always returns SUCCESS.; monitor_environment: Action Node: Continuously monitor environmental conditions. Always returns SUCCESS.; execute_task: Action Node: Execute the primary task. Always returns SUCCESS.; report_status: Action Node: Report the current status to the central system. Always returns SUCCESS.;}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "continue executing the primary task and monitoring the environment; if energy is low, harvest energy and report status". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="EnergyManagement">
+  <BehaviorTree ID="EnergyManagement">
+    <Sequence name="Main Sequence">
+      <execute_task/>
+      <monitor_environment/>
+      <Fallback name="Energy Check">
+        <Sequence>
+          <is_energy_low/>
+          <harvest_energy/>
+          <report_status/>
+        </Sequence>
+        <report_status/>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="is_energy_low"/>
+    <Action ID="harvest_energy" editable="true"/>
+    <Action ID="monitor_environment" editable="true"/>
+    <Action ID="execute_task" editable="true"/>
+    <Action ID="report_status" editable="true"/>
+  </TreeNodesModel>
+</root>
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {assign_role: Action Node: Assign a specific role to a team member. Always returns SUCCESS.; check_team_status: Condition node: Check the current status of the team. Returns SUCCESS if team is operational, FAILURE otherwise.; coordinate_task: Action Node: Coordinate the execution of a task among team members. Always returns SUCCESS.; request_backup: Action Node: Request backup assistance. Always returns SUCCESS.; perform_individual_task: Action Node: Perform the individual task assigned. Always returns SUCCESS.; evaluate_performance: Condition node: Evaluate the team's performance. Returns SUCCESS if performance is satisfactory, FAILURE otherwise.;}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "assign roles to team members and coordinate task execution; if team performance is unsatisfactory, request backup; otherwise, perform individual tasks". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="TeamCoordination">
+  <BehaviorTree ID="TeamCoordination">
+    <Sequence name="Main Sequence">
+      <assign_role/>
+      <coordinate_task/>
+      <Fallback name="Performance Check">
+        <Sequence>
+          <evaluate_performance/>
+          <request_backup/>
+        </Sequence>
+        <perform_individual_task/>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Action ID="assign_role" editable="true"/>
+    <Action ID="coordinate_task" editable="true"/>
+    <Condition ID="check_team_status"/>
+    <Condition ID="evaluate_performance"/>
+    <Action ID="request_backup" editable="true"/>
+    <Action ID="perform_individual_task" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+ SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {battery_low: Condition node: Check if the battery level is below a threshold. Returns SUCCESS if battery is low, FAILURE otherwise.; return_to_base: Action Node: Navigate the robot back to its base. Always returns SUCCESS.; continue_operation: Action Node: Continue the current operation. Always returns SUCCESS.}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "if battery is low then return to base, otherwise continue operation". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="BatteryCheck">
+  <BehaviorTree ID="BatteryCheck">
+    <Selector name="Battery Selector">
+      <Sequence name="Low Battery Sequence">
+        <battery_low/>
+        <return_to_base/>
+      </Sequence>
+      <continue_operation/>
+    </Selector>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Selector" editable="true"/>
+    <Condition ID="battery_low"/>
+    <Action ID="return_to_base" editable="true"/>
+    <Action ID="continue_operation" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+ SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_intruder_detected: Condition node: Check if an intruder is detected. Returns SUCCESS if detected, FAILURE otherwise.; alert_security: Action Node: Send an alert to the security team. Always returns SUCCESS.; patrol_area: Action Node: Continue patrolling the area. Always returns SUCCESS.}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "if an intruder is detected then alert security, otherwise continue patrolling the area". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="IntruderResponse">
+  <BehaviorTree ID="IntruderResponse">
+    <Selector name="Intruder Selector">
+      <Sequence name="Intruder Sequence">
+        <is_intruder_detected/>
+        <alert_security/>
+      </Sequence>
+      <patrol_area/>
+    </Selector>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Selector" editable="true"/>
+    <Condition ID="is_intruder_detected"/>
+    <Action ID="alert_security" editable="true"/>
+    <Action ID="patrol_area" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+ SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {task_completed: Condition node: Verify if the current task is completed. Returns SUCCESS if completed, FAILURE otherwise.; fetch_item: Action Node: Fetch the specified item. Always returns SUCCESS.; report_status: Action Node: Report the current status to the supervisor. Always returns SUCCESS.; retry_fetch: Decorator Node: Retry the fetch_item action up to three times if it fails.}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "if the task is not completed, attempt to fetch the item with retries, then report status". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="TaskManagement">
+  <BehaviorTree ID="TaskManagement">
+    <Sequence name="Task Sequence">
+      <Fallback name="Check Task">
+        <task_completed/>
+        <Sequence name="Fetch and Report">
+          <retry_fetch>
+            <fetch_item/>
+          </retry_fetch>
+          <report_status/>
+        </Sequence>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Sequence" editable="true"/>
+    <Control ID="Fallback" editable="true"/>
+    <Condition ID="task_completed"/>
+    <Action ID="fetch_item" editable="true"/>
+    <Action ID="report_status" editable="true"/>
+    <Decorator ID="retry_fetch" editable="true">
+      <max_retries value="3"/>
+    </Decorator>
+  </TreeNodesModel>
+</root>
+
+###
+
+ SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_area_clear: Condition node: Check if the designated area is clear of obstacles. Returns SUCCESS if clear, FAILURE otherwise.; navigate_to_point: Action Node: Navigate the robot to a specified point. Always returns SUCCESS.; scan_area: Action Node: Perform a scan of the area for obstacles. Always returns SUCCESS.; handle_obstacle: Action Node: Maneuver around the detected obstacle. Always returns SUCCESS.}. to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "if the area is clear then navigate to the point, otherwise scan the area and handle obstacles". Take a step back and think deeply about the behavior.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="NavigationBehavior">
+  <BehaviorTree ID="NavigationBehavior">
+    <Selector name="Navigation Selector">
+      <Sequence name="Clear Area Sequence">
+        <is_area_clear/>
+        <navigate_to_point/>
+      </Sequence>
+      <Sequence name="Obstacle Handling Sequence">
+        <scan_area/>
+        <handle_obstacle/>
+      </Sequence>
+    </Selector>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Selector" editable="true"/>
+    <Condition ID="is_area_clear"/>
+    <Action ID="navigate_to_point" editable="true"/>
+    <Action ID="scan_area" editable="true"/>
+    <Action ID="handle_obstacle" editable="true"/>
+  </TreeNodesModel>
+</root>
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_wounded_detected: Condition node: Check if a wounded person is detected. Returns SUCCESS if detected, FAILURE otherwise.; approach_wounded: Action Node: Approach the wounded person. Always returns SUCCESS.; provide_aid: Action Node: Provide medical aid. Always returns SUCCESS.; continue_searching: Action Node: Continue searching the area. Always returns SUCCESS.; report_status: Action Node: Report the current status. Always returns SUCCESS.; recharge: Action Node: Recharge system power. Always returns SUCCESS.; patrol_area: Action Node: Patrol the designated area. Always returns SUCCESS.;}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "if a wounded person is detected, approach and provide aid; otherwise, continue searching and report status". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="RescueMission">
+  <BehaviorTree ID="RescueMission">
+    <Selector>
+      <Sequence>
+        <is_wounded_detected/>
+        <Sequence>
+          <approach_wounded/>
+          <provide_aid/>
+        </Sequence>
+      </Sequence>
+      <Sequence>
+        <continue_searching/>
+        <report_status/>
+      </Sequence>
+    </Selector>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Selector" editable="true"/>
+    <Condition ID="is_wounded_detected"/>
+    <Action ID="approach_wounded"/>
+    <Action ID="provide_aid"/>
+    <Action ID="continue_searching"/>
+    <Action ID="report_status"/>
+    <Action ID="recharge"/>
+    <Action ID="patrol_area"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_item_available: Condition node: Check if the requested item is available in the warehouse. Returns SUCCESS if available, FAILURE otherwise.; retrieve_item: Action Node: Retrieve the specified item from storage. Always returns SUCCESS.; notify_user: Action Node: Notify the user about the item retrieval status. Always returns SUCCESS.; restock_item: Action Node: Restock the item if out of stock. Always returns SUCCESS.; verify_inventory: Condition node: Verify the current inventory levels. Returns SUCCESS if inventory is sufficient, FAILURE otherwise.; log_activity: Action Node: Log the retrieval activity. Always returns SUCCESS.; update_record: Action Node: Update the item record in the database. Always returns SUCCESS.;}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "if the requested item is available, retrieve it and notify the user; otherwise, restock the item and notify the user". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="ItemRetrieval">
+  <BehaviorTree ID="ItemRetrieval">
+    <Selector>
+      <Sequence>
+        <is_item_available/>
+        <Sequence>
+          <retrieve_item/>
+          <notify_user/>
+        </Sequence>
+      </Sequence>
+      <Sequence>
+        <restock_item/>
+        <notify_user/>
+      </Sequence>
+    </Selector>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Selector" editable="true"/>
+    <Condition ID="is_item_available"/>
+    <Action ID="retrieve_item"/>
+    <Action ID="notify_user"/>
+    <Action ID="restock_item"/>
+    <Action ID="log_activity"/>
+    <Condition ID="verify_inventory"/>
+    <Action ID="update_record"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_obstacle_detected: Condition node: Check if an obstacle is detected in the drone's path. Returns SUCCESS if detected, FAILURE otherwise.; avoid_obstacle: Action Node: Maneuver to avoid the detected obstacle. Always returns SUCCESS.; continue_flight: Action Node: Continue the flight path as planned. Always returns SUCCESS.; land_safely: Action Node: Initiate safe landing protocol. Always returns SUCCESS.; check_battery_level: Condition node: Check the drone's current battery level. Returns SUCCESS if battery is sufficient, FAILURE otherwise.; return_to_base: Action Node: Return to the base station. Always returns SUCCESS.; notify_operator: Action Node: Notify the operator of the current status. Always returns SUCCESS.;}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "if an obstacle is detected, avoid it; otherwise, continue flight. Additionally, if the battery level is low, initiate safe landing". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="DroneFlight">
+  <BehaviorTree ID="DroneFlight">
+    <Sequence>
+      <Selector>
+        <Sequence>
+          <is_obstacle_detected/>
+          <avoid_obstacle/>
+        </Sequence>
+        <continue_flight/>
+      </Selector>
+      <Selector>
+        <check_battery_level/>
+        <land_safely/>
+      </Selector>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Selector" editable="true"/>
+    <Condition ID="is_obstacle_detected"/>
+    <Action ID="avoid_obstacle"/>
+    <Action ID="continue_flight"/>
+    <Condition ID="check_battery_level"/>
+    <Action ID="land_safely"/>
+    <Action ID="return_to_base"/>
+    <Action ID="notify_operator"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_soil_moist: Condition node: Check if the soil moisture level is sufficient. Returns SUCCESS if moist, FAILURE otherwise.; activate_irrigation: Action Node: Activate the irrigation system. Always returns SUCCESS.; deactivate_irrigation: Action Node: Deactivate the irrigation system. Always returns SUCCESS.; monitor_crop_health: Action Node: Monitor the health of the crops. Always returns SUCCESS.; report_irrigation_status: Action Node: Report the current irrigation system status. Always returns SUCCESS.; adjust_irrigation_schedule: Action Node: Adjust the irrigation schedule based on weather conditions. Always returns SUCCESS.; calibrate_sensors: Action Node: Calibrate soil moisture sensors. Always returns SUCCESS.; collect_weather_data: Action Node: Collect current weather data. Always returns SUCCESS.;}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "if the soil is dry, activate irrigation; otherwise, deactivate irrigation and monitor crop health". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="IrrigationControl">
+  <BehaviorTree ID="IrrigationControl">
+    <Selector>
+      <Sequence>
+        <is_soil_moist/>
+        <deactivate_irrigation/>
+        <monitor_crop_health/>
+      </Sequence>
+      <activate_irrigation/>
+    </Selector>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Selector" editable="true"/>
+    <Condition ID="is_soil_moist"/>
+    <Action ID="deactivate_irrigation"/>
+    <Action ID="monitor_crop_health"/>
+    <Action ID="activate_irrigation"/>
+    <Action ID="report_irrigation_status"/>
+    <Action ID="adjust_irrigation_schedule"/>
+    <Action ID="calibrate_sensors"/>
+    <Action ID="collect_weather_data"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {is_soil_moist: Condition node: Check if the soil moisture level is sufficient. Returns SUCCESS if moist, FAILURE otherwise.; activate_irrigation: Action Node: Activate the irrigation system. Always returns SUCCESS.; deactivate_irrigation: Action Node: Deactivate the irrigation system. Always returns SUCCESS.; monitor_crop_health: Action Node: Monitor the health of the crops. Always returns SUCCESS.; report_irrigation_status: Action Node: Report the current irrigation system status. Always returns SUCCESS.; adjust_irrigation_schedule: Action Node: Adjust the irrigation schedule based on weather conditions. Always returns SUCCESS.; calibrate_sensors: Action Node: Calibrate soil moisture sensors. Always returns SUCCESS.; collect_weather_data: Action Node: Collect current weather data. Always returns SUCCESS.;}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "if the soil is dry, activate irrigation; otherwise, deactivate irrigation and monitor crop health". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="IrrigationControl">
+  <BehaviorTree ID="IrrigationControl">
+    <Selector>
+      <Sequence>
+        <is_soil_moist/>
+        <deactivate_irrigation/>
+        <monitor_crop_health/>
+      </Sequence>
+      <activate_irrigation/>
+    </Selector>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Control ID="Selector" editable="true"/>
+    <Condition ID="is_soil_moist"/>
+    <Action ID="deactivate_irrigation"/>
+    <Action ID="monitor_crop_health"/>
+    <Action ID="activate_irrigation"/>
+    <Action ID="report_irrigation_status"/>
+    <Action ID="adjust_irrigation_schedule"/>
+    <Action ID="calibrate_sensors"/>
+    <Action ID="collect_weather_data"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {DetectEnemy: Condition node: Detect if an enemy is within range. Returns SUCCESS if detected, FAILURE otherwise.; Attack: Action Node: Engage the detected enemy. Always returns SUCCESS.; Defend: Action Node: Take a defensive stance. Always returns SUCCESS.; PatrolArea: Action Node: Patrol the designated area. Always returns SUCCESS.; IsLowHealth: Condition node: Check if health is below threshold. Returns SUCCESS if low, FAILURE otherwise.; Retreat: Action Node: Retreat to safe location. Always returns SUCCESS.; ReactiveFallback: Control Node: Tries its children in order until one succeeds and can restart if needed.}. To construct a behavior tree in XML format for the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "engage enemies when detected, retreat if health is low, otherwise patrol the area".
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="CombatBehavior">
+  <BehaviorTree ID="CombatBehavior">
+    <ReactiveFallback>
+      <Sequence name="Engage Enemy">
+        <DetectEnemy/>
+        <Attack/>
+      </Sequence>
+      <Sequence name="Retreat if Low Health">
+        <IsLowHealth/>
+        <Retreat/>
+      </Sequence>
+      <PatrolArea/>
+    </ReactiveFallback>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="DetectEnemy" editable="true"/>
+    <Condition ID="IsLowHealth" editable="true"/>
+    <Action ID="Attack" editable="true"/>
+    <Action ID="Defend" editable="true"/>
+    <Action ID="PatrolArea" editable="true"/>
+    <Action ID="Retreat" editable="true"/>
+    <Control ID="ReactiveFallback" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {ScanArea: Action Node: Perform a 360-degree scan of the environment. Always returns SUCCESS.; IdentifyTarget: Condition node: Identify if a target is present. Returns SUCCESS if a target is found, FAILURE otherwise.; MoveToTarget: Action Node: Navigate to the identified target. Always returns SUCCESS.; LowVisibility: Condition node: Check if the environment has low visibility. Returns SUCCESS if true, FAILURE otherwise.; ActivateLights: Action Node: Turn on the robot's lights. Always returns SUCCESS.; ActivateInfrared: Action Node: Switch to infrared mode. Always returns SUCCESS.; CommunicationCheck: Condition node: Verify if communication is active. Returns SUCCESS if active, FAILURE otherwise.; SendAlert: Action Node: Send an alert message. Always returns SUCCESS.; SelectorNode: Control Node: Selects the first child that returns SUCCESS.}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "scan the area, if a target is identified navigate to it, if visibility is low activate infrared, and ensure communication is active before sending an alert".
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="TargetApproach">
+  <BehaviorTree ID="TargetApproach">
+    <Sequence>
+      <ScanArea/>
+      <SelectorNode>
+        <Sequence name="Navigate to Target">
+          <IdentifyTarget/>
+          <MoveToTarget/>
+        </Sequence>
+        <Sequence name="Handle Low Visibility">
+          <LowVisibility/>
+          <ActivateInfrared/>
+        </Sequence>
+      </SelectorNode>
+      <Sequence name="Communication and Alert">
+        <CommunicationCheck/>
+        <SendAlert/>
+      </Sequence>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="IdentifyTarget" editable="true"/>
+    <Condition ID="LowVisibility" editable="true"/>
+    <Condition ID="CommunicationCheck" editable="true"/>
+    <Action ID="ScanArea" editable="true"/>
+    <Action ID="MoveToTarget" editable="true"/>
+    <Action ID="ActivateLights" editable="true"/>
+    <Action ID="ActivateInfrared" editable="true"/>
+    <Action ID="SendAlert" editable="true"/>
+    <Control ID="SelectorNode" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {CheckTemperature: Condition node: Check if the temperature is within the safe range. Returns SUCCESS if safe, FAILURE otherwise.; ActivateCooling: Action Node: Activate cooling systems. Always returns SUCCESS.; ActivateHeating: Action Node: Activate heating systems. Always returns SUCCESS.; MonitorTemperature: Action Node: Continuously monitor temperature. Always returns SUCCESS.; EmergencyShutdown: Action Node: Perform emergency shutdown. Always returns SUCCESS.; SequenceNode: Control Node: Executes its children in sequence.; FallbackNode: Control Node: Attempts each child in order until one succeeds.}. To construct a behavior tree in XML format for the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "monitor temperature, if unsafe activate cooling or heating, and perform emergency shutdown if temperature remains unsafe".
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="TemperatureControl">
+  <BehaviorTree ID="TemperatureControl">
+    <SequenceNode>
+      <MonitorTemperature/>
+      <FallbackNode>
+        <SequenceNode name="Activate Cooling">
+          <CheckTemperature/>
+          <ActivateCooling/>
+        </SequenceNode>
+        <SequenceNode name="Activate Heating">
+          <CheckTemperature/>
+          <ActivateHeating/>
+        </SequenceNode>
+      </FallbackNode>
+      <SequenceNode name="Emergency Shutdown">
+        <CheckTemperature/>
+        <EmergencyShutdown/>
+      </SequenceNode>
+    </SequenceNode>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="CheckTemperature" editable="true"/>
+    <Action ID="ActivateCooling" editable="true"/>
+    <Action ID="ActivateHeating" editable="true"/>
+    <Action ID="MonitorTemperature" editable="true"/>
+    <Action ID="EmergencyShutdown" editable="true"/>
+    <Control ID="SequenceNode" editable="true"/>
+    <Control ID="FallbackNode" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {DetectHuman: Condition node: Detect presence of a human. Returns SUCCESS if detected, FAILURE otherwise.; Greet: Action Node: Greet the detected human. Always returns SUCCESS.; FollowHuman: Action Node: Follow the detected human. Always returns SUCCESS.; IsPathClear: Condition node: Check if the path is clear. Returns SUCCESS if clear, FAILURE otherwise.; Wait: Action Node: Wait for a specified duration. Always returns SUCCESS.; Idle: Action Node: Remain idle. Always returns SUCCESS.; SequenceControl: Control Node: Executes its children in order.; SelectorControl: Control Node: Selects the first child that returns SUCCESS.}. To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "detect humans, greet them, follow if path is clear, otherwise wait, and remain idle when no humans are detected".
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="HumanInteraction">
+  <BehaviorTree ID="HumanInteraction">
+    <SelectorControl>
+      <SequenceControl name="Engage with Human">
+        <DetectHuman/>
+        <Greet/>
+        <SelectorControl>
+          <SequenceControl>
+            <IsPathClear/>
+            <FollowHuman/>
+          </SequenceControl>
+          <Wait duration="5"/>
+        </SelectorControl>
+      </SequenceControl>
+      <Idle/>
+    </SelectorControl>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="DetectHuman" editable="true"/>
+    <Condition ID="IsPathClear" editable="true"/>
+    <Action ID="Greet" editable="true"/>
+    <Action ID="FollowHuman" editable="true"/>
+    <Action ID="Wait" editable="true">
+      <input_port name="duration"/>
+    </Action>
+    <Action ID="Idle" editable="true"/>
+    <Control ID="SequenceControl" editable="true"/>
+    <Control ID="SelectorControl" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
+SYSTEM: <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {CollectSample: Action Node: Collect a sample from the environment. Always returns SUCCESS.; AnalyzeSample: Action Node: Analyze the collected sample. Always returns SUCCESS.; IsSampleValid: Condition node: Check if the collected sample is valid. Returns SUCCESS if valid, FAILURE otherwise.; ReturnToBase: Action Node: Return to the base location. Always returns SUCCESS.; RechargeBattery: Action Node: Recharge the robot's battery. Always returns SUCCESS.; LowBattery: Condition node: Check if the battery is low. Returns SUCCESS if low, FAILURE otherwise.; RepeatCycle: Control Node: Repeats the behavior cycle continuously.; SequenceControl: Control Node: Executes its children in sequence.; FallbackControl: Control Node: Attempts each child in order until one succeeds.}. To construct a behavior tree in XML format for the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
+USER COMMAND: generate behavior tree to "if battery is low, return to base and recharge, else collect and analyze samples continuously".
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="SamplingMission">
+  <BehaviorTree ID="SamplingMission">
+    <SequenceControl>
+      <FallbackControl>
+        <SequenceControl name="Handle Low Battery">
+          <LowBattery/>
+          <ReturnToBase/>
+          <RechargeBattery/>
+        </SequenceControl>
+        <RepeatCycle>
+          <SequenceControl name="Collect and Analyze">
+            <CollectSample/>
+            <IsSampleValid/>
+            <AnalyzeSample/>
+          </SequenceControl>
+        </RepeatCycle>
+      </FallbackControl>
+    </SequenceControl>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID="LowBattery" editable="true"/>
+    <Condition ID="IsSampleValid" editable="true"/>
+    <Action ID="CollectSample" editable="true"/>
+    <Action ID="AnalyzeSample" editable="true"/>
+    <Action ID="ReturnToBase" editable="true"/>
+    <Action ID="RechargeBattery" editable="true"/>
+    <Action ID="RepeatCycle" editable="true"/>
+    <Control ID="SequenceControl" editable="true"/>
+    <Control ID="FallbackControl" editable="true"/>
+  </TreeNodesModel>
+</root>
+
+###
+
+
