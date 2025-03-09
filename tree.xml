@@ -1,32 +1,12 @@
-<root BTCPP_format="3" main_tree_to_execute="FindAndReturn">
-  <BehaviorTree ID="FindAndReturn">
-    <Sequence name="Main Sequence">
-      <Fallback name="Find Goal">
-        <Sequence>
-          <is_obstacle_detected/>
-          <avoid_obstacle/>
-          <change_color color="red"/>
-        </Sequence>
-        <wander/>
-      </Fallback>      
-      <Fallback name="Return Home">
-        <Sequence>
-          <is_agent_in_nest/>
-          <change_color color="green"/>
-        </Sequence>
-        <wander/>
-      </Fallback>
-    </Sequence>
-  </BehaviorTree>
-  <!-- just for the nodes -->
-  <TreeNodesModel>
-    <Condition ID="is_obstacle_detected"/>
-    <Condition ID="is_target_reached"/>
-    <Action ID="avoid_obstacle"/>    
-    <Action ID="change_color" editable="true">
-      <input_port name="color"/>
-    </Action>
-    <Condition ID="is_agent_in_nest"/>
-    <Action ID="wander"/>
-  </TreeNodesModel>
-</root>
+<root BTCPP_format="3" main_tree_to_execute="ShapeVerticalLine">  
+        <BehaviorTree ID="ShapeVerticalLine">    
+            <Sequence name="Form Vertical Line Sequence">      
+                <is_path_clear/>      
+                <form_line/>      
+            </Sequence>    
+        </BehaviorTree>  
+        <TreeNodesModel>    
+            <Condition ID="is_path_clear"/>    
+            <Action ID="form_line"/>   
+        </TreeNodesModel>
+    </root>

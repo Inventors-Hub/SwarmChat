@@ -1,0 +1,1049 @@
+Prompt,Prompt Type,Time,Behavior Tree,Model Name
+"detect an obstacle, avoid it, and then flock safely with other agents",zero,296.0091235637665,"<s>
+    <BTCPP_format>
+    <main_tree_to_execute>
+    <BehaviorTree ID=""main_tree"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_obstacle_detected"">
+    <Action ID=""avoid_obstacle"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_target_detected"">
+    <Action ID=""change_color"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_agent_in_nest"">
+    <Action ID=""agent_movement_freeze"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_path_clear"">
+    <Action ID=""move_randomly"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_line_formed"">
+    <Action ID=""form_line"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_target_reached"">
+    <Action ID=""change_color"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_obstacle_detected"">
+    <Action ID=""avoid_obstacle"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_target_detected"">
+    <Action ID=""change_color"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_agent_in_nest"">
+    <Action ID=""agent_movement_freeze"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_path_clear"">
+    <Action ID=""move_randomly"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_line_formed"">
+    <Action ID=""form_line"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_target_reached"">
+    <Action ID=""change_color"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_obstacle_detected"">
+    <Action ID=""avoid_obstacle"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_target_detected"">
+    <Action ID=""change_color"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_agent_in_nest"">
+    <Action ID=""agent_movement_freeze"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_path_clear"">
+    <Action ID=""move_randomly"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_line_formed"">
+    <Action ID=""form_line"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_target_reached"">
+    <Action ID=""change_color"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_obstacle_detected"">
+    <Action ID=""avoid_obstacle"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_target_detected"">
+    <Action ID=""change_color"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_agent_in_nest"">
+    <Action ID=""agent_movement_freeze"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_path_clear"">
+    <Action ID=""move_randomly"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_line_formed"">
+    <Action ID=""form_line"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_target_reached"">
+    <Action ID=""change_color"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_obstacle_detected"">
+    <Action ID=""avoid_obstacle"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Condition ID=""is_target_detected"">
+    <Action ID=""change",deepseek-coder-7b-base-v1.5.Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,209.42541432380676,"<s>
+    <BTCPP_format>
+    <main_tree_to_execute>
+    <BehaviorTree ID=""MainTree"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>",deepseek-coder-7b-base-v1.5.Q4_K_M
+"check if path is clear, form a line at the center",zero,209.34934186935425,"<s>
+    <BTCPP_format>
+    <main_tree_to_execute>
+    <BehaviorTree ID=""MainTree"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>",deepseek-coder-7b-base-v1.5.Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,211.25191354751587,"<s>
+    <BTCPP_format>
+    <main_tree_to_execute>
+    <BehaviorTree ID=""MainTree"">
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>
+    <Sequence>
+    <Fallback>",deepseek-coder-7b-base-v1.5.Q4_K_M
+"detect target, freeze movement upon reaching it",zero,205.61397647857666,"<s>
+    <BTCPP_format>1</BTCPP_format>
+    <main_tree_to_execute>main_tree</main_tree_to_execute>
+    <BehaviorTree ID=""main_tree"">
+        <Sequence>
+            <Fallback>
+                <Sequence>
+                    <IsTargetDetected/>
+                    <IsTargetReached/>
+                </Sequence>
+                <Sequence>
+                    <IsAgentInNest/>
+                    <AgentMovementFreeze/>
+                </Sequence>
+            </Fallback>
+            <ContinueMovementAgent/>
+        </Sequence>
+    </BehaviorTree>
+    <TreeNodesModel>
+        <IsTargetDetected/>
+        <IsTargetReached/>
+        <IsAgentInNest/>
+        <AgentMovementFreeze/>
+        <ContinueMovementAgent/>
+    </TreeNodesModel>
+    </s>
+    
+    <s>
+    <BTCPP_format>1</BTCPP_format>
+    <main_tree_to_execute>main_tree</main_tree_to_execute>
+    <BehaviorTree ID=""main_tree"">
+        <Sequence>
+            <Fallback>
+                <Sequence>
+                    <IsTargetDetected/>
+                    <IsTargetReached/>
+                </Sequence>
+                <Sequence>
+                    <IsAgentInNest/>
+                    <AgentMovementFreeze/>
+                </Sequence>
+            </Fallback>
+            <ContinueMovementAgent/>
+        </Sequence>
+    </BehaviorTree>
+    <TreeNodesModel>
+        <IsTargetDetected/>
+        <IsTargetReached/>
+        <IsAgentInNest/>
+        <AgentMovementFreeze/>
+        <ContinueMovementAgent/>
+    </TreeNodesModel>
+    </s>
+    
+    <s>
+    <BTCPP_format>1</BTCPP_format>
+    <main_tree_to_execute>main_tree</main_tree_to_execute>
+    <BehaviorTree ID=""main_tree"">
+        <Sequence>
+            <Fallback>
+                <Sequence>
+                    <IsTargetDetected/>
+                    <IsTargetReached/>
+                </Sequence>
+                <Sequence>
+                    <IsAgentInNest/>
+                    <AgentMovementFreeze/>
+                </Sequence>
+            </Fallback>
+            <ContinueMovementAgent/>
+        </Sequence>
+    </BehaviorTree>
+    <TreeNodesModel>
+        <IsTargetDetected/>
+        <IsTargetReached/>
+        <IsAgentInNest/>
+        <AgentMovementFreeze/>
+        <ContinueMovementAgent/>
+    </TreeNodesModel>
+    </s>
+    
+    <s>
+    <BTCPP_format>1</BTCPP_format>
+    <main_tree_to_execute>main_tree</main_tree_to_execute>
+    <BehaviorTree ID=""main_tree"">
+        <Sequence>
+            <Fallback>
+                <Sequence>
+                    <IsTargetDetected/>
+                    <IsTargetReached/>
+                </Sequence>
+                <Sequence>
+                    <IsAgentInNest/>
+                    <AgentMovementFreeze/>
+                </Sequence>
+            </Fallback>
+            <ContinueMovementAgent/>
+        </Sequence>
+    </BehaviorTree>
+    <TreeNodesModel>
+        <IsTargetDetected/>
+        <IsTargetReached/>
+        <IsAgentInNest/>
+        <AgentMovementFreeze/>
+        <ContinueMovementAgent/>
+    </TreeNodesModel>
+    </s>
+    
+    <s>
+    <BTCPP_format>1</BTCPP_format>
+    <main_tree_to_execute>main_tree</main_tree_to_execute>
+    <BehaviorTree ID=""main_tree"">
+        <Sequence>
+            <Fallback>
+                <Sequence>
+                    <IsTargetDetected/>
+                    <IsTargetReached/>
+                </Sequence>
+                <Sequence>
+                    <IsAgentInNest/>
+                    <AgentMovementFreeze/>
+                </Sequence>
+            </Fallback>
+            <ContinueMovementAgent/>
+        </Sequence>
+    </BehaviorTree>
+    <TreeNodesModel>
+        <IsTargetDetected/>
+        <IsTargetReached/>
+        <IsAgentInNest/>
+        <AgentMovementFreeze/>
+        <ContinueMovementAgent/>
+    </TreeNodesModel>
+    </s>
+    
+    <s>
+    <BTCPP_format>1</BTCPP_format",deepseek-coder-7b-base-v1.5.Q4_K_M
+"detect an obstacle, avoid it, and then flock safely with other agents",one,287.77841114997864,"<root BTCPP_format=""3"" main_tree_to_execute=""FlockingBehavior"">
+        <BehaviorTree ID=""FlockingBehavior"">
+            <Sequence name=""Flocking Sequence"">
+                <is_obstacle_detected/>
+                <avoid_obstacle/>
+                <flocking/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_obstacle_detected""/>
+            <Action ID=""avoid_obstacle"" editable=""true""/>
+            <Action ID=""flocking"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",deepseek-coder-7b-base-v1.5.Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,221.86053276062012,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderUntilTarget"">
+        <BehaviorTree ID=""WanderUntilTarget"">
+            <Fallback name=""WanderUntilTarget"">
+                <Sequence name=""Wander"">
+                    <move_randomly/>
+                </Sequence>
+                <Sequence name=""ApproachTarget"">
+                    <is_target_detected/>
+                    <is_target_reached/>
+                    <change_color color=""red""/>
+                </Sequence>
+            </Fallback>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Action ID=""move_randomly"" editable=""true""/>
+            <Condition ID=""is_target_detected"" editable=""true""/>
+            <Condition ID=""is_target_reached"" editable=""true""/>
+            <Action ID=""change_color"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",deepseek-coder-7b-base-v1.5.Q4_K_M
+"check if path is clear, form a line at the center",one,220.77248287200928,"<root BTCPP_format=""3"" main_tree_to_execute=""PathCheckAndFormLine"">
+        <BehaviorTree ID=""PathCheckAndFormLine"">
+            <Sequence name=""Check Path Clear"">
+                <is_path_clear/>
+            </Sequence>
+            <Sequence name=""Form Line at Center"">
+                <is_line_formed/>
+                <form_line/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_path_clear""/>
+            <Condition ID=""is_line_formed""/>
+            <Action ID=""form_line"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",deepseek-coder-7b-base-v1.5.Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,221.5359160900116,"<root BTCPP_format=""3"" main_tree_to_execute=""FindGoal"">
+        <BehaviorTree ID=""FindGoal"">
+            <Sequence name=""FindGoalSequence"">
+                <is_target_detected/>
+                <change_color color=""red""/>
+                <align_with_swarm/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_target_detected""/>
+            <Action ID=""change_color"" editable=""true""/>
+            <Action ID=""align_with_swarm"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",deepseek-coder-7b-base-v1.5.Q4_K_M
+"detect target, freeze movement upon reaching it",one,245.78048610687256,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">
+        <BehaviorTree ID=""TargetDetection"">
+            <Sequence name=""Target Detection Sequence"">
+                <is_target_detected/>
+                <agent_movement_freeze/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_target_detected""/>
+            <Action ID=""agent_movement_freeze"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",deepseek-coder-7b-base-v1.5.Q4_K_M
+"detect an obstacle, avoid it, and then flock safely with other agents",two,317.34067463874817,"<root BTCPP_format=""3"" main_tree_to_execute=""FlockingBehavior"">
+        <BehaviorTree ID=""FlockingBehavior"">
+            <Sequence name=""Flocking Sequence"">
+                <is_obstacle_detected/>
+                <Fallback name=""Avoid Obstacle"">
+                    <avoid_obstacle/>
+                    <flocking/>
+                </Fallback>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_obstacle_detected""/>
+            <Action ID=""avoid_obstacle"" editable=""true""/>
+            <Action ID=""flocking"" editable=""true""/>
+            <Control ID=""Fallback"" editable=""true""/>
+            <Control ID=""Sequence"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",deepseek-coder-7b-base-v1.5.Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,245.3099136352539,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderAndApproach"">
+        <BehaviorTree ID=""WanderAndApproach"">
+            <Sequence name=""Wander"">
+                <Fallback name=""WanderRandomly"">
+                    <move_randomly/>
+                </Fallback>
+            </Sequence>
+            <Sequence name=""ApproachTarget"">
+                <is_target_detected/>
+                <Fallback name=""MoveTowardsTarget"">
+                    <is_obstacle_detected/>
+                    <avoid_obstacle/>
+                    <align_with_swarm/>
+                    <flocking/>
+                    <say message=""Target detected!""/>
+                    <change_color color=""red""/>
+                </Fallback>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Action ID=""move_randomly"" editable=""true""/>
+            <Condition ID=""is_target_detected"" editable=""true""/>
+            <Action ID=""avoid_obstacle"" editable=""true""/>
+            <Action ID=""align_with_swarm"" editable=""true""/>
+            <Action ID=""flocking"" editable=""true""/>
+            <Action ID=""say"" editable=""true""/>
+            <Action ID=""change_color"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",deepseek-coder-7b-base-v1.5.Q4_K_M
+"check if path is clear, form a line at the center",two,248.1367211341858,"<root BTCPP_format=""3"" main_tree_to_execute=""PathCheckAndFormLine"">
+        <BehaviorTree ID=""PathCheckAndFormLine"">
+            <Sequence name=""Path Check"">
+                <is_path_clear/>
+            </Sequence>
+            <Fallback name=""Form Line"">
+                <Sequence>
+                    <form_line/>
+                </Sequence>
+            </Fallback>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_path_clear""/>
+            <Action ID=""form_line"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",deepseek-coder-7b-base-v1.5.Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,247.1549711227417,"<root BTCPP_format=""3"" main_tree_to_execute=""FindGoal"">
+        <BehaviorTree ID=""FindGoal"">
+            <Sequence name=""Find Goal"">
+                <say message=""Searching for the goal...""/>
+                <flocking/>
+                <align_with_swarm/>
+                <is_target_detected/>
+                <is_target_reached/>
+                <change_color color=""red""/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Action ID=""say"" editable=""true""/>
+            <Action ID=""flocking"" editable=""true""/>
+            <Action ID=""align_with_swarm"" editable=""true""/>
+            <Condition ID=""is_target_detected"" editable=""true""/>
+            <Condition ID=""is_target_reached"" editable=""true""/>
+            <Action ID=""change_color"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",deepseek-coder-7b-base-v1.5.Q4_K_M
+"detect target, freeze movement upon reaching it",two,242.1117513179779,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">
+        <BehaviorTree ID=""TargetDetection"">
+            <Sequence name=""Target Detection"">
+                <is_target_detected/>
+                <agent_movement_freeze/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_target_detected""/>
+            <Action ID=""agent_movement_freeze"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",deepseek-coder-7b-base-v1.5.Q4_K_M

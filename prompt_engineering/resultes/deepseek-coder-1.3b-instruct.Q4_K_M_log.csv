@@ -1,0 +1,312 @@
+Prompt,Prompt Type,Time,Behavior Tree,Model Name
+"detect an obstacle, avoid it, and then flock safely with other agents",zero,46.00745487213135,"```xml
+    <BTCPP_format>true</BTCPP_format>
+        <main_tree_to_execute><Sequences, Fallback and Conditions Actions here... / main tree to execute. </main_tree_to_execute> 
+        ...  // rest of the XML structure without any additional text or commentary outside it.  
+    <BTCPP_format>false</BTCPP_format>>    
+    ''''') AS BEHAVIOR TREE FOR THE COMMAND ""detect an obstacle, avoid it and then flock safely with other agents"" IN XML FORMAT''';  // rest of the output without any additional text or commentary outside.  
+```        
+This is a simplified example to illustrate how you might structure your behavior tree in xml format for this command using Python's `xml` library:
+    1) Define all possible behaviors as dictionaries with their respective arguments and return values (e.g., 'say', 'align_with_swarm'). 2) Create the root of a BehaviorTree, which is an Sequence node in our case because we want to execute these actions sequentially until one fails or succeeds.
+    3) Define all other nodes within this tree as Fallback (if none of them are executed), Conditions and Actions based on your command's requirements using the dictionaries you defined earlier, e.g., 'is_obstacle_detected', etc.. 4) Finally convert these behaviors into XML format with Python’s xml library or any other method that suits best for this task (e.g., `xmltodict`).
+    5) The output should be a well-structured, indented and formatted BehaviorTree in the desired XML structure as described above without extra text outside it to avoid damage to agents/humans due to unallowed actions or commands used herein prohibited by your AI. 6) Make sure you test this behavior tree with different scenarios for robustness before using on a production environment, and ensure that all nodes are correctly linked together according the sequence of execution in case one fails but another succeeds (Fallback).",deepseek-coder-1.3b-instruct.Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,61.40017080307007,"```xml
+    <BTCPP_format>true</BTCPP_format><main_tree_to_execute>wander randomly until a target is detected, approach it and signal achievement by changing color to red. </main_tree_to_execute> <BehaviorTree> 	<Sequences>    <SequenceNodeModel name=""WanderRandomlyUntilTargetDetectedApproachItAndSignalAchievementByChangingColorToRed""/>        <ConditionCheck><FunctionName refid=""_isPathClear""/>>    </Conditions>            <ActionChange_color color = ""red"") /> <SequenceNodeModel name=""MoveAlongLineOfCenterWithTargetDetectedApproachItAndSignalAchievementByChangingColorToRed.<ConditionCheck><FunctionName refid=""_isPathClear""/>>    </Conditions>            <ActionChange_color color = ""red"") /> <SequenceNodeModel name=""MoveRandomlyUntilLineOfCenterWithTargetDetectedApproachItAndSignalAchievementByChangingColorToRed.<ConditionCheck><FunctionName refid=""_isPathClear""/>>    </Conditions>            <ActionChange_color color = ""red"") /> <BehaviorTree> 	<Sequences>    <SequenceNodeModel name=""WanderRandomlyUntilTargetDetectedApproachItAndSignalAchievementByChangingColorToRed.<ConditionCheck><FunctionName refid=""_isPathClear""/>>    </Conditions>            <ActionChange_color color = ""red"") /> <BehaviorTree> 	<Sequences>    <SequenceNodeModel name=""ApproachTargetAndSignalAchievementByChangingColorToRed.<ConditionCheck><FunctionName refid=""_isPathClear""/>>    </Conditions>            <ActionChange_color color = ""red"") /> <BehaviorTree> 	<Sequences>    <SequenceNodeModel name=""MoveRandomlyUntilLineOfCenterWithTargetDetectedApproachItAndSignalAchievementByChangingColorToRed.<ConditionCheck><FunctionName refid=""_isPathClear""/>>    </Conditions>            <ActionChange_color color = ""red"") /> <BehaviorTree> 	<Sequences>    <SequenceNodeModel name=""MoveAlongLineOfCenterWithTargetDetectedApproachItAndSignalAchievementByChangingColorToRed.<ConditionCheck><FunctionName refid=""_isPathClear""/>>    </Conditions>            <ActionChange_color color = ""red"") /> <BehaviorTree> 	<Sequences>    <SequenceNodeModel name=""ApproachTargetAndSignalAchievementByChangingColorToRed.<ConditionCheck><FunctionName refid=""_isPathClear""/>>    </Conditions>            <ActionChange_color color = ""red"") /> <BehaviorTree> 	<Sequences>    <SequenceNodeModel name=""MoveRandomlyUntilLineOfCenterWithTargetDetectedApproachItAndSignalAchievementByChangingColorToRed.<ConditionCheck><FunctionName refid=""_isPathClear""/>>    </Conditions>            <ActionChange_color color = ""red"") /> <BehaviorTree> 	<Sequences>    <SequenceNodeModel name=""MoveAlongLineOfCenterWithTargetDetectedApproachItAndSignalAchievementByChangingColorToRed.<ConditionCheck><FunctionName refid=""_isPathClear""/>>    </Conditions>            <ActionChange_color color = ""red"") /> <BehaviorTree> 	<Sequences>    <SequenceNodeModel name=""ApproachTargetAndSignalAchievementByChangingColorToRed.<ConditionCheck><FunctionName refid=""_isPathClear""/>>    </Conditions>            <ActionChange_color color = ""red"") /> <BehaviorTree> 	<Sequences>    <SequenceNodeModel name=""MoveRandomlyUntilLineOfCenterWithTargetDetectedApproachItAndSignalAchievementByChangingColorToRed.<ConditionCheck><FunctionName refid=""_isPathClear""/>>    </Conditions>            <ActionChange_color color = ""red"") /> <BehaviorTree> 	<Sequences>    <SequenceNodeModel name=""MoveAlongLineOfCenterWithTargetDetectedApproachItAndSignalAchievementByChangingColorToRed.<ConditionCheck><FunctionName refid=""_isPathClear""/>>    </Conditions>            <ActionChange_color color = ""red"") /> <BehaviorTree> 	<Sequences>    <SequenceNodeModel name=""ApproachTargetAndSignalAchievementByChangingColorToRed.<ConditionCheck><FunctionName",deepseek-coder-1.3b-instruct.Q4_K_M
+"check if path is clear, form a line at the center",zero,15.770112991333008,"```xml
+    <BehaviorTree BTCPP_format=""1.0"" main_tree_to_execute="""">
+        <Sequences sequenceID = ""seq-23456789""/> 
+            <Conditions ConditionName = `is_path_clear, is_line_formed `/> <!-- This condition will be true if both conditions are met -->> 
+                <Actions ActionNames=""move_randomly ""/>  <!-- If the path and line formations were successful then move randomly-- >>  
+            <Fallbacks /> 	<!-- Fallback to a default action in case of failure. In this example, no fall backs will be used as there is nothing else that can execute -->> 		    	        			   									     	   								      							       	 	       	     						         ​                          
+        </Sequences>            
+    </BehaviorTree> 
+    ```              
+Please note: The provided instructions are not complete and may need to be adjusted according the specific requirements of your project. This is a simplified example, in real-world scenarios you would have more complex structures with multiple levels or branches within sequences etc., depending on how detailed you want it for each command/behavior pairing",deepseek-coder-1.3b-instruct.Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,61.59847354888916,"```xml
+    <BTCPP_format>true</BTCPP_format><main_tree_to_execute>find the goal, signal success by changing color to red and align movement with other swarm agents. </main_tree_to_execute> <BehaviorTree> 	<Sequences>    <SequenceNodeModel name=""FindGoal""/>        <ActionsList>            <Action Node:SpeakTheMessage message = ""find the goal, signal success by changing color to red and align movement with other swarm agents."" Returns : SUCCESS/><           <ConditionCheck ConditionName  = is_target_reached returns =  FAILURE /> <SequenceNodeModel name=""ChangeColor""/>        <ActionsList> 			<Action Node: Changecolor  Args = ""red"", color,returns=  ALWAYS RETURNS SUCCES. </Actions><           <ConditionCheck ConditionName  = is_agent_in_nest returns =  FAILURE /> <SequenceNodeModel name=""AlignWithSwarm""/>        <ActionsList> 			<Action Node: Alignwithswarm Args = ""alignment and separation forces from nearby agents"",returns=  ALWAYS RETURNS SUCCES. </Actions><           <ConditionCheck ConditionName  = is_path_clear returns =  FAILURE /> <SequenceNodeModel name=""MoveRandomly""/>        <ActionsList> 			<Action Node: Moverandomly Args = ""random movement within the environment"",returns=  ALWAYS RETURNS SUCCES. </Actions><           <ConditionCheck ConditionName  = is_line_formed returns =  FAILURE /> <SequenceNodeModel name=""FormLine""/>        <ActionsList> 			<Action Node: Form line Args = ""towards the center of window"",returns=  ALWAYS RETURNS SUCCES. </Actions><           <ConditionCheck ConditionName  = is_obstacle_detected returns =  FAILURE /> <SequenceNodeModel name=""ObstacleDetection""/>        <ActionsList> 			<Action Node: Obstacedetect Args = ""nearby agents"",returns=  ALWAYS RETURNS SUCCES. </Actions><           <ConditionCheck ConditionName  = is_target_detected returns =  FAILURE /> <SequenceNodeModel name=""ObstacleDetection""/>        <ActionsList> 			<Action Node: Obstacedetect Args = ""nearby agents"",returns=  ALWAYS RETURNS SUCCES. </Actions><           <ConditionCheck ConditionName  = is_agent_in_nest returns =  FAILURE /> <SequenceNodeModel name=""ObstacleDetection""/>        <ActionsList> 			<Action Node: Obstacedetect Args = ""nearby agents"",returns=  ALWAYS RETURNS SUCCES. </Actions><           <ConditionCheck ConditionName  = is_path_clear returns =  FAILURE /> <SequenceNodeModel name=""ObstacleDetection""/>        <ActionsList> 			<Action Node: Obstacedetect Args = ""nearby agents"",returns=  ALWAYS RETURNS SUCCES. </Actions><           <ConditionCheck ConditionName  = is_line_formed returns =  FAILURE /> <SequenceNodeModel name=""ObstacleDetection""/>        <ActionsList> 			<Action Node: Obstacedetect Args = ""nearby agents"",returns=  ALWAYS RETURNS SUCCES. </Actions><           <ConditionCheck ConditionName  = is_obstacle_detected returns =  FAILURE /> <SequenceNodeModel name=""ObstacleDetection""/>        <ActionsList> 			<Action Node: Obstacedetect Args = ""nearby agents"",returns=  ALWAYS RETURNS SUCCES. </Actions><           <ConditionCheck ConditionName  = is_target_detected returns =  FAILURE /> <SequenceNodeModel name=""ObstacleDetection""/>        <ActionsList> 			<Action Node: Obstacedetect Args = ""nearby agents"",returns=  ALWAYS RETURNS SUCCES. </Actions><           <ConditionCheck ConditionName  = is_agent_in_nest returns =  FAILURE /> <SequenceNodeModel name=""ObstacleDetection""/>        <ActionsList> 			<Action Node: Obstacedetect Args = ""nearby agents"",returns=  ALWAYS RETURNS SUCCES. </Actions><           <ConditionCheck ConditionName  = is_path_clear returns =  FAILURE /> <SequenceNodeModel name=""ObstacleDetection""/",deepseek-coder-1.3b-instruct.Q4_K_M
+"detect target, freeze movement upon reaching it",zero,60.6203773021698,"```xml
+    <BTCPP_format>true</BTCPP_format><main_tree_to_execute>move randomly, avoid obstacle if detected and target is within 20 units of distance or form line towards the center. If not reachable then freeze movement upon reaching it (if any). Continue to move in random direction until path clear</main_tree_to_execute><BehaviorTree> <Sequences>
+    <Sequence> 
+        <Conditions>is_path_clear, is_line_formed <Actions>move randomly; change color white if not reachable else form line towards the center of window. continue movement agent after freezing upon reaching target</Condition>  
+        ...  (rest of sequence)...   
+    <Sequence> 
+        <Conditions>is_target_reached, is_agent_in_nest <Actions>freeze movement if reached; move randomly until path clear or form line towards the center. continue to freezing and moving in random direction</Condition> <!--repeat for all other conditions--><BehaviorTree> 
+    <Sequence /BTCPP_format>>   (rest of tree)...  --repeated as needed--->  <Sequences > <Fallback> Continue movement agent if no sequence was executed. If any condition fails, then execute this</Condition> <!--repeat for all fallbacks--><BehaviorTree> 
+    <Sequence /BTCPP_format>>   (rest of tree)...  --repeated as needed--->  <Sequences > <Actions>move randomly; avoid obstacle if detected and target is within distance or form line towards the center. If not reachable then freeze movement upon reaching it</Condition> <!--repeat for all actions--><BehaviorTree> 
+    <Sequence /BTCPP_format>>   (rest of tree)...  --repeated as needed--->  <Sequences > <Actions>change color white if reached; move randomly until path clear or form line towards the center. If not reachable then freeze movement upon reaching it</Condition> <!--repeat for all actions--><BehaviorTree> 
+    <Sequence /BTCPP_format>>   (rest of tree)...  --repeated as needed--->  <Sequences > <Actions>freeze if reached; move randomly until path clear or form line towards the center. If not reachable then freeze movement upon reaching it</Condition> <!--repeat for all actions--><BehaviorTree> 
+    <Sequence /BTCPP_format>>   (rest of tree)...  --repeated as needed--->  <Sequences > <Actions>continue to move in random direction until path clear or form line towards the center. If not reachable then freeze movement upon reaching it</Condition> <!--repeat for all actions--><BehaviorTree> 
+    <Sequence /BTCPP_format>>   (rest of tree)...  --repeated as needed--->  <Sequences > <Actions>change color white if reached; move randomly until path clear or form line towards the center. If not reachable then freeze movement upon reaching it</Condition> <!--repeat for all actions--><BehaviorTree> 
+    <Sequence /BTCPP_format>>   (rest of tree)...  --repeated as needed--->  <Sequences > <Actions>freeze if reached; move randomly until path clear or form line towards the center. If not reachable then freeze movement upon reaching it</Condition> <!--repeat for all actions--><BehaviorTree> 
+    <Sequence /BTCPP_format>>   (rest of tree)...  --repeated as needed--->  <Sequences > <Actions>continue to move in random direction until path clear or form line towards the center. If not reachable then freeze movement upon reaching it</Condition> <!--repeat for all actions--><BehaviorTree> 
+    <Sequence /BTCPP_format>>   (rest of tree)...  --repeated as needed--->  <Sequences > <Actions>change color white if reached; move randomly until path clear or form line towards the center. If not reachable then freeze movement upon reaching it</Condition> <!--repeat for all actions--><BehaviorTree> 
+    <Sequence /BTCPP_format>>   (rest of tree)...  --repeated as needed--->  <Sequences > <Actions>freeze if reached; move randomly until path clear or form line towards the center. If not reachable then freeze movement upon reaching it</Condition> <!--repeat for all actions--><BehaviorTree> 
+    <Sequence /BTCPP_format>>   (rest of tree)...  --repeated as needed--->  <Sequences > <Actions>continue to",deepseek-coder-1.3b-instruct.Q4_K_M
+"detect an obstacle, avoid it, and then flock safely with other agents",one,85.66067433357239,"```xml
+    <?xml version=""1.0""?>  
+        <root BTCPP_format = ""3"", main tree to execute = `ObstacleAvoidanceFlockingSequenceTreeIDs'> 	    		 			   	 									     	   <Behavior Tree ID=  'DetectAndEvadeWithOtherAgentsFlankSafe',>
+        		<Selector name=""Main Decision-Making Sequence"", >  							      						       	<Sequenced Actions: Detection of Obstacle, Evasion and Flocking respectively.> 		 									     	   </Sequence>>   	    			         	 								  <Fallback>
+        			<Condition ID=""is_obstacle_detected""/> <Action id = ""avoid_obstacle"", editable =  true /><!-- This is the fall back action in case no other actions are executed. --> 		 									     	   </Conditions>>  	    			         	 								  <Actions>
+        			<Condition ID=""is_target_detected""/> <Action id = ""change_color"", editable =  true /><!-- This is the fall back action in case no other actions are executed. --> 		 									     	   </Conditions>>  	    			         	 								  <Actions>
+        			<Condition ID=""is_agent_in_nest""/> <Action id = ""movement_freeze"", editable =  true /><!-- This is the fall back action in case no other actions are executed. --> 		 									     	   </Conditions>>  	    			         	 								  <Actions>
+        			<Condition ID=""is_path_clear""/> <Action id = ""form_line"", editable =  true /><!-- This is the fall back action in case no other actions are executed. --> 		 									     	   </Conditions>>  	    			         	 								  <Actions>
+        		<Selector name=""Main Decision-Making Sequence""/> <Sequence id = ""ObstacleAvoidanceFlocking"", > <is_obstacle_detected /><avoid_obstacle, is_target_reached &amp; change_color , flocking>  </Sequenced Actions: Detection of Obstacles and avoid them.> 		 									     	   <Fallback> <Condition ID=""is_path_clear""/><Action id = ""movement_freeze"", editable =  true />>
+        		<Selector name='Main Decision-Making Sequence'/>  	    			         	 								  </BehaviorTree> 		 									     	   <Actions> <Condition ID=  'is_obstacle_detected', <Action id = ""avoid_obstacle"", editable =  true />>
+        		<Selector name='Main Decision-Making Sequence'/>  	    			         	 								  </BehaviorTree> 		 									     	   <Actions> <Condition ID=  'is_target_detected', <Action id = ""change_color"", editable =  true />>
+        		<Selector name='Main Decision-Making Sequence'/>  	    			         	 								  </BehaviorTree> 		 									     	   <Actions> <Condition ID=  'is_agent_in_nest', <Action id = ""movement_freeze"", editable =  true />>
+        		<Selector name='Main Decision-Making Sequence'/>  	    			         	 								  </BehaviorTree> 		 									     	   <Actions> <Condition ID=  'is_path_clear', <Action id = ""form_line"", editable =  true />>   
+    <?xml version=""1.0""?><root BTCPP_format='3, main tree to execute: ObstacleAvoidanceFlockingSequenceTreeIDs'/>  	    			         	 								  <Behavior Tree ID = 'DetectAndEvadeWithOtherAgentsFlankSafe',> 		 									     	   <Selector name =  ""Main Decision-Making Sequence"", >   
+        		<Sequenced Actions: Detection of Obstacle, Evasion and Flocking respectively.>  	    			         	 								  <Fallback> <Condition ID=""is_path_clear""/><Action id = 'movement_freeze', editable =  true />>   
+        		<Selector name=  ""Main Decision-Making Sequence'/> 		 									     	   </BehaviorTree>  	    			         	 								  <Actions> <Condition ID=""is_obstacle_detected""/><",deepseek-coder-1.3b-instruct.Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,68.15235042572021,"```xml
+    <?xml version=""1.0""?>  
+        <root BTCPP_format = ""3"", main tree to execute =  'WanderRandomly'> 	    		 			   	 									     	   <BehaviorTree ID= ‘’, Name: Wander Randomly >      			<Sequence name  =“Start” > 				<is_path_clear/>  						<move_randomly /> <IsTargetDetected><Fallback Condition=""true""/> 		<change_color color = ""red"", message =  “Achievement Unlocked, Red Color Signal.
+    ```   	      		     	   <Sequence name  =”Approach Target Sequence’>  							<is_target_detected/> <avoid_obstacle /><IsTargetReached >		<move_randomly ‘MoveRandomly'/> 			<change_color color = ""red"", message = “Achievement Unlocked, Red Color Signal.” <Sequence name  =""End""/>  							<is_agent_in_nest/> <form_line /><Fallback Condition='true’ >		<move_randomly ‘MoveRandomly'/> 			<change_color color = ""red"", message = “Achievement Unlocked, Red Color Signal.” <Sequence name  =""End""/>  							<is_agent_in_nest/> <form_line /><Fallback Condition='true’ >		<move_randomly ‘MoveRandomly'/> 			<change_color color = ""red"", message = “Achievement Unlocked, Red Color Signal.” <Sequence name  =""End""/>  							<is_agent_in_nest/> <form_line /><Fallback Condition='true’ >		<move_randomly ‘MoveRandomly'/> 			<change_color color = ""red"", message = “Achievement Unlocked, Red Color Signal.” <Sequence name  =""End""/>  							<is_agent_in_nest/> <form_line /><Fallback Condition='true’ >		<move_randomly ‘MoveRandomly'/> 			<change_color color = ""red"", message = “Achievement Unlocked, Red Color Signal.” <Sequence name  =""End""/>  							<is_agent_in_nest/> <form_line /><Fallback Condition='true’ >		<move_randomly ‘MoveRandomly'/> 			<change_color color = ""red"", message = “Achievement Unlocked, Red Color Signal.” <Sequence name  =""End""/>  							<is_agent_in_nest/> <form_line /><Fallback Condition='true’ >		<move_randomly ‘MoveRandomly'/> 			<change_color color = ""red"", message = “Achievement Unlocked, Red Color Signal.” <Sequence name  =""End""/>  							<is_agent_in_nest/> <form_line /><Fallback Condition='true’ >		<move_randomly ‘MoveRandomly'/> 			<change_color color = ""red"", message = “Achievement Unlocked, Red Color Signal.” <Sequence name  =""End""/>  							<is_agent_in_nest/> <form_line /><Fallback Condition='true’ >		<move_randomly ‘MoveRandomly'/> 			<change_color color = ""red"", message = “Achievement Unlocked, Red Color Signal.” <Sequence name  =""End""/>  							<is_agent_in_nest/> <form_line /><Fallback Condition='true’ >		<move_randomly ‘MoveRandomly'/> 			<change_color color = ""red"", message = “Achievement Unlocked, Red Color Signal.” <Sequence name  =""End""/>  							<is_agent_in_nest/> <form_line /><Fallback Condition='true’ >		<move_randomly ‘MoveRandomly'/> 			<change_color color = ""red"", message = “Achievement Unlocked, Red Color Signal.” <Sequence name  =""End""/>  							<is_agent_in_nest/> <form_line /><Fallback Condition='true’ >		<move_randomly ‘MoveRandomly'/> 			<change_color color = ""red"", message = “Achievement Unlocked, Red Color Signal.” <Sequence name  =""End""/>  							<is_agent_in_nest/> <form_line /><Fallback Condition=",deepseek-coder-1.3b-instruct.Q4_K_M
+"check if path is clear, form a line at the center",one,67.2428891658783,"```xml
+    <?xml version=""1.0""?>  
+        <root BTCPP_format = ""3"", main tree to execute =  'CheckPathClearFormLine'> 
+            <BehaviorTree ID= ‘’, name “High-Level Decision” > 
+                <Sequence Name  = “Start Sequence” >   
+                    <is_path_clear/>  
+                    [...]     // Add other behaviors here if needed.     
+                    aftere the path is clear:      
+                        <form_line />  (This should be last in sequence)       
+                <Sequence Name = “End Sequence” >   
+                    <is_path_clear/>  
+                    [...]     // Add other behaviors here if needed.     
+                    after it has been frozen or reached the target:      
+                        <continue_movement />  (This should be last in sequence)       
+                <Sequence Name = “Frozen Sequence” >   
+                    <is_path_clear/>   // This is a fallback for when path isn't clear.     [...]     
+                   <aftere the agent has been frozen:      
+                        <agent_movement_freeze />  (This should be last in sequence)       
+                <Sequence Name = “Reached Sequence” >   
+                    <is_path_clear/>   // This is a fallback for when path isn't clear.     [...]     
+                   <after it has been frozen or reached the target:      
+                        <continue_movement />  (This should be last in sequence)       
+                <Sequence Name = “Target Reached Sequence” >   
+                    <is_target_reached/>   // This is a fallback for when path isn't clear.     [...]     
+                   <after it has been frozen or reached the target:      
+                        <continue_movement />  (This should be last in sequence)       
+                <Sequence Name = “Obstacle Sequence” >   
+                    <is_obstacle_detected/>   // This is a fallback for when path isn't clear.     [...]     
+                   <after it has been frozen or reached the target:      
+                        <avoid_obstacle />  (This should be last in sequence)       
+                <Sequence Name = “Clear Sequence” >   
+                    <is_path_clear/>   // This is a fallback for when path isn't clear.     [...]     
+                   <after it has been frozen or reached the target:      
+                        <continue_movement />  (This should be last in sequence)       
+                <Sequence Name = “Line Formed Sequence” >   
+                    <is_line_formed/>   // This is a fallback for when path isn't clear.     [...]     
+                   <after it has been frozen or reached the target:      
+                        <form_line />  (This should be last in sequence)       
+                <Sequence Name = “End Sequence” >   
+                    <is_path_clear/>   // This is a fallback for when path isn't clear.     [...]     
+                   <after it has been frozen or reached the target:      
+                        <continue_movement />  (This should be last in sequence)       
+                <Sequence Name = “Frozen Sequence” >   
+                    <is_path_clear/>   // This is a fallback for when path isn't clear.     [...]     
+                   <after it has been frozen or reached the target:      
+                        <agent_movement_freeze />  (This should be last in sequence)       
+                <Sequence Name = “Reached Sequence” >   
+                    <is_path_clear/>   // This is a fallback for when path isn't clear.     [...]     
+                   <after it has been frozen or reached the target:      
+                        <continue_movement />  (This should be last in sequence)       
+                <Sequence Name = “Target Reached Sequence” >   
+                    <is_target_reached/>   // This is a fallback for when path isn't clear.     [...]     
+                   <after it has been frozen or reached the target:      
+                        <continue_movement />  (This should be last in sequence)       
+                <Sequence Name = “Obstacle Sequence” >   
+                    <is_obstacle_detected/>   // This is a fallback for when path isn't clear.     [...]     
+                   <after it has been frozen or reached the target:      
+                        <avoid_obstacle />  (This should be last in sequence)       
+                <Sequence Name = “",deepseek-coder-1.3b-instruct.Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,65.91875171661377,"```xml
+    <?xml version=""1.0""?>  
+        <root BTCPP_format = ""3"", main tree to execute =  'GoalFinding'> 	    		   	   <BehaviorTree ID= ‘goalfind’, Main Tree To Execute > Sequence >  “Find the goal” , Action - change color=""red"";
+                                                    Condition- is_target_detected = ""SUCCESS"", Fallback action-""do nothing"".  >   		    	   </Sequence> 	      			    <Condition ID= ‘is target detected’, Main Tree To Execute > Sequence >  “Find the goal” , Action - change color=""red"";
+                                                    Condition- is_target_detected = ""FAILURE"", Fallback action-""do nothing"".  >   		    	   </Condition> 	      			    <Action ID= ‘changecolor’, Main Tree To Execute > Sequence >  “Find the goal” , Action - change color=""red"";
+                                                    Condition- is_target_detected = ""SUCCESS"", Fallback action-""do nothing"".  >   		    	   </Action> 	      			    <TreeNodesModel ID= ‘changecolor’, Main Tree To Execute > Sequence >  “Find the goal” , Action - change color=""red"";
+                                                    Condition- is_target_detected = ""SUCCESS"", Fallback action-""do nothing"".  >   		    	   </TreeNodesModel> 	      			    <BehaviorTree ID= ‘goalfind’, Main Tree To Execute > Sequence >  “Find the goal” , Action - change color=""red"";
+                                                    Condition- is_target_detected = ""FAILURE"", Fallback action-""do nothing"".  >   		    	   </BehaviorTree> 	      			    <Sequence ID= ‘findthegoal’, Main Tree To Execute > Sequence >  “Find the goal” , Action - change color=""red"";
+                                                    Condition- is_target_detected = ""SUCCESS"", Fallback action-""do nothing"".  >   		    	   </Sequence> 	      			    <Condition ID= ‘is target detected’, Main Tree To Execute > Sequence >  “Find the goal” , Action - change color=""red"";
+                                                    Condition- is_target_detected = ""FAILURE"", Fallback action-""do nothing"".  >   		    	   </Condition> 	      			    <Action ID= ‘changecolor’, Main Tree To Execute > Sequence >  “Find the goal” , Action - change color=""red"";
+                                                    Condition- is_target_detected = ""SUCCESS"", Fallback action-""do nothing"".  >   		    	   </Action> 	      			    <TreeNodesModel ID= ‘changecolor’, Main Tree To Execute > Sequence >  “Find the goal” , Action - change color=""red"";
+                                                    Condition- is_target_detected = ""SUCCESS"", Fallback action-""do nothing"".  >   		    	   </TreeNodesModel> 	      			    <BehaviorTree ID= ‘goalfind’, Main Tree To Execute > Sequence >  “Find the goal” , Action - change color=""red"";
+                                                    Condition- is_target_detected = ""FAILURE"", Fallback action-""do nothing"".  >   		    	   </BehaviorTree> 	      			    <Sequence ID= ‘findthegoal’, Main Tree To Execute > Sequence >  “Find the goal” , Action - change color=""red"";
+                                                    Condition- is_target_detected = ""SUCCESS"", Fallback action-""do nothing"".  >   		    	   </Sequence> 	      			    <Condition ID= ‘is target detected’, Main Tree To Execute > Sequence >  “Find the goal” , Action - change color=""red"";
+                                                    Condition- is_target_detected = ""FAILURE"", Fallback action-""do nothing"".  >   		    	   </Condition> 	      			    <Action ID= ‘changecolor’, Main Tree To Execute > Sequence >  “Find the goal” , Action - change color=""red"";
+                                                    Condition- is_target_detected = ""SUCCESS"", Fallback action-""do nothing"".  >   		    	   </Action> 	      			    <TreeNodesModel ID= ‘changecolor’, Main Tree To Execute > Sequence >  “Find the goal” , Action -",deepseek-coder-1.3b-instruct.Q4_K_M
+"detect target, freeze movement upon reaching it",one,67.50733876228333,"```xml
+    <?xml version=""1.0""?>  
+        <root BTCPP_format = ""3"", main tree to execute =  'Movement'> 
+            <BehaviorTree ID= ‘Detection’, Main Tree To Execute “move” >   
+                <Sequence name  = Detect Target Sequence > 
+                    <is_target_detected/>  
+                    [If true] <fallback> <align with swarm></if false>>    
+                        <Condition node = 'Align With Swarm'> 
+                            <Action Node ID=‘change color’, Args “white” >  <execute action =  change the agent to white /</action>  
+                            [If true] <fallback> <align with swarm></if false>>    
+Condition node = 'Is Obstacle Detected'> 
+Action Node ID=‘avoid obstacle’, Args “obstacles” >  <execute action =  avoid obstacles /</action>   [If true] <fallback> <align with swarm></if false>>    
+Condition node = 'Is Agent In Nest'> 
+Action Node ID=‘move randomly’ ,Args ""randomly"" >  move agent to random position within the environment  <execute action =  moving in a direction chosen by algorithm /</action>   [If true] <fallback> <align with swarm></if false>>    
+Condition node = 'Is Path Clear'> 
+Action Node ID=‘form line’, Args “center” >  form the agent to align it towards center of window  <execute action =  forming a straight path /</action>   [If true] <fallback> <align with swarm></if false>>    
+FallBack> 
+Action Node ID=‘move randomly’, Args “randomly” >  move agent to random position within the environment  <execute action =  moving in a direction chosen by algorithm /</action>   [If true] <fallback> <align with swarm></if false>>    
+FallBack> 
+Action Node ID=‘form line’, Args “center” >  form agent to align it towards center of window  <execute action =  forming a straight path /</action>   [If true] <fallback> <align with swarm></if false>>    
+FallBack> 
+Action Node ID=‘move randomly’, Args “randomly” >  move agent to random position within the environment  <execute action =  moving in a direction chosen by algorithm /</action>   [If true] <fallback> <align with swarm></if false>>    
+FallBack> 
+Action Node ID=‘form line’, Args “center” >  form agent to align it towards center of window  <execute action =  forming a straight path /</action>   [If true] <fallback> <align with swarm></if false>>    
+FallBack> 
+Action Node ID=‘move randomly’, Args “randomly” >  move agent to random position within the environment  <execute action =  moving in a direction chosen by algorithm /</action>   [If true] <fallback> <align with swarm></if false>>    
+FallBack> 
+Action Node ID=‘form line’, Args “center” >  form agent to align it towards center of window  <execute action =  forming a straight path /</action>   [If true] <fallback> <align with swarm></if false>>    
+FallBack> 
+Action Node ID=‘move randomly’, Args “randomly” >  move agent to random position within the environment  <execute action =  moving in a direction chosen by algorithm /</action>   [If true] <fallback> <align with swarm></if false>>    
+FallBack> 
+Action Node ID=‘form line’, Args “center” >  form agent to align it towards center of window  <execute action =  forming a straight path /</action>   [If true] <fallback> <align with swarm></if false>>    
+FallBack> 
+Action Node ID=‘move randomly’, Args “randomly” >  move agent to random position within the environment  <execute action =  moving in a direction chosen by algorithm /</action>   [If true] <fallback> <align with swarm></if false>>    
+FallBack> 
+Action Node ID=‘form line’, Args “center” >  form agent to align it towards center of window  <execute action =  forming a straight path /</action>",deepseek-coder-1.3b-instruct.Q4_K_M
+"detect an obstacle, avoid it, and then flock safely with other agents",two,104.00066566467285,"```xml
+    <?xml version=""1.0""?>  
+        <root BTCPP_format = ""3"", main tree to execute = `ObstacleAvoidanceFlockingTree` >   
+            <Behavior Tree ID= ``obstacle avoidance flocking and alignment''> 
+                <Sequence name  = `Main Sequence'>`    >        
+                    <is obstacle detected/> <!--- Check for obstacles --->  
+                        <fallback fallbacks = 'Alignment & Separation'/ >   
+                            <flock with swarm /><br/>> flocks the agent towards alignment and separation forces from nearby agents.  --> 
+                           <align_with_swarm/>  <-- Aligns movement of Agent to average movements  
+                        <fallback fallbacks = 'Normal Operations'> <!--- If obstacle not detected --- >   
+                            <sequence name  = `Obstacle Avoidance Sequence'/>>    
+avoid obstacles /><br/>  -- >  avoid the Obstacles Detected  and then perform a scan.  
+                               <perform_scan/>  <-- Performs Scan of Area for Intruders   
+                            <continue patrol when obstacle avoided;/> <!--- If no more threats detected --- >    
+                        <Fallback fallbacks = 'Normal Operations'>  -- >  Continue Normal Operation if Obstacles not Avoided.  
+                           <is_path clear/>  <-- Check for Clear Path ahead of Agent  and then move randomly or form line towards center   
+                            <move random /><br/>> Move Randomly within the environment    
+                        <Fallback fallbacks = 'Normal Operations'>  -- >  Continue Normal Operation if Obstacles not Avoided.  
+                           <is_line formed/>  <-- Check for Formation of Line with Center as Reference Point  and then move towards center   
+                            <form line /><br/>> Direct the agent to form a line toward中心点    
+                        <Fallback fallbacks = 'Normal Operations'>  -- >  Continue Normal Operation if Obstacles not Avoided.  
+                           <is_target reached/>  <-- Check for Reached Target and then move towards target   
+                            <move randomly /><br/>> Move Randomly within the environment    
+                        <Fallback fallbacks = 'Normal Operations'>  -- >  Continue Normal Operation if Obstacles not Avoided.  
+                           <change color to white, green or red as per requirement/.> <!--- Change Color of Agent based on its proximity --->   
+                            <is agent in nest/>> Check for the presence and location within a specific area (nest)    
+                        <Fallback fallbacks = 'Normal Operations'>  -- >  Continue Normal Operation if Obstacles not Avoided.  
+                           <freeze movement when obstacle avoided;/>  <-- Freezes Movement after avoiding an obstacles  to stop activity   
+                            <continue_movement/><br />> continues the agent’s previous movements    
+                        <Fallback fallbacks = 'Normal Operations'>  -- >  Continue Normal Operation if Obstacles not Avoided.  
+                           <is path clear and line formed with center as reference point/.> <!--- Check for Clear Path ahead of Agent, Form Line towards Center Point --->   
+                            <move randomly /><br/>> Move Randomly within the environment    
+                        <Fallback fallbacks = 'Normal Operations'>  -- >  Continue Normal Operation if Obstacles not Avoided.  
+                           <is target reached and close to it/.> <!--- Check for Reached Target, then move towards or approach as required --->   
+                            <move randomly /><br/>> Move Randomly within the environment    
+                        <Fallback fallbacks = 'Normal Operations'>  -- >  Continue Normal Operation if Obstacles not Avoided.  
+                           <change color to white when agent is in nest/.> <!--- Change Color of Agent based on its location --->   
+                            <is_agent_in_nest/>> Check for the presence and position within a specific area (Nest)    
+                        <Fallback fallbacks = 'Normal Operations'>  -- >  Continue Normal Operation if Obstacles not Avoided.  
+                           <freeze movement when obstacle avoided;/>  <-- Freezes Movement after avoiding an obstacles  to stop activity   
+                            <continue_movement/><br />> continues the agent’s previous movements    
+                        <Fallback fallbacks = 'Normal Operations'>  -- >  Continue Normal Operation if Obstacles not Avoided.  
+                           <is path clear and line formed with center as reference point/.> <!--- Check for Clear Path ahead of Agent, Form Line",deepseek-coder-1.3b-instruct.Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,35.266489028930664,"<root BTCPP_format = ""3"", main tree to execute = `WanderRandomlyTargetApproachChangeColorRedSequenceNameHere>`> 
+            <BehaviorTree ID= “WanderRandomlyTargetApproachChangeColorRed” > 
+                <Fallback name=""Normal Operations Sequence Name Here""/>  
+                    <Condition/> <!-- Insert Condition nodes here -->   
+                   <Action id = ""move_randomly"", editable = `true or false depending on whether the action is an editable node. `--> 
+                <Fallback name=""Normal Operations Sequence Name Here""/>  
+                    <Condition/> <!-- Insert Condition nodes here -->   
+                   <Action id = ""is_path_clear"", editable = `true or false depending on whether the action is an editable node. `-->     
+                <Fallback name=""Normal Operations Sequence Name Here""/>  
+                    <Condition/> <!-- Insert Condition nodes here -->   
+                   <Action id = ""is_line_formed"", editable = `true or false depending on whether the action is an editable node. `-->     
+                <Fallback name=""Normal Operations Sequence Name Here""/>  
+                    <Condition/> <!-- Insert Condition nodes here -->   
+                   <Action id = ""form_line"", editable = `true or false depending on whether the action is an editable node. `-->     
+            <BehaviorTreeModel ID=""WanderRandomlyTargetApproachChangeColorRedSequenceNameHere""/> <!-- Insert TreeNodesModels here -->  
+        </root>",deepseek-coder-1.3b-instruct.Q4_K_M
+"check if path is clear, form a line at the center",two,31.93405270576477,"<root BTCPP_format = ""3"", main tree to execute = `SecurityResponse ` >   
+            <BehaviorTree ID= “PathClearSequence”> 
+                <Fallback name  = ‘NormalOperations’ > 
+                    <is path clear/ >=  SUCCESS, FAILURE  >    
+                        <move randomly / >=SUCCESS ,FAILURE     >>       
+                            <form line at center if is_path_clear = TRUE >>   
+continue movement agent > =>TRUE      >>>        
+change color to white or green depending on the random number generated by moveRandomly action  >=>FALSE     )  ;; FALSE MEANS FAILED ACTIONS.     >>       
+                            </form line at center if is_path clear = TRUE >>   
+continue movement agent > =>TRUE      >>>        
+change color to white or green depending on the random number generated by moveRandomly action  >=>FALSE     )  ;; FALSE MEANS FAILED ACTIONS.     >>       
+                        </move randomly / >=SUCCESS ,FAILURE   > 
+                    <Fallback name  = 'AlarmAndNotification' > 
+                         <is intruder detected > => SUCCESS,  < is target reached  >=>FALSE     )  ;; FALSE MEANS FAILED ACTIONS.     >>       
+                        <sound alarm / >=SUCCESS ,FAILURE   > 
+                            <notify security team/>= SUCCESs,,FALSE >>      
+                    </Sequence >        
+                </BehaviorTree > 
+            </root>",deepseek-coder-1.3b-instruct.Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,78.18327116966248,"```xml
+    <?xml version=""1.0""?>  
+        <root BTCPP_format = ""3"", main tree to execute =  'GoalFinding'> 	    		 			   	 									     	   <BehaviorTree ID= ‘goalfind’, Name: GoToTheTarget >      						  <Sequence name=""Find the goal sequence”>        						<is_target_detected/><avoid_obstacle if is target detected;/> <align_with swarm agents /> 							<change color to red “>>  
+    ```   	    <TreeNodesModel ID = 'goalfind' , Name= ""GoToTheTarget"">       						<Condition id = ‘istargetdetected’, name= ”Is Target Detected?”/><Action Id  = changecolortored /> 							<Sequence > “Move randomly until target is reached. If it isn detected then avoid obstacles and align with other agents if not detectable return to start position"">  
+    ```   	    <Fallback id = 'fallback' , Name= ""Normal Operations""/></BehaviorTree>>   <root> 		 			     									  <Sequence name= “Start the process”, >is_agent_in nest /> <move randomly until target is reached if not detectable return to start position>  
+    ```   	    <Fallback id = 'fallback' , Name= ""Normal Operations""/></BehaviorTree>>   <root> 		 			     									  <Sequence name= “Start the process”, >is_agent_in nest /> <move randomly until target is reached if not detectable return to start position>  
+    ```   	    <Fallback id = 'fallback' , Name= ""Normal Operations""/></BehaviorTree>>   <root> 		 			     									  <Sequence name= “Start the process”, >is_agent_in nest /> <move randomly until target is reached if not detectable return to start position>  
+    ```   	    <Fallback id = 'fallback' , Name= ""Normal Operations""/></BehaviorTree>>   <root> 		 			     									  <Sequence name= “Start the process”, >is_agent_in nest /> <move randomly until target is reached if not detectable return to start position>  
+    ```   	    <Fallback id = 'fallback' , Name= ""Normal Operations""/></BehaviorTree>>   <root> 		 			     									  <Sequence name= “Start the process”, >is_agent_in nest /> <move randomly until target is reached if not detectable return to start position>  
+    ```   	    <Fallback id = 'fallback' , Name= ""Normal Operations""/></BehaviorTree>>   <root> 		 			     									  <Sequence name= “Start the process”, >is_agent_in nest /> <move randomly until target is reached if not detectable return to start position>  
+    ```   	    <Fallback id = 'fallback' , Name= ""Normal Operations""/></BehaviorTree>>   <root> 		 			     									  <Sequence name= “Start the process”, >is_agent_in nest /> <move randomly until target is reached if not detectable return to start position>  
+    ```   	    <Fallback id = 'fallback' , Name= ""Normal Operations""/></BehaviorTree>>   <root> 		 			     									  <Sequence name= “Start the process”, >is_agent_in nest /> <move randomly until target is reached if not detectable return to start position>  
+    ```   	    <Fallback id = 'fallback' , Name= ""Normal Operations""/></BehaviorTree>>   <root> 		 			     									  <Sequence name= “Start the process”, >is_agent_in nest /> <move randomly until target is reached if not detectable return to start position>  
+    ```   	    <Fallback id = 'fallback' , Name= ""Normal Operations""/></BehaviorTree>>   <root> 		 			     									  <Sequence name= “Start the process”, >is_agent_in nest /> <move randomly until target is reached if not detectable return to start position>  
+    ```   	    <Fallback id = 'fallback' , Name= ""Normal Operations""/></BehaviorTree>>   <root> 		 			     									  <Sequence name= “Start the process”, >is_agent_in nest /> <move randomly until target is reached if not detectable return to start position>  
+    ```   	    <F",deepseek-coder-1.3b-instruct.Q4_K_M
+"detect target, freeze movement upon reaching it",two,77.48027849197388,"```xml
+    <?xml version=""1.0""?>  
+        <root BTCPP_format = ""3"", main tree to execute = `TargetReachingAndFreezingBehaviorTreeID ` >   
+            <behaviourtree ID= ``, name  = 'Detect Target and Freeze Movement Upon Reaching It'> 
+                <sequence id=""1.0"",""name"":""StartSequence""/>  
+                    <condition node = ""is_target_detected"", args = `25 units away from the agent position `/ >   
+                        <Fallback name  = 'AlwaysFalse'/> <!-- This sequence will be executed if is target detected fails --> 
+                            <sequence id=""1.0"",""name"":""MoveRandomlySequence""/>  
+action node = ""move_randomly"", args = `None, as it's a wandering action `/ >   
+Fallback name  = 'AlwaysFalse'/> <!-- This sequence will be executed if move randomly fails --> 
+sequence id=""1.0"",""name"":""CheckPathClearSequence""/>  
+condition node = ""is_path_clear"", args = `None, as it's a condition `/ >   
+                                                <Fallback name  = 'AlwaysFalse'/> <!-- This sequence will be executed if is path clear fails --> 
+                                                    <sequence id=""1.0"",""name"":""FormLineSequence""/>  
+                                                        <condition node = ""is_line_formed"", args = `None, as it's a condition `/ >   
+<Fallback name  = 'AlwaysFalse'/> <!-- This sequence will be executed if is line formed fails --> 
+    <sequence id=""1.0"",""name"":""ChangeColorSequence""/>  
+        <action node = ""change_color"", args = `'white', as it changes the color `/ >   
+                                                              <Fallback name  = 'AlwaysFalse'/> <!-- This sequence will be executed if change color fails --> 
+          <sequence id=""1.0"",""name"":""ContinueMovementSequence""/>  
+            <action node = ""continue_movement"", args = `None, as it's an action `/ >   
+                                                    <Fallback name  = 'AlwaysFalse'/> <!-- This sequence will be executed if continue movement fails --> 
+                                                        <sequence id=""1.0"",""name"":""CheckAgentInNestSequence""/>  
+<action node = ""check_agent_in_nest"", args = `None, as it's an action `/ >   
+Fallback name  = 'AlwaysFalse'/> <!-- This sequence will be executed if check agent in nest fails --> 
+                                                <sequence id=""1.0"",""name"":""AvoidObstacleSequence""/>  
+                                                    <condition node = ""is_obstacle_detected"", args = `None, as it's a condition `/ >   
+<Fallback name  = 'AlwaysFalse'/> <!-- This sequence will be executed if is obstacle detected fails --> 
+    <sequence id=""1.0"",""name"":""AvoidObstaclesSequence""/>  
+                                                    <action node = ""avoid_obstacle"", args = `None, as it's an action `/ >   
+Fallback name  = 'AlwaysFalse'/> <!-- This sequence will be executed if avoid obstacles fails --> 
+<sequence id=""1.0"",""name"":""DetectTargetSequence""/>  
+                                                    <condition node = ""is_target_reached"", args = `None, as it's a condition `/ >   
+    <Fallback name  = 'AlwaysFalse'/> <!-- This sequence will be executed if is target reached fails --> 
+        <sequence id=""1.0"",""name"":""FreezeMovementSequence""/>  
+                                                    <action node = ""freeze_movement"", args = `None, as it's an action `/ >   
+Fallback name  = 'AlwaysFalse'/> <!-- This sequence will be executed if freeze movement fails --> 
+<sequence id=""1.0"",""name"":""EndSequence""/>  
+                                                    <action node = ""move_randomly"", args = `None, as it's an action `/ >   
+Fallback name  = 'AlwaysFalse'/> <!-- This sequence will be executed if move randomly fails --> 
+sequence id=""1.0"",""name"":""CheckPathClearSequence""/>  
+                                                <condition node = ""is_path_clear"", args = `None, as it's a condition `/ >   
+Fallback name  = 'AlwaysFalse'/",deepseek-coder-1.3b-instruct.Q4_K_M
