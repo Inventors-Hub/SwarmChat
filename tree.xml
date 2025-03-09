@@ -1,12 +1,17 @@
-<root BTCPP_format="3" main_tree_to_execute="ShapeVerticalLine">  
-        <BehaviorTree ID="ShapeVerticalLine">    
-            <Sequence name="Form Vertical Line Sequence">      
-                <is_path_clear/>      
-                <form_line/>      
-            </Sequence>    
-        </BehaviorTree>  
-        <TreeNodesModel>    
-            <Condition ID="is_path_clear"/>    
-            <Action ID="form_line"/>   
-        </TreeNodesModel>
+<root BTCPP_format="3" main_tree_to_execute="FormLineMiddleScreen">  
+	    <BehaviorTree ID="FormLineMiddleScreen">    
+		    <Sequence name="Form Line Sequence">      
+			    <is_path_clear/>      
+			    <form_line/>      
+			    <continue_movement_agent/>    
+		    </Sequence>  
+	    </BehaviorTree>  
+	    <TreeNodesModel>    
+		    <Condition ID="is_path_clear"/>    
+		    <Action ID="form_line"/>    
+		    <Action ID="continue_movement_agent"/>    
+		    <Action ID="change_color" editable="true">
+      		<input_port name="color"/>
+    	    </Action>
+	    </TreeNodesModel>
     </root>
