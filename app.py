@@ -169,9 +169,8 @@ def create_gradio_interface():
         streamer.stop_simulation()
         return gr.update(visible=False)
     
-    behaviors = bt_generator.call_behaviors()
-    formatted_behaviors = "\n".join(f"- **{name}**: {doc}" for name, doc in behaviors.items())
-
+    behaviors = bt_generator.call_behaviors()       
+    formatted_behaviors = "\n".join(f"- **{name}**: {doc.split('Returns:')[0].strip()}" for name, doc in behaviors.items())
 
     # Gradio Interface
     with gr.Blocks() as demo:
@@ -191,18 +190,21 @@ def create_gradio_interface():
                 with gr.Row():
                     with gr.Column():
                         microphone_input = gr.Audio(sources=["microphone"], type="filepath", label="🎙️ Record Audio")
-                        safety_checkbox = gr.Checkbox(label="Turn off Safety Model")
-                        safty_check_audio = gr.Textbox(label="✅ Safety Check")
+                        safety_checkbox = gr.Checkbox(label="Turn off Safety Model")                        
                     with gr.Column():
-                        output_text_audio = gr.Textbox(label="📄 Translated Instructions")
-                        generated_BT_audio = gr.Textbox(label="Generated behavior tree")
+                        output_text_audio = gr.Textbox(label="📄 Translated Instructions" )
+                        safty_check_audio = gr.Textbox(label="✅ Safety Check")
+                        
                 
-
                 translate_button_audio = gr.Button("Send Audio")
 
                 simulation_output = gr.Image(label="Live Stream", streaming=True, visible=False)
                 stop_button = gr.Button("Stop Simulation")
-                gr.Markdown(f"### Available Behaviors\n{formatted_behaviors}")
+                with gr.Row():
+                    with gr.Column():
+                        gr.Markdown(f"### Available Behaviors\n{formatted_behaviors}")
+                    with gr.Column():
+                        generated_BT_audio = gr.Textbox(label="Generated behavior tree")
                 
                 translate_button_audio.click(
                     fn=speech_processing.translate_audio,
@@ -243,17 +245,20 @@ def create_gradio_interface():
                 with gr.Row():
                     with gr.Column():
                         text_input = gr.Textbox(lines=4, placeholder="Enter your instructions here...", label="📝 Input Text")
-                        safety_checkbox_text = gr.Checkbox(label="Turn off Safety Model")
-                        safty_check_text = gr.Textbox(label="✅ Safety Check")
+                        safety_checkbox_text = gr.Checkbox(label="Turn off Safety Model")                        
                     with gr.Column():
-                        output_text_text = gr.Textbox(label="📄 Processed Commands", lines=5)
-                        generated_BT_text = gr.Textbox(label="Generated behavior tree")
+                        output_text_text = gr.Textbox(label="📄 Processed Commands", lines=2)
+                        safty_check_text = gr.Textbox(label="✅ Safety Check")
 
                 process_button_text = gr.Button("Send Text")
 
                 simulation_output = gr.Image(label="Live Stream", streaming=True, visible=False)
                 stop_button = gr.Button("Stop Simulation")
-                gr.Markdown(f"### Available Behaviors\n{formatted_behaviors}")
+                with gr.Row():
+                    with gr.Column():
+                        gr.Markdown(f"### Available Behaviors\n{formatted_behaviors}")
+                    with gr.Column():
+                        generated_BT_text = gr.Textbox(label="Generated behavior tree")
 
                 process_button_text.click(
                     fn=text_processing.translate_text,
