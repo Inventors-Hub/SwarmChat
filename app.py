@@ -169,7 +169,8 @@ def create_gradio_interface():
         streamer.stop_simulation()
         return gr.update(visible=False)
     
-
+    behaviors = bt_generator.call_behaviors()
+    formatted_behaviors = "\n".join(f"- **{name}**: {doc}" for name, doc in behaviors.items())
 
 
     # Gradio Interface
@@ -195,11 +196,13 @@ def create_gradio_interface():
                     with gr.Column():
                         output_text_audio = gr.Textbox(label="📄 Translated Instructions")
                         generated_BT_audio = gr.Textbox(label="Generated behavior tree")
+                
 
                 translate_button_audio = gr.Button("Send Audio")
 
                 simulation_output = gr.Image(label="Live Stream", streaming=True, visible=False)
                 stop_button = gr.Button("Stop Simulation")
+                gr.Markdown(f"### Available Behaviors\n{formatted_behaviors}")
                 
                 translate_button_audio.click(
                     fn=speech_processing.translate_audio,
@@ -250,6 +253,7 @@ def create_gradio_interface():
 
                 simulation_output = gr.Image(label="Live Stream", streaming=True, visible=False)
                 stop_button = gr.Button("Stop Simulation")
+                gr.Markdown(f"### Available Behaviors\n{formatted_behaviors}")
 
                 process_button_text.click(
                     fn=text_processing.translate_text,
