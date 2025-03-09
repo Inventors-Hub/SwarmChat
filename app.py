@@ -1,14 +1,14 @@
 import gradio as gr
 from pygame import Vector2
-from simulator_env import StreamableSimulation, SwarmAgent, MyConfig, MyWindow
 import time
 import threading
 import queue
+from simulator_env import StreamableSimulation, SwarmAgent, MyConfig, MyWindow
 
-# import speech_processing
-# import text_processing
-# import safety_module
-# import bt_generator
+import speech_processing
+import text_processing
+import safety_module
+import bt_generator
 
 
 class GradioStreamer:
@@ -149,9 +149,12 @@ def test_LLM_generate_BT(temp):
     print(temp)
     return None
 
+
+
+
+
 def stop_gradio_interface():
     raise Exception("Simulation stopped!")
-
 
 
 def create_gradio_interface():
@@ -199,13 +202,13 @@ def create_gradio_interface():
                 stop_button = gr.Button("Stop Simulation")
                 
                 translate_button_audio.click(
-                    # fn=speech_processing.translate_audio,
-                    fn=test,
+                    fn=speech_processing.translate_audio,
+                    # fn=test,
                     inputs=microphone_input,
                     outputs=output_text_audio
                 ).then(
-                    # fn=safety_module.check_safety, 
-                    fn=test_safe,
+                    fn=safety_module.check_safety, 
+                    # fn=test_safe,
                     inputs=[output_text_audio,safety_checkbox], 
                     outputs=safty_check_audio
                 ).then(
@@ -213,8 +216,8 @@ def create_gradio_interface():
                     inputs=safty_check_audio, 
                     outputs=None
                 ).success(
-                    # fn=bt_generator.generate_behavior_tree,
-                    fn=test_LLM_generate_BT,
+                    fn=bt_generator.generate_behavior_tree,
+                    # fn=test_LLM_generate_BT,
                     inputs=output_text_audio, 
                     outputs=generated_BT_audio
                 ).success(                    
@@ -249,13 +252,13 @@ def create_gradio_interface():
                 stop_button = gr.Button("Stop Simulation")
 
                 process_button_text.click(
-                    # fn=text_processing.translate_text,
-                    fn=test,
+                    fn=text_processing.translate_text,
+                    # fn=test,
                     inputs=text_input,
                     outputs=output_text_text
                 ).then(
-                    # fn=safety_module.check_safety, 
-                    fn=test_safe,
+                    fn=safety_module.check_safety, 
+                    # fn=test_safe,
                     inputs=[output_text_text,safety_checkbox_text], 
                     outputs=safty_check_text
                 ).then(
@@ -263,8 +266,8 @@ def create_gradio_interface():
                     inputs=safty_check_text, 
                     outputs=None
                 ).success(
-                    # fn=bt_generator.generate_behavior_tree,
-                    fn=test_LLM_generate_BT,
+                    fn=bt_generator.generate_behavior_tree,
+                    # fn=test_LLM_generate_BT,
                     inputs=output_text_text, 
                     outputs=generated_BT_text
                 ).success(                    

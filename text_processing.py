@@ -4,15 +4,11 @@ import struct
 print(struct.calcsize("P") * 8, "bit")
 
 
-model_path = r"G:\Inventors Hub Projects\SwarmChat\model\EuroLLM-9B-Instruct-Q4_K_M.gguf"
+model_path = r"G:\Inventors Hub Projects\SwarmChat\models\EuroLLM-9B-Instruct-Q4_K_M.gguf"
 print("Model exists?", os.path.exists(model_path))
 
-try:
-    # Try initializing with some extra parameters if available
-    llm = Llama(model_path=model_path, n_ctx=1024)#, verbose=True)
-    print("Llama backend initialized successfully!")
-except Exception as e:
-    print("Initialization failed with error:", e)
+llm = Llama(model_path=model_path, n_ctx=1024)#, verbose=True)
+print("Llama backend initialized successfully!")
 
 
 

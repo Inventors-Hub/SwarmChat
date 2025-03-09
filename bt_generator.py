@@ -4,7 +4,7 @@ import re
 from llama_cpp import Llama
 
 # Load the Llama model for safety classification
-model_path = r"G:\Inventors Hub Projects\SwarmChat\model\DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf"
+model_path = r"G:\Inventors Hub Projects\SwarmChat\model\deepseek-coder-6.7b-instruct.Q4_K_M.gguf"
 llm = Llama(model_path=model_path, n_ctx=1024*4)
 
 def call_behaviors() -> dict:
@@ -41,20 +41,17 @@ def save_behavior_tree(tree_xml: str, file_name: str = "tree.xml") -> None:
     with open(file_name, "w", encoding="utf-8") as f:
         f.write(tree_xml)
 
-def generate_behavior_tree(task_prompt: str) -> str:
-    """
-    Generates a behavior tree for the provided task prompt.
-    It gathers available behaviors, constructs an informative prompt including an XML template,
-    calls the Llama model, extracts the behavior tree XML, saves it, and returns the response.
-    """
+
+def construct_prompt(prompt: str, prompt_type: str="two") -> str:
+
     behaviors = call_behaviors()
     behaviors_text = "\n".join(f"{name}: {doc}" for name, doc in behaviors.items())
-           
-    # Construct a plain prompt that instructs the model to generate XML strictly following the example.
-    plain_prompt = f"""
+
+    plan_prompt = f"""
+    <s>
     <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
-    INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {behaviors_text} to construct behavior tree in XML format to the following command, including in the behaviour tree a behaviour that is not in the provided dictionary can result in damage to the agents, and potentially humans, therefore you are not allowed to do so, AVOID AT ALL COSTS.
-    USER COMMAND: generate behavior tree to "{task_prompt}". Take a step back and think deeply about the behavior you need for this command. Take another step back and think of the xml structure and the behavior you used.
+    INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {behaviors_text} to construct behavior tree in XML format for the following command. Including any behavior that is not in the provided dictionary can result in damage to the agents and potentially humans, therefore you are not allowed to do so. AVOID AT ALL COSTS.
+    USER COMMAND: generate behavior tree to "{prompt}". Take a step back and think deeply about the behavior you need for this command. Consider the XML structure and the behaviors you use.
     The output MUST follow this XML structure exactly, including:
     - A root element with BTCPP_format and main_tree_to_execute attributes.
     - A <BehaviorTree> element with an inner structure of Sequences, Fallback, Conditions, and Actions.
@@ -64,10 +61,30 @@ def generate_behavior_tree(task_prompt: str) -> str:
     OUTPUT:
     """
 
-    print(plain_prompt)
+    if prompt_type == "zero":
+        return plan_prompt
+    elif prompt_type == "one":
+        path = r"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\prompt_engineering\prompt_types\One_shot.txt"
+        with open(path, "r", encoding="utf-8") as file:
+            file_content = file.read()
+        return f"{file_content} {plan_prompt}"
+    elif prompt_type == "two":
+        path = r"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\prompt_engineering\prompt_types\Two Shot.txt"
+        with open(path, "r", encoding="utf-8") as file:
+            file_content = file.read()
+        return f"{file_content} {plan_prompt}"
+    else:
+        raise ValueError("Unknown prompt type provided.")
+    
+
+def generate_behavior_tree(task_prompt: str) -> str:
+
+    prompt = construct_prompt(task_prompt)
+
+    print("\n\n",prompt,"\n\n")
 
     output = llm(
-        plain_prompt,
+        prompt,
         temperature=0,
         max_tokens=1024,
         top_p=0.95,
@@ -78,7 +95,7 @@ def generate_behavior_tree(task_prompt: str) -> str:
     tree_xml = extract_behavior_tree(response)
     save_behavior_tree(tree_xml)
     print("\n response: \n", response)
-    return response
+    return tree_xml
 
 
 # Example usage:

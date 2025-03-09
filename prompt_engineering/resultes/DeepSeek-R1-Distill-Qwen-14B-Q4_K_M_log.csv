@@ -1,0 +1,318 @@
+Prompt,Prompt Type,Time,Behavior Tree,Model Name
+"detect an obstacle, avoid it, and then flock safely with other agents",zero,220.52844905853271,"XML BEHAVIOR TREE
+</think>
+
+```xml
+<BehaviorTree>
+    <Root>
+        <Sequence>
+            <Fallback>
+                <ActionNode>is_obstacle_detected</ActionNode>
+                    <ActionNode>avoid_obstacle</ActionNode>
+            </Fallback>
+            <Sequence>
+                <ConditionNode>is_agent_in_nest</ConditionNode>
+                    <ActionNode>flocking</ActionNode>
+                        <ConditionNode>is_target_reached</ConditionNode>
+                            <ActionNode>change_color</ActionNode>
+                                <Argument>color=""green""</Argument>
+                            </ActionNode>
+            </Sequence>
+        </Sequence>
+    </Root>
+</BehaviorTree>
+```",DeepSeek-R1-Distill-Qwen-14B-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,82.63874578475952,"XML BEHAVIOR TREE
+</think>
+
+```xml
+<BehaviorTree>
+    <Root>
+        <Sequence>
+            <ActionNode>move_randomly</ActionNode>
+            <ConditionNode is_obstacle_detected>
+                <Fallback>
+                    <ActionNode>avoid_obstacle</ActionNode>
+                    <Continue>
+                        <Sequence>
+                            <ActionNode>move_randomly</ActionNode>
+                        </Sequence>
+                    </Continue>
+                </Fallback>
+            </ConditionNode>
+            <ConditionNode is_target_detected>
+                <Success>
+                    <Sequence>
+                        <ActionNode>form_line</ActionNode>
+                        <ActionNode>change_color Args=""red""</ActionNode>
+                    </Sequence>
+                </Success>
+                <Failure>
+                    <Sequence>
+                        <ActionNode>move_randomly</ActionNode>
+                    </Sequence>
+                </Failure>
+            </ConditionNode>
+        </Sequence>
+    </Root>
+</BehaviorTree>
+```",DeepSeek-R1-Distill-Qwen-14B-Q4_K_M
+"check if path is clear, form a line at the center",zero,93.21925187110901,"XML BEHAVIOR TREE
+</think>
+
+```xml
+<?xml version=""1.0"" encoding=""utf-8""?>
+<BehaviorTree xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <BTCPP_format>1.5</BTCPP_format>
+  <main_tree_to_execute>CheckPathAndFormLine</main_tree_to_execute>
+  <TreeNodesModel>
+    <node_model id=""CheckPathAndFormLine"" type=""Sequence"">
+      <children>
+        <child id=""IsPathClear""></child>
+        <child id=""FormLine""></child>
+      </children>
+    </node_model>
+    <node_model id=""IsPathClear"" type=""Condition"">
+      <parameters>
+        <parameter name=""condition"">is_path_clear</parameter>
+      </parameters>
+    </node_model>
+    <node_model id=""FormLine"" type=""Action"">
+      <parameters>
+        <parameter name=""action"">form_line</parameter>
+      </parameters>
+    </node_model>
+  </TreeNodesModel>
+</BehaviorTree>
+```",DeepSeek-R1-Distill-Qwen-14B-Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,106.42045617103577,"XML BEHAVIOR TREE
+</think>
+
+```xml
+<?xml version=""1.0"" encoding=""utf-8""?>
+<BehaviorTree xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <BTCPP_format>1.5</BTCPP_format>
+  <main_tree_to_execute>FindGoalAndSignalSuccess</main_tree_to_execute>
+  <TreeNodesModel>
+    <node_model id=""FindGoalAndSignalSuccess"" type=""Sequence"">
+      <children>
+        <ref>IsTargetDetected</ref>
+        <ref>ChangeColorToRed</ref>
+        <ref>AlignWithSwarm</ref>
+      </children>
+    </node_model>
+    <node_model id=""IsTargetDetected"" type=""Condition"">
+      <configuration>
+        <param name=""detect_distance"">20</param>
+      </configuration>
+    </node_model>
+    <node_model id=""ChangeColorToRed"" type=""Action"">
+      <configuration>
+        <param name=""color"">red</param>
+      </configuration>
+    </node_model>
+    <node_model id=""AlignWithSwarm"" type=""Action"">
+    </node_model>
+  </TreeNodesModel>
+</BehaviorTree>
+```",DeepSeek-R1-Distill-Qwen-14B-Q4_K_M
+"detect target, freeze movement upon reaching it",zero,104.98718786239624,"XML BEHAVIOR TREE:
+</think>
+
+```xml
+<?xml version=""1.0"" encoding=""utf-8""?>
+<BehaviorTree xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <BTCPP_format>1.5</BTCPP_format>
+  <main_tree_to_execute>detect_target_freeze_on_reach</main_tree_to_execute>
+  <TreeNodesModel>
+    <node_model id=""Sequence"" name=""Sequence"" type=""SEQ""/>
+    <node_model id=""Fallback"" name=""Fallback"" type=""FALLB""/>
+    <node_model id=""Action"" name=""Action"" type=""ACT""/>
+    <node_model id=""Condition"" name=""Condition"" type=""COND""/>
+  </TreeNodesModel>
+  <Trees>
+    <tree id=""detect_target_freeze_on_reach"">
+      <Sequence>
+        <is_target_detected>
+          <fallback>
+            <agent_movement_freeze/>
+          </fallback>
+        </is_target_detected>
+        <is_target_reached>
+          <fallback>
+            <agent_movement_freeze/>
+          </fallback>
+        </is_target_reached>
+      </Sequence>
+    </tree>
+  </Trees>
+</BehaviorTree>
+```",DeepSeek-R1-Distill-Qwen-14B-Q4_K_M
+"detect an obstacle, avoid it, and then flock safely with other agents",one,288.7568836212158,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidanceAndFlocking"">
+        <BehaviorTree ID=""ObstacleAvoidanceAndFlocking"">
+            <Fallback name=""ObstacleHandling""> <!-- Fallback in case obstacle is detected -->
+                <Sequence name=""ObstacleDetected"">
+                    <is_obstacle_detected/>
+                    <avoid_obstacle/>
+                </Sequence>
+                <Sequence name=""NoObstacle"">
+                    <flocking/>
+                    <align_with_swarm/>
+                </Sequence>
+            </Fallback>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_obstacle_detected""/>
+            <Action ID=""avoid_obstacle"" editable=""true""/>
+            <Action ID=""flocking"" editable=""true""/>
+            <Action ID=""align_with_swarm"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",DeepSeek-R1-Distill-Qwen-14B-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,94.2650682926178,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderAndApproach"">  
+	<BehaviorTree ID=""WanderAndApproach"">    
+		<Selector name=""Main Decision"">      
+			<Sequence name=""Wander Sequence"">        
+				<move_randomly/>        
+				<is_target_detected/>      
+			</Sequence>      
+			<Sequence name=""Approach Sequence"">        
+				<form_line/>        
+				<change_color color=""red""/>      
+			</Sequence>    
+		</Selector>  
+	</BehaviorTree>  
+	<TreeNodesModel>    
+		<Action ID=""move_randomly"" editable=""true""/>    
+		<Condition ID=""is_target_detected""/>    
+		<Action ID=""form_line"" editable=""true""/>    
+		<Action ID=""change_color"" editable=""true""/>  
+	</TreeNodesModel>
+</root>",DeepSeek-R1-Distill-Qwen-14B-Q4_K_M
+"check if path is clear, form a line at the center",one,61.68918418884277,"<root BTCPP_format=""3"" main_tree_to_execute=""PathCheckingAndLineFormation"">  
+	<BehaviorTree ID=""PathCheckingAndLineFormation"">    
+		<Sequence name=""PathClearCheckAndLineFormation"">      
+			<is_path_clear/>      
+			<form_line/>    
+		</Sequence>  
+	</BehaviorTree>  
+	<TreeNodesModel>    
+		<Condition ID=""is_path_clear""/>    
+		<Action ID=""form_line"" editable=""true""/>  
+	</TreeNodesModel>
+</root>",DeepSeek-R1-Distill-Qwen-14B-Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,74.24947762489319,"<root BTCPP_format=""3"" main_tree_to_execute=""SwarmBehavior"">  
+	<BehaviorTree ID=""SwarmBehavior"">    
+		<Sequence name=""Goal Seeking and Alignment"">      
+			<is_target_detected/>      
+			<change_color args=""red""/>      
+			<align_with_swarm/>    
+		</Sequence>  
+	</BehaviorTree>  
+	<TreeNodesModel>    
+		<Condition ID=""is_target_detected""/>    
+		<Action ID=""change_color"" editable=""true"" args=""red""/>    
+		<Action ID=""align_with_swarm"" editable=""true""/>  
+	</TreeNodesModel>
+</root>",DeepSeek-R1-Distill-Qwen-14B-Q4_K_M
+"detect target, freeze movement upon reaching it",one,79.80105519294739,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetectionAndMovement"">  
+	<BehaviorTree ID=""TargetDetectionAndMovement"">    
+		<Sequence name=""Target Detection and Movement Sequence"">      
+			<is_target_detected/>      
+			<Sequence name=""Reach Target and Freeze"">        
+				<is_target_reached/>        
+				<agent_movement_freeze/>      
+			</Sequence>    
+		</Sequence>  
+	</BehaviorTree>  
+	<TreeNodesModel>    
+		<Condition ID=""is_target_detected""/>    
+		<Condition ID=""is_target_reached""/>    
+		<Action ID=""agent_movement_freeze"" editable=""true""/>  
+	</TreeNodesModel>
+</root>",DeepSeek-R1-Distill-Qwen-14B-Q4_K_M
+"detect an obstacle, avoid it, and then flock safely with other agents",two,224.28858494758606,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidanceAndFlocking"">  
+	<BehaviorTree ID=""ObstacleAvoidanceAndFlocking"">    
+		<Sequence name=""Obstacle Handling and Flocking"">      
+			<is_obstacle_detected/>      
+			<avoid_obstacle/>      
+			<flocking/>    
+		</Sequence>  
+	</BehaviorTree>  
+	<TreeNodesModel>    
+		<Condition ID=""is_obstacle_detected""/>    
+		<Action ID=""avoid_obstacle"" editable=""true""/>    
+		<Action ID=""flocking"" editable=""true""/>    
+		<Control ID=""Sequence"" editable=""true""/>  
+	</TreeNodesModel>
+</root>",DeepSeek-R1-Distill-Qwen-14B-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,107.77777075767517,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderAndApproach"">  
+	<BehaviorTree ID=""WanderAndApproach"">    
+		<Sequence name=""Main Sequence"">      
+			<is_target_detected/>      
+			<Fallback name=""Target Not Detected"">        
+				<move_randomly/>        
+				<Continue>          
+					<is_target_detected/>          
+					<Sequence>            
+						<form_line/>            
+						<change_color args=""red""/>          
+					</Sequence>        
+				</Continue>      
+			</Fallback>    
+		</Sequence>  
+	</BehaviorTree>  
+	<TreeNodesModel>    
+		<Condition ID=""is_target_detected""/>    
+		<Action ID=""move_randomly"" editable=""true""/>    
+		<Control ID=""Continue"" editable=""true""/>    
+		<Condition ID=""form_line"" editable=""true""/>    
+		<Action ID=""change_color"" editable=""true""/>  
+	</TreeNodesModel>
+</root>",DeepSeek-R1-Distill-Qwen-14B-Q4_K_M
+"check if path is clear, form a line at the center",two,68.51905727386475,"<root BTCPP_format=""3"" main_tree_to_execute=""PathCheckingAndLineFormation"">  
+	<BehaviorTree ID=""PathCheckingAndLineFormation"">    
+		<Sequence name=""PathClearanceCheck"">      
+			<is_path_clear/>      
+			<form_line/>    
+		</Sequence>  
+	</BehaviorTree>  
+	<TreeNodesModel>    
+		<Condition ID=""is_path_clear""/>    
+		<Action ID=""form_line"" editable=""true""/>  
+	</TreeNodesModel>
+</root>",DeepSeek-R1-Distill-Qwen-14B-Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,84.96645140647888,"<root BTCPP_format=""3"" main_tree_to_execute=""SwarmBehavior"">
+    <BehaviorTree ID=""SwarmBehavior"">
+        <Sequence name=""Goal Seeking and Alignment"">
+            <is_target_detected/>
+            <Sequence name=""Success Indication and Swarm Alignment"">
+                <change_color>red</change_color>
+                <align_with_swarm/>
+            </Sequence>
+        </Sequence>
+    </BehaviorTree>
+    <TreeNodesModel>
+        <Condition ID=""is_target_detected""/>
+        <Action ID=""change_color"" editable=""true"">
+            <arg name=""color"">red</arg>
+        </Action>
+        <Action ID=""align_with_swarm"" editable=""true""/>
+    </TreeNodesModel>
+</root>",DeepSeek-R1-Distill-Qwen-14B-Q4_K_M
+"detect target, freeze movement upon reaching it",two,86.47728657722473,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetectionAndMovement"">  
+	<BehaviorTree ID=""TargetDetectionAndMovement"">    
+		<Sequence name=""Target Detection and Movement Control"">      
+			<is_target_detected/>      
+			<Sequence name=""Reach Target Handling"">        
+				<is_target_reached/>        
+				<agent_movement_freeze/>      
+			</Sequence>    
+		</Sequence>  
+	</BehaviorTree>  
+	<TreeNodesModel>    
+		<Condition ID=""is_target_detected""/>    
+		<Condition ID=""is_target_reached""/>    
+		<Action ID=""agent_movement_freeze"" editable=""true""/>    
+		<Control ID=""Sequence"" editable=""true""/>  
+	</TreeNodesModel>
+</root>",DeepSeek-R1-Distill-Qwen-14B-Q4_K_M

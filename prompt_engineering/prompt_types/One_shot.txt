@@ -30,9 +30,12 @@ RESPONSE:
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID="is_battery_low"/>    
-		<Action ID="charge_battery" editable="true"/>    
-		<Action ID="patrol_area" editable="true"/>    
-		<Action ID="report_status" editable="true"/>  
+		<Action ID="charge_battery"/>    
+		<Action ID="patrol_area"/>    
+		<Action ID="report_status"/>  
+		<Action ID="change_color" editable="true">
+      	<input_port name="color"/>
+    	</Action>
 	</TreeNodesModel>
 </root>
 </s>

@@ -1,0 +1,276 @@
+Prompt,Prompt Type,Time,Behavior Tree,Model Name
+"detect an obstacle, avoid it, and then flock safely with other agents",zero,379.5103487968445,"```xml
+    <BehaviorTree BTCPP_format=""1.0"" main_tree_to_execute=""main"">
+        <TreeNodesModel>
+            <NodeModel name=""say"" type=""Action""/>
+            <NodeModel name=""flocking"" type=""Action""/>
+            <NodeModel name=""align_with_swarm"" type=""Action""/>
+            <NodeModel name=""is_obstacle_detected"" type=""Condition""/>
+            <NodeModel name=""avoid_obstacle"" type=""Action""/>
+        </TreeNodesModel>
+        <BehaviorTree ID=""main"">
+            <Sequence>
+                <Condition name=""is_obstacle_detected""/>
+                <Action name=""avoid_obstacle""/>
+                <Action name=""flocking""/>
+            </Sequence>
+        </BehaviorTree>
+    </BehaviorTree>
+    ```",Qwen2.5-Coder-7B-Instruct-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,261.70177006721497,"```xml
+    <BehaviorTree BTCPP_format=""1.0"" main_tree_to_execute=""main"">
+        <TreeNodesModel>
+            <NodeModel name=""say"" type=""Action""/>
+            <NodeModel name=""flocking"" type=""Action""/>
+            <NodeModel name=""align_with_swarm"" type=""Action""/>
+            <NodeModel name=""is_obstacle_detected"" type=""Condition""/>
+            <NodeModel name=""avoid_obstacle"" type=""Action""/>
+            <NodeModel name=""is_target_detected"" type=""Condition""/>
+            <NodeModel name=""is_target_reached"" type=""Condition""/>
+            <NodeModel name=""change_color"" type=""Action""/>
+            <NodeModel name=""is_agent_in_nest"" type=""Condition""/>
+            <NodeModel name=""agent_movement_freeze"" type=""Action""/>
+            <NodeModel name=""continue_movement_agent"" type=""Action""/>
+            <NodeModel name=""move_randomly"" type=""Action""/>
+            <NodeModel name=""is_path_clear"" type=""Condition""/>
+            <NodeModel name=""is_line_formed"" type=""Condition""/>
+            <NodeModel name=""form_line"" type=""Action""/>
+        </TreeNodesModel>
+        <BehaviorTree id=""main"">
+            <Sequence id=""wander_until_target"">
+                <Action id=""move_randomly""/>
+                <Condition id=""is_target_detected""/>
+            </Sequence>
+            <Sequence id=""approach_target"">
+                <Action id=""agent_movement_freeze""/>
+                <Action id=""change_color"" args=""red""/>
+            </Sequence>
+        </BehaviorTree>
+    </BehaviorTree>
+    ```",Qwen2.5-Coder-7B-Instruct-Q4_K_M
+"check if path is clear, form a line at the center",zero,107.83073854446411,"```xml
+    <BehaviorTree BTCPP_format=""1.0"" main_tree_to_execute=""main"">
+        <TreeNodesModel>
+            <NodeModel name=""is_path_clear"" type=""Condition""/>
+            <NodeModel name=""form_line"" type=""Action""/>
+        </TreeNodesModel>
+        <Sequence name=""main"">
+            <Condition name=""is_path_clear""/>
+            <Action name=""form_line""/>
+        </Sequence>
+    </BehaviorTree>
+    ```",Qwen2.5-Coder-7B-Instruct-Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,240.3316843509674,"```xml
+    <BehaviorTree BTCPP_format=""1.0"" main_tree_to_execute=""main"">
+        <TreeNodesModel>
+            <NodeModel name=""say"" type=""Action""/>
+            <NodeModel name=""flocking"" type=""Action""/>
+            <NodeModel name=""align_with_swarm"" type=""Action""/>
+            <NodeModel name=""is_obstacle_detected"" type=""Condition""/>
+            <NodeModel name=""avoid_obstacle"" type=""Action""/>
+            <NodeModel name=""is_target_detected"" type=""Condition""/>
+            <NodeModel name=""is_target_reached"" type=""Condition""/>
+            <NodeModel name=""change_color"" type=""Action""/>
+            <NodeModel name=""is_agent_in_nest"" type=""Condition""/>
+            <NodeModel name=""agent_movement_freeze"" type=""Action""/>
+            <NodeModel name=""continue_movement_agent"" type=""Action""/>
+            <NodeModel name=""move_randomly"" type=""Action""/>
+            <NodeModel name=""is_path_clear"" type=""Condition""/>
+            <NodeModel name=""is_line_formed"" type=""Condition""/>
+            <NodeModel name=""form_line"" type=""Action""/>
+        </TreeNodesModel>
+        <BehaviorTree id=""main"">
+            <Sequence>
+                <say message=""Finding the goal...""/>
+                <flocking/>
+                <align_with_swarm/>
+                <change_color color=""red""/>
+            </Sequence>
+        </BehaviorTree>
+    </BehaviorTree>
+    ```",Qwen2.5-Coder-7B-Instruct-Q4_K_M
+"detect target, freeze movement upon reaching it",zero,239.83655333518982,"```xml
+    <BehaviorTree BTCPP_format=""1.0"" main_tree_to_execute=""main"">
+        <TreeNodesModel>
+            <NodeModel name=""say"" type=""Action""/>
+            <NodeModel name=""flocking"" type=""Action""/>
+            <NodeModel name=""align_with_swarm"" type=""Action""/>
+            <NodeModel name=""is_obstacle_detected"" type=""Condition""/>
+            <NodeModel name=""avoid_obstacle"" type=""Action""/>
+            <NodeModel name=""is_target_detected"" type=""Condition""/>
+            <NodeModel name=""is_target_reached"" type=""Condition""/>
+            <NodeModel name=""change_color"" type=""Action""/>
+            <NodeModel name=""is_agent_in_nest"" type=""Condition""/>
+            <NodeModel name=""agent_movement_freeze"" type=""Action""/>
+            <NodeModel name=""continue_movement_agent"" type=""Action""/>
+            <NodeModel name=""move_randomly"" type=""Action""/>
+            <NodeModel name=""is_path_clear"" type=""Condition""/>
+            <NodeModel name=""is_line_formed"" type=""Condition""/>
+            <NodeModel name=""form_line"" type=""Action""/>
+        </TreeNodesModel>
+        <BehaviorTree id=""main"">
+            <Sequence>
+                <Condition name=""is_target_detected""/>
+                <Action name=""agent_movement_freeze""/>
+                <Condition name=""is_target_reached""/>
+            </Sequence>
+        </BehaviorTree>
+    </BehaviorTree>
+    ```",Qwen2.5-Coder-7B-Instruct-Q4_K_M
+"detect an obstacle, avoid it, and then flock safely with other agents",one,578.5613815784454,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidanceAndFlocking"">
+        <BehaviorTree ID=""ObstacleAvoidanceAndFlocking"">
+            <Sequence name=""Main Sequence"">
+                <is_obstacle_detected/>
+                <Fallback name=""Avoid Obstacle Fallback"">
+                    <avoid_obstacle/>
+                    <flock/>
+                </Fallback>
+                <flock/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_obstacle_detected""/>
+            <Action ID=""avoid_obstacle""/>
+            <Action ID=""flock""/>
+        </TreeNodesModel>
+    </root>",Qwen2.5-Coder-7B-Instruct-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,165.0085687637329,"<root BTCPP_format=""3"" main_tree_to_execute=""RandomWander"">
+        <BehaviorTree ID=""RandomWander"">
+            <Sequence name=""Main Sequence"">
+                <move_randomly/>
+                <is_target_detected/>
+                <if>
+                    <then>
+                        <approach_target/>
+                        <change_color color=""red""/>
+                    </then>
+                </if>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Action ID=""move_randomly"" editable=""true""/>
+            <Condition ID=""is_target_detected"" editable=""true""/>
+            <Action ID=""approach_target"" editable=""true""/>
+            <Action ID=""change_color"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",Qwen2.5-Coder-7B-Instruct-Q4_K_M
+"check if path is clear, form a line at the center",one,124.61153531074524,"<root BTCPP_format=""3"" main_tree_to_execute=""PathCheckAndLineForm"">
+        <BehaviorTree ID=""PathCheckAndLineForm"">
+            <Sequence name=""Main Sequence"">
+                <is_path_clear/>
+                <form_line/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_path_clear""/>
+            <Action ID=""form_line"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",Qwen2.5-Coder-7B-Instruct-Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,131.8259313106537,"<root BTCPP_format=""3"" main_tree_to_execute=""GoalFinding"">
+        <BehaviorTree ID=""GoalFinding"">
+            <Sequence name=""Find Goal and Signal Success"">
+                <is_target_detected/>
+                <change_color color=""red""/>
+                <align_with_swarm/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_target_detected""/>
+            <Action ID=""change_color"" editable=""true""/>
+            <Action ID=""align_with_swarm"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",Qwen2.5-Coder-7B-Instruct-Q4_K_M
+"detect target, freeze movement upon reaching it",one,146.52619743347168,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">
+        <BehaviorTree ID=""TargetDetection"">
+            <Sequence name=""Main Sequence"">
+                <is_target_detected/>
+                <agent_movement_freeze/>
+                <is_target_reached/>
+                <continue_movement_agent/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_target_detected""/>
+            <Action ID=""agent_movement_freeze"" editable=""true""/>
+            <Condition ID=""is_target_reached""/>
+            <Action ID=""continue_movement_agent"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",Qwen2.5-Coder-7B-Instruct-Q4_K_M
+"detect an obstacle, avoid it, and then flock safely with other agents",two,897.9823958873749,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidanceAndFlocking"">
+        <BehaviorTree ID=""ObstacleAvoidanceAndFlocking"">
+            <Sequence name=""Main Sequence"">
+                <is_obstacle_detected/>
+                <Fallback name=""Avoid Obstacle"">
+                    <avoid_obstacle/>
+                    <flocking/>
+                </Fallback>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_obstacle_detected""/>
+            <Action ID=""avoid_obstacle"" editable=""true""/>
+            <Action ID=""flocking"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",Qwen2.5-Coder-7B-Instruct-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,203.0470883846283,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderAndAchieve"">
+        <BehaviorTree ID=""WanderAndAchieve"">
+            <Sequence name=""Main Sequence"">
+                <move_randomly/>
+                <is_target_detected/>
+                <Fallback name=""Approach Target"">
+                    <Sequence>
+                        <agent_movement_freeze/>
+                        <change_color color=""red""/>
+                    </Sequence>
+                </Fallback>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Action ID=""move_randomly"" editable=""true""/>
+            <Condition ID=""is_target_detected"" editable=""true""/>
+            <Control ID=""Fallback"" editable=""true""/>
+            <Control ID=""Sequence"" editable=""true""/>
+            <Action ID=""agent_movement_freeze"" editable=""true""/>
+            <Action ID=""change_color"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",Qwen2.5-Coder-7B-Instruct-Q4_K_M
+"check if path is clear, form a line at the center",two,132.95220732688904,"<root BTCPP_format=""3"" main_tree_to_execute=""PathCheckAndLineForm"">
+        <BehaviorTree ID=""PathCheckAndLineForm"">
+            <Sequence name=""Path Check and Line Form"">
+                <is_path_clear/>
+                <form_line/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_path_clear""/>
+            <Action ID=""form_line"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",Qwen2.5-Coder-7B-Instruct-Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,149.00693154335022,"<root BTCPP_format=""3"" main_tree_to_execute=""GoalFinding"">
+        <BehaviorTree ID=""GoalFinding"">
+            <Sequence name=""Find Goal and Signal Success"">
+                <is_target_detected/>
+                <change_color color=""red""/>
+                <align_with_swarm/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_target_detected""/>
+            <Action ID=""change_color"" editable=""true""/>
+            <Action ID=""align_with_swarm"" editable=""true""/>
+        </TreeNodesModel>
+    </root>",Qwen2.5-Coder-7B-Instruct-Q4_K_M
+"detect target, freeze movement upon reaching it",two,153.70179224014282,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">
+        <BehaviorTree ID=""TargetDetection"">
+            <Sequence name=""Main Sequence"">
+                <is_target_detected/>
+                <agent_movement_freeze/>
+                <is_target_reached/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_target_detected""/>
+            <Action ID=""agent_movement_freeze"" editable=""true""/>
+            <Condition ID=""is_target_reached""/>
+        </TreeNodesModel>
+    </root>",Qwen2.5-Coder-7B-Instruct-Q4_K_M

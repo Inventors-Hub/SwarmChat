@@ -1,0 +1,64 @@
+Prompt,Prompt Type,Time,Behavior Tree,Model Name
+"detect an obstacle, avoid it, and then flock safely with other agents",zero,159.65860509872437,,phi-4-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,16.08076524734497,,phi-4-Q4_K_M
+"check if path is clear, form a line at the center",zero,15.90112853050232,,phi-4-Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,16.485650300979614,,phi-4-Q4_K_M
+"detect target, freeze movement upon reaching it",zero,14.281393766403198,,phi-4-Q4_K_M
+"detect an obstacle, avoid it, and then flock safely with other agents",one,168.89217972755432,,phi-4-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,18.145702838897705,,phi-4-Q4_K_M
+"check if path is clear, form a line at the center",one,16.464221715927124,,phi-4-Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,17.915061235427856,,phi-4-Q4_K_M
+"detect target, freeze movement upon reaching it",one,14.959306955337524,,phi-4-Q4_K_M
+"detect an obstacle, avoid it, and then flock safely with other agents",two,187.23366785049438,,phi-4-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,501.5710051059723,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderAndApproachTarget"">
+    <BehaviorTree ID=""WanderAndApproachTarget"">
+        <Sequence name=""Main Behavior Sequence"">
+            <Fallback name=""Random Wander Until Target Detected"">
+                <is_target_detected/>
+                <move_randomly/>
+            </Fallback>
+            <Sequence name=""Approach and Signal Achievement"">
+                <is_target_reached/>
+                <change_color color=""red""/>
+            </Sequence>
+        </Sequence>
+    </BehaviorTree>
+    <TreeNodesModel>
+        <Condition ID=""is_target_detected"" editable=""true""/>
+        <Action ID=""move_randomly"" editable=""true""/>
+        <Condition ID=""is_target_reached"" editable=""true""/>
+        <Action ID=""change_color"" color=""red"" editable=""true""/>
+    </TreeNodesModel>
+</root>",phi-4-Q4_K_M
+"check if path is clear, form a line at the center",two,20.596243143081665,,phi-4-Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,185.98566579818726,"<root BTCPP_format=""3"" main_tree_to_execute=""GoalSeekingAndAlignment"">
+  <BehaviorTree ID=""GoalSeekingAndAlignment"">
+    <Sequence name=""Find and Signal Goal"">
+      <is_target_detected/>
+      <change_color color=""red""/>
+      <align_with_swarm/>
+    </Sequence>
+  </BehaviorTree>
+  <TreeNodesModel>
+    <Condition ID=""is_target_detected"" editable=""true""/>
+    <Action ID=""change_color"" editable=""true""/>
+    <Action ID=""align_with_swarm"" editable=""true""/>
+  </TreeNodesModel>
+</root>",phi-4-Q4_K_M
+"detect target, freeze movement upon reaching it",two,459.31107878685,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetectionAndFreeze"">
+    <BehaviorTree ID=""TargetDetectionAndFreeze"">
+        <Sequence name=""Detect and Freeze on Target"">
+            <is_target_detected/>
+            <Sequence name=""Approach Target"">
+                <is_target_reached/>
+                <agent_movement_freeze/>
+            </Sequence>
+        </Sequence>
+    </BehaviorTree>
+    <TreeNodesModel>
+        <Condition ID=""is_target_detected"" editable=""true""/>
+        <Condition ID=""is_target_reached"" editable=""true""/>
+        <Action ID=""agent_movement_freeze"" editable=""true""/>
+        <Control ID=""Sequence"" editable=""true""/>
+    </TreeNodesModel>
+</root>",phi-4-Q4_K_M
