@@ -21,12 +21,12 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Condition ID="CheckBattery" editable="true"/>
-    <Action ID="ReturnToBase" editable="true"/>
-    <Action ID="ChargeBattery" editable="true"/>
-    <Action ID="ResumeMission" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Condition ID="CheckBattery"/>
+    <Action ID="ReturnToBase"/>
+    <Action ID="ChargeBattery"/>
+    <Action ID="ResumeMission"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -57,13 +57,13 @@ OUTPUT:
     </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Condition ID="DetectObstacle" editable="true"/>
-    <Action ID="MoveForward" editable="true"/>
-    <Action ID="AvoidObstacle" editable="true"/>
-    <Action ID="TurnLeft" editable="true"/>
-    <Action ID="TurnRight" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Condition ID="DetectObstacle"/>
+    <Action ID="MoveForward"/>
+    <Action ID="AvoidObstacle"/>
+    <Action ID="TurnLeft"/>
+    <Action ID="TurnRight"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -90,13 +90,13 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Condition ID="IsAreaClear" editable="true"/>
-    <Action ID="DeploySensors" editable="true"/>
-    <Action ID="MonitorEnvironment" editable="true"/>
-    <Action ID="ActivateShield" editable="true"/>
-    <Action ID="ReportStatus" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Condition ID="IsAreaClear"/>
+    <Action ID="DeploySensors"/>
+    <Action ID="MonitorEnvironment"/>
+    <Action ID="ActivateShield"/>
+    <Action ID="ReportStatus"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -121,13 +121,13 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Condition ID="IsResourceAvailable" editable="true"/>
-    <Action ID="GatherResources" editable="true"/>
-    <Action ID="AssembleComponents" editable="true"/>
-    <Action ID="PerformDiagnostics" editable="true"/>
-    <Action ID="ReportFailure" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Condition ID="IsResourceAvailable"/>
+    <Action ID="GatherResources"/>
+    <Action ID="AssembleComponents"/>
+    <Action ID="PerformDiagnostics"/>
+    <Action ID="ReportFailure"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -158,15 +158,15 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Condition ID="CheckTemperature" editable="true"/>
-    <Action ID="ActivateCoolingSystem" editable="true"/>
-    <Action ID="ActivateHeatingSystem" editable="true"/>
-    <Action ID="MaintainCurrentState" editable="true"/>
-    <Action ID="ReportTemperature" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
-    <Condition ID="IsTooHigh" editable="true"/>
-    <Condition ID="IsTooLow" editable="true"/>
+    <Condition ID="CheckTemperature"/>
+    <Action ID="ActivateCoolingSystem"/>
+    <Action ID="ActivateHeatingSystem"/>
+    <Action ID="MaintainCurrentState"/>
+    <Action ID="ReportTemperature"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
+    <Condition ID="IsTooHigh"/>
+    <Condition ID="IsTooLow"/>
   </TreeNodesModel>
 </root>
 
@@ -193,13 +193,13 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Condition ID="IsBatteryLow" editable="true"/>
-    <Action ID="NavigateToChargingStation" editable="true"/>
-    <Action ID="InitiateCharging" editable="true"/>
-    <Action ID="ContinueOperation" editable="true"/>
-    <Action ID="SendBatteryStatus" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Condition ID="IsBatteryLow"/>
+    <Action ID="NavigateToChargingStation"/>
+    <Action ID="InitiateCharging"/>
+    <Action ID="ContinueOperation"/>
+    <Action ID="SendBatteryStatus"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 

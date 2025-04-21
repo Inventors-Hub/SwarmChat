@@ -7,9 +7,11 @@ import re
 from llama_cpp import Llama
 
 # Add the parent directory to sys.path
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
+
+print(parent_dir)
 
 from simulator_env import SwarmAgent
 
@@ -101,12 +103,12 @@ def construct_prompt(prompt: str, prompt_type: str) -> str:
     if prompt_type == "zero":
         return plan_prompt
     elif prompt_type == "one":
-        path = r"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\prompt_engineering\prompt_types\One_shot.txt"
+        path = r"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\prompt_engineering\First step\prompt_types\One_shot.txt"
         with open(path, "r", encoding="utf-8") as file:
             file_content = file.read()
         return f"{file_content} {plan_prompt}"
     elif prompt_type == "two":
-        path = r"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\prompt_engineering\prompt_types\Two Shot.txt"
+        path = r"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\prompt_engineering\First step\prompt_types\Two Shot.txt"
         with open(path, "r", encoding="utf-8") as file:
             file_content = file.read()
         return f"{file_content} {plan_prompt}"
@@ -126,7 +128,7 @@ def main(llm: Llama, model_path: str, prompt_type: str, scenario: str, scenario_
     # save_behavior_tree(tree_xml, file_name=xml_filename)
 
     # Log the results to a CSV file named based on the model.
-    csv_filename = rf"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\prompt_engineering\resultes\{model_base}_log.csv"
+    csv_filename = rf"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\prompt_engineering\First step\resultes\{model_base}_log.csv"
     write_results(scenario, elapsed_time, tree_xml, model_base, prompt_type, csv_filename)
 
     print(f"Saved XML to {xml_filename} (Time taken: {elapsed_time:.2f}s)")
@@ -135,7 +137,7 @@ def main(llm: Llama, model_path: str, prompt_type: str, scenario: str, scenario_
 if __name__ == "__main__":
     # scenarios = ["form a line.", "find target change color to green"]
     scenarios = [
-    "detect an obstacle, avoid it, and then flock safely with other agents",
+    "detect an obstacle, avoid it, and then changing color to green",
     "wander randomly until a target is detected, approach it, and signal achievement by changing color to red",
     "check if path is clear, form a line at the center",
     "find the goal, signal success by changing color to red, and align movement with other swarm agents",
@@ -144,26 +146,26 @@ if __name__ == "__main__":
 
     model_paths = [
     # r"G:\Inventors Hub Projects\SwarmChat\model\deepseek-coder-1.3b-instruct.Q4_K_M.gguf",
-    # r"G:\Inventors Hub Projects\SwarmChat\model\deepseek-coder-6.7b-instruct.Q4_K_M.gguf",
-    # r"G:\Inventors Hub Projects\SwarmChat\model\DeepSeek-R1-Distill-llama-8B-Q4_K_M.gguf",
-    # r"G:\Inventors Hub Projects\SwarmChat\model\DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf",
+    r"G:\Inventors Hub Projects\SwarmChat\model\deepseek-coder-6.7b-instruct.Q4_K_M.gguf",
+    r"G:\Inventors Hub Projects\SwarmChat\model\DeepSeek-R1-Distill-llama-8B-Q4_K_M.gguf",
+    r"G:\Inventors Hub Projects\SwarmChat\model\DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf",
 
-    r"G:\Inventors Hub Projects\SwarmChat\model\DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+    # r"G:\Inventors Hub Projects\SwarmChat\model\DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
 
-    # r"G:\Inventors Hub Projects\SwarmChat\models\EuroLLM-9B-Instruct-Q4_K_M.gguf",
+    r"G:\Inventors Hub Projects\SwarmChat\models\EuroLLM-9B-Instruct-Q4_K_M.gguf",
     # r"G:\Inventors Hub Projects\SwarmChat\model\eurollm-1.7b-instruct-q4_k_m.gguf",
     # r"G:\Inventors Hub Projects\SwarmChat\model\Falcon3-7B-Instruct-q4_k_m.gguf",
-    # r"G:\Inventors Hub Projects\SwarmChat\model\Falcon3-10B-Instruct-q4_k_m.gguf",
+    r"G:\Inventors Hub Projects\SwarmChat\model\Falcon3-10B-Instruct-q4_k_m.gguf",
 
-    # r"G:\Inventors Hub Projects\SwarmChat\models\phi-4-Q4_K_M.gguf",
-    # r"G:\Inventors Hub Projects\SwarmChat\models\CodeLlama-7b-hf-Q4_K_M.gguf",
-    # r"G:\Inventors Hub Projects\SwarmChat\model\Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf",
-    # r"G:\Inventors Hub Projects\SwarmChat\models\deepseek-coder-7b-base-v1.5.Q4_K_M.gguf",
+    r"G:\Inventors Hub Projects\SwarmChat\models\phi-4-Q4_K_M.gguf",
+    r"G:\Inventors Hub Projects\SwarmChat\models\CodeLlama-7b-hf-Q4_K_M.gguf",
+    r"G:\Inventors Hub Projects\SwarmChat\model\Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf",
+    r"G:\Inventors Hub Projects\SwarmChat\models\deepseek-coder-7b-base-v1.5.Q4_K_M.gguf",
 
-    # r"G:\Inventors Hub Projects\SwarmChat\model\Mistral-7B-Instruct-v0.3.Q4_K_M.gguf",    
+    r"G:\Inventors Hub Projects\SwarmChat\model\Mistral-7B-Instruct-v0.3.Q4_K_M.gguf",    
     # r"G:\Inventors Hub Projects\SwarmChat\model\Qwen2-VL-7B-Instruct-Q4_K_M.gguf",
 
-    # r"G:\Inventors Hub Projects\SwarmChat\model\Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf",
+    r"G:\Inventors Hub Projects\SwarmChat\model\Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf",
     ]
 
 

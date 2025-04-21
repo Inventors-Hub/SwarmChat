@@ -1,63 +1,56 @@
 Prompt,Prompt Type,Time,Behavior Tree,Model Name
-"detect an obstacle, avoid it, and then flock safely with other agents",zero,337.1899220943451,"```xml
-    <BehaviorTree main_tree_to_execute=""MainTree"" BTCPP_format=""4.0"">
-        <TreeNodesModel>
-            <ActionNode name=""say"" />
-            <ConditionNode name=""is_obstacle_detected"" />
-            <ActionNode name=""avoid_obstacle"" />
-            <ConditionNode name=""is_path_clear"" />
-            <ActionNode name=""flocking"" />
-        </TreeNodesModel>
-        <BehaviorTree name=""MainTree"">
-            <Sequence>
-                <Fallback>
-                    <Condition nodeName=""is_obstacle_detected"" />
-                    <Action nodeName=""avoid_obstacle"" />
-                </Fallback>
-                <Action nodeName=""flocking"" />
-            </Sequence>
-        </BehaviorTree>
+"detect an obstacle, avoid it, and then changing color to green",zero,140.32298612594604,"```xml
+    <BehaviorTree>
+        <Sequence name=""Main_sequence"">
+            <Condition name=""is_obstacle_detected""/>
+            <Action name=""avoid_obstacle""/>
+            <Action name=""change_color"" args='green'/>
+        </Sequence>
     </BehaviorTree>
     ```
     '''
+    )
+    model = get_model()
+    response = model(query)
+    return response
 
-def generate_behavior_tree(instructions: str, command: str) -> str:
-    # Parse the instructions to get a list of available behaviors
-    available_behaviors = parse_instructions(instructions)
+#app.py
+from fastapi import FastAPI, HTTPException
+import uvicorn
+from behavior_tree_generator import generate_behavior_tree
 
-    # Generate XML structure based on the provided command and available behaviors
-    xml_tree = generate_xml_structure(command, available_behaviors)
+app = FastAPI()
 
-    return xml_tree
+@app.get(""/generate-bt"")
+async def generate_behavior_tree(instructions: str):
+    try:
+        bt_xml = generate_behavior_tree(instructions)
+        return {""XML"": bt_xml}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+        
+if __name__ == ""__main__"":
+    uvicorn.run(""app:app"", host=""127.0.0.1"", port=8000, log_level=""info"")
 
-def parse_instructions(instructions: str):
-    # This function should be implemented by you. It takes instructions as input and returns a list of available behaviors.
-    pass
+#test_behavior_tree_generator.py
+from behavior_tree_generator import generate_behavior_tree
+import pytest
 
-def generate_xml_structure(command: str, available_behaviors: List[str]):
-    # This function should be implemented by you. It takes command and available behaviors as inputs and returns the XML structure for the behavior tree.
-    pass
-<jupyter_output>
-<empty_output>
-<jupyter_text>
-Testing the code:
-<jupyter_code>
-instructions = '''
-say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message  (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
-flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
-align_with_swarm: Action Node: Align the agent's move vector with the average movement of nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
-is_obstacle_detected: Condition node: Determine if any obstacles are detected in the vicinity of the agent. Returns: SUCCESS if an obstacle is detected, FAILURE otherwise.
-avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Returns: Always returns SUCCESS, indicating the action was executed.
-is_target_detected: Condition node: Check if the target is within a detectable distance from the agent's position. Returns: SUCCESS if the target is within 20 units of distance, FAILURE otherwise.
-change_color: Action Node: Change the agent's color to 'white', 'green', or 'red'. Args: color  (str): Color name. Returns: Always returns SUCCESS, indicating the action was executed.
-is_agent_in_nest: Condition node: Determine if the agent is in the nest. Returns: SUCCESS if the agent is in the nest, FAILURE otherwise.
-agent_movement_freeze: Action node: Freeze the agent's movement, typically to indicate a stop in activity. Returns: Always returns SUCCESS, indicating the action was executed.
-continue_movement_agent: Action node: Continue the agent's movement after it has been previously frozen. Returns: Always returns SUCCESS, indicating the action was executed.
-move_randomly: Action node: Perform a wandering action where the agent moves randomly within the environment. Returns: Always returns SUCCESS, indicating the action was executed.
-is_path_clear: Condition node: Check if the path ahead of the agent is clear of obstacles. Returns: SUCCESS if no obstacles are detected ahead, FAILURE if obstacles are present.
-is_line_formed: Condition node: Determine if the agent has formed a line with a reference point at the center of the window. Returns: SUCCESS if the line is formed with the center, FAILURE otherwise.
-form_line:",deepseek-coder-6.7b-instruct.Q4_K_M
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,69.70211577415466,"```xml
+def test_generate_behavior_tree():
+    instructions = ""detect an obstacle, avoid it, and then changing color to green""
+    expected_output = '''<BehaviorTree>
+        <Sequence name=""Main_sequence"">
+            <Condition name=""is_obstacle_detected""/>
+            <Action name=""avoid_obstacle""/>
+            <Action name=""change_color"" args='green'/>
+        </Sequence>
+    </BehaviorTree>'''
+    assert generate_behavior_tree(instructions) == expected_output, ""Test failed: The output does not match the expected result.""
+    
+if __name__ == '__main__':
+    test_generate_behavior_tree()
+    print(""All tests passed"")",deepseek-coder-6.7b-instruct.Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,55.54000520706177,"```xml
     <BehaviorTree>
         <Sequence name=""Main_sequence"">
             <Fallback name=""Detection and Approach"">
@@ -86,7 +79,7 @@ except Exception as e:
     st.error(f""Error occurred: {e}"")
 finally:
     st.stop()",deepseek-coder-6.7b-instruct.Q4_K_M
-"check if path is clear, form a line at the center",zero,93.11046481132507,"```xml
+"check if path is clear, form a line at the center",zero,79.19854950904846,"```xml
     <BehaviorTree main_tree_to_execute=""MainTree"" BTCPP_format=""4.0"">
         <BehaviorTree>
             <Sequence name=""CheckPathAndFormLine"">
@@ -119,7 +112,7 @@ def test_generate_xml():
 #test_generate_xml()
 <jupyter_output>
 <empty_output>",deepseek-coder-6.7b-instruct.Q4_K_M
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,265.21626901626587,"```xml
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,209.47320294380188,"```xml
     <BehaviorTree main_tree_to_execute=""MainTree"" BTCPP_format=""4.0"">
         <TreeNodesModel>
             <ActionNode id=""say"">
@@ -206,7 +199,7 @@ def test_generate_xml():
             <FallbackNode id=""FindGoal"">
                 <!-- Insert your code here -->
             </F",deepseek-coder-6.7b-instruct.Q4_K_M
-"detect target, freeze movement upon reaching it",zero,271.41892981529236,"```xml
+"detect target, freeze movement upon reaching it",zero,215.38431668281555,"```xml
     <BehaviorTree>
         <Sequence name=""Main_sequence"">
             <Condition name=""is_target_detected""/>
@@ -275,171 +268,238 @@ is_agent_in_nest: Condition node: Determine if the agent is in the nest. Returns
 agent_movement_freeze: Action node: Freeze the agent's movement, typically to indicate a stop in activity. Returns: Always returns SUCCESS, indicating the action was executed.
 continue_movement_agent: Action node: Continue the agent's movement after it has been previously frozen. Returns: Always returns SUCCESS, indicating the action was executed.
 move_randomly: Action node: Perform a wandering action where the agent moves randomly",deepseek-coder-6.7b-instruct.Q4_K_M
-"detect an obstacle, avoid it, and then flock safely with other agents",one,215.7774896621704,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidanceAndFlocking"">  
-	    <BehaviorTree ID=""ObstacleAvoidanceAndFlocking"">    
-		    <Sequence name=""Main Sequence"">        
+"detect an obstacle, avoid it, and then changing color to green",one,307.4404721260071,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidance"">  
+	    <BehaviorTree ID=""ObstacleAvoidance"">    
+		    <Sequence name=""Obstacle Avoidance Sequence"">        
 			    <is_obstacle_detected/>        
 			    <avoid_obstacle/>      
-			    <flocking/>    
+			    <change_color color=""green""/>      
 		    </Sequence>  
 	    </BehaviorTree>  
 	    <TreeNodesModel>    
 		    <Condition ID=""is_obstacle_detected""/>    
-		    <Action ID=""avoid_obstacle"" editable=""true""/>    
-		    <Action ID=""flocking"" editable=""true""/>  
+		    <Action ID=""avoid_obstacle""/>    
+		    <Action ID=""change_color"" editable=""true"">
+        	<input_port name=""color""/>
+      		</Action>
 	    </TreeNodesModel>
     </root>",deepseek-coder-6.7b-instruct.Q4_K_M
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,259.82962679862976,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetApproach"">  
-        <BehaviorTree ID=""TargetApproach"">    
-            <Sequence name=""Wander and Detect Sequence"">        
-                <move_randomly/>      
-                <is_target_detected/>    
-            </Sequence>      
-            <Fallback name=""Approach Target Fallback"">        
-                <AlwaysRunning>          
-                    <is_path_clear/>        
-                </AlwaysRunning>      
-                <Sequence name=""Move Towards Target Sequence"">          
-                    <align_with_swarm/>          
-                    <is_target_reached/>        
-                </Sequence>      
-            </Fallback>    
-        </BehaviorTree>  
-        <TreeNodesModel>    
-            <Action ID=""move_randomly"" editable=""true""/>    
-            <Condition ID=""is_target_detected""/>    
-            <Action ID=""align_with_swarm"" editable=""true""/>    
-            <Condition ID=""is_path_clear""/>   
-            <Condition ID=""is_target_reached""/> 
-        </TreeNodesModel>
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,172.60623359680176,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetApproach"">  
+    	<BehaviorTree ID=""TargetApproach"">    
+    		<Fallback name=""High-Level Decision"">      
+    			<Sequence name=""Wander Sequence"">        
+    				<move_randomly/>        
+    				<is_target_detected/>      
+    			</Sequence>      
+    			<Sequence name>Target Approach Sequence</sequence>        
+    				<align_with_swarm/>        
+    				<change_color color=""red""/>      
+    			</Sequence>    
+    		</Fallback>  
+    	</BehaviorTree>  
+    	<TreeNodesModel>    
+    		[...] <!-- List all nodes here -->
+    	</TreeNodesModel>
     </root>",deepseek-coder-6.7b-instruct.Q4_K_M
-"check if path is clear, form a line at the center",one,263.17047333717346,"<root BTCPP_format=""3"" main_tree_to_execute=""PathAndLineFormation"">  
+"check if path is clear, form a line at the center",one,228.64385151863098,"<root BTCPP_format=""3"" main_tree_to_execute=""PathAndLineFormation"">  
 	    <BehaviorTree ID=""PathAndLineFormation"">    
-		    <Sequence name=""Path and Line Formation Sequence"">        
+		    <Sequence name=""Check Path and Form Line Sequence"">        
 			    <is_path_clear/>        
 			    <form_line/>      
-		    </Sequence>  
+		    </Sequence>    
 	    </BehaviorTree>  
 	    <TreeNodesModel>    
 		    <Condition ID=""is_path_clear""/>    
-		    <Action ID=""form_line"" editable=""true""/>  
+		    <Action ID=""form_line""/> 
 	    </TreeNodesModel>
     </root>",deepseek-coder-6.7b-instruct.Q4_K_M
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,259.52080821990967,"<root BTCPP_format=""3"" main_tree_to_execute=""SwarmBehaviorTree"">  
-        <BehaviorTree ID=""SwarmBehaviorTree"">    
-            <Sequence name=""Main Sequence"">      
-                <Fallback name=""Find Goal Fallback"">        
-                    <is_target_detected/>        
-                    <flocking/>      
-                </Fallback>      
-                <align_with_swarm/>    
-            </Sequence>  
-        </BehaviorTree>  
-        <TreeNodesModel>    
-            <Condition ID=""is_target_detected""/>    
-            <Action ID=""flocking"" editable=""true""/>    
-            <Action ID=""align_with_swarm"" editable=""true""/> 
-        </TreeNodesModel>
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,230.11273956298828,"```
+    <?xml version=""1.0"" encoding=""UTF-8""?>
+    <root BTCPP_format=""3"" main_tree_to_execute=""SwarmBehaviorTree"">  
+	    <BehaviorTree ID=""SwarmBehaviorTree"">    
+		    <Fallback name=""High-Level Decision"">      
+			    <Sequence name=""Find Goal Sequence"">        
+				    <is_target_detected/>        
+				    <change_color color=""red""/>      
+			    </Sequence>  
+                <Sequence name=""Align Movement Sequence"">
+                    <align_with_swarm/>
+                    <continue_movement_agent/>
+                </Sequence> 
+		    </Fallback>  
+	    </BehaviorTree>  
+	    <TreeNodesModel>    
+		    <Condition ID=""is_target_detected""/>    
+		    <Action ID=""change_color"" editable=""true"">
+      		<input_port name=""color""/>
+    		</Action>  …
+    ```
+    The output MUST follow this XML structure exactly, including:
+    - A root element with BTCPP_format and main_tree_to_execute attributes.
+    - A <BehaviorTree> element with an inner structure of Sequences, Fallback, Conditions, and Actions.
+    - A <TreeNodesModel> section listing all node models.
+    - No additional text or commentary outside the XML.
+    Output only the XML behavior tree without extra text.
+    OUTPUT:
+    ```
+    <?xml version=""1.0"" encoding=""UTF-8""?>
+    <root BTCPP_format=""3"" main_tree_to_execute=""SwarmBehaviorTree"">  
+	    <BehaviorTree ID=""SwarmBehaviorTree"">    
+		    <Fallback name=""High-Level Decision"">      
+			    <Sequence name=""Find Goal Sequence"">        
+				    <is_target_detected/>        
+				    <change_color color=""red""/>      
+			    </Sequence>  
+                <Sequence name=""Align Movement Sequence"">
+                    <align_with_swarm/>
+                    <continue_movement_agent/>
+                </Sequence> 
+		    </Fallback>  
+	    </BehaviorTree>  
+	    <TreeNodesModel>    
+		    <Condition ID=""is_target_detected""/>    
+		    <Action ID=""change_color"" editable=""true"">
+      		<input_port name=""color""/>
+    		</Action>  …
+    ```
+    The output MUST follow this XML structure exactly, including:
+    - A root element with BTCPP_format and main_tree_to_execute attributes.
+    - A <BehaviorTree> element with an inner structure of Sequences, Fallback, Conditions, and Actions.
+    - A <TreeNodesModel> section listing all node models.
+    - No additional text or commentary outside the XML.
+    Output only the XML behavior tree without extra text.
+    OUTPUT:
+    ```
+    <?xml version=""1.0"" encoding=""UTF-8""?>
+    <root BTCPP_format=""3"" main_tree_to_execute=""SwarmBehaviorTree"">  
+	    <BehaviorTree ID=""SwarmBehaviorTree"">    
+		    <Fallback name=""High-Level Decision"">      
+			    <Sequence name=""Find Goal Sequence"">        
+				    <is_target_detected/>        
+				    <change_color color=""red""/>      
+			    </Sequence>  
+                <Sequence name=""Align Movement Sequence"">
+                    <align_with_swarm/>
+                    <continue_movement_agent/>
+                </Sequence> 
+		    </Fallback>  
+	    </BehaviorTree>  
+	    <TreeNodesModel>    
+		    <Condition ID=""is_target_detected""/>    
+		    <Action ID=""change_color"" editable=""true"">
+      		<input_port name=""color""/>
+    		</Action>  …
+    ```
+    The output MUST follow this XML structure exactly, including:
+    - A root element with BTCPP_format and main_tree_to_execute attributes.
+    - A <BehaviorTree> element with",deepseek-coder-6.7b-instruct.Q4_K_M
+"detect target, freeze movement upon reaching it",one,228.51315832138062,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
+	    <BehaviorTree ID=""TargetDetection"">    
+		    <Sequence name=""Target Detection Sequence"">        
+			    <is_target_detected/>        
+			    <change_color color=""green""/>      
+		    </Sequence>      
+		    <Fallback name=""Movement Control"">  
+			    <is_obstacle_detected/>   
+			    <avoid_obstacle/>    
+		    </Fallback> 
+            <Sequence name=""Target Reached Sequence"">        
+                <is_target_reached/>       
+                <agent_movement_freeze/>      
+           </Sequence>  
+	    </BehaviorTree>  
+	    <TreeNodesModel>    
+		    <Condition ID=""is_target_detected""/>    
+		    <Action ID=""change_color"" editable=""true"">
+            <input_port name=""color""/>
+          </Action> 
+		  <Condition ID=""is_obstacle_detected""/>  
+		  <Action ID=""avoid_obstacle""/>   
+		  <Condition ID=""is_target_reached""/>    
+		  <Action ID=""agent_movement_freeze""/> 
+	    </TreeNodesModel>
     </root>",deepseek-coder-6.7b-instruct.Q4_K_M
-"detect target, freeze movement upon reaching it",one,259.19298553466797,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
-        <BehaviorTree ID=""TargetDetection"">    
-            <Sequence name=""Main Sequence"">        
-                <is_target_detected/>        
-                <Fallback name=""Reached Target Fallback"">          
-                    <is_target_reached/>          
-                    <continue_movement_agent/>      
-                </Fallback>    
-            </Sequence>  
-        </BehaviorTree>  
-        <TreeNodesModel>    
-            <Condition ID=""is_target_detected""/>    
-            <Action ID=""is_target_reached"" editable=""true""/>    
-            <Action ID=""agent_movement_freeze"" editable=""true""/>  
-        </TreeNodesModel>
-    </root>",deepseek-coder-6.7b-instruct.Q4_K_M
-"detect an obstacle, avoid it, and then flock safely with other agents",two,317.0764248371124,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidanceAndFlocking"">  
-    	<BehaviorTree ID=""ObstacleAvoidanceAndFlocking"">    
-    		<Sequence name=""Main Sequence"">      
+"detect an obstacle, avoid it, and then changing color to green",two,336.08421325683594,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidance"">  
+    	<BehaviorTree ID=""ObstacleAvoidance"">    
+    		<Sequence name=""Obstacle Avoidance Sequence"">      
     			<is_obstacle_detected/>      
     			<avoid_obstacle/>      
-    			<flocking/>    
+    			<change_color color=""green""/>    
     		</Sequence>  
     	</BehaviorTree>  
     	<TreeNodesModel>    
     		<Condition ID=""is_obstacle_detected""/>    
-    		<Action ID=""avoid_obstacle"" editable=""true""/>    
-    		<Action ID=""flocking"" editable=""true""/>  
+    		<Action ID=""avoid_obstacle""/>    
+    		<Action ID=""change_color"" editable=""true"">
+      		<input_port name=""color""/>
+    		</Action>
     	</TreeNodesModel>
     </root>",deepseek-coder-6.7b-instruct.Q4_K_M
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,177.4304358959198,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetApproach"">  
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,252.391015291214,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetApproach"">  
     	<BehaviorTree ID=""TargetApproach"">    
     		<Sequence name=""Wander and Detect Target"">      
-    			<move_randomly/>        
     			<is_target_detected/>      
-    		</Sequence>      
+    			<move_randomly/>      
+    		</Sequence>    
     		<Fallback name=""Move Towards Target"">        
-    			<Sequence>          
-    				<say message=""Target detected""/>        
-    				<align_with_swarm/>        
-    				<change_color color=""red""/>      
-    			</Sequence>        
-    		</Fallback>    
+    			<align_with_swarm/>        
+    			<say message=""Target detected""/>        
+    			<change_color color=""red""/>      
+    		</Fallback>  
     	</BehaviorTree>  
     	<TreeNodesModel>    
-    		<Action ID=""move_randomly"" editable=""true""/>    
     		<Condition ID=""is_target_detected""/>    
-    		<Action ID=""say"" Args=""message"" editable=""true""/>    
-    		<Action ID=""align_with_swarm"" editable=""true""/>    
-    		<Action ID=""change_color"" Args=""color"" editable=""true""/>  
+    		<Action ID=""move_randomly""/>    
+    		<Action ID=""align_with_swarm""/>    
+    		<Action ID=""say"" Args=""message"" Returns=""SUCCESS""/>    
+    		<Action ID=""change_color"" Args=""color"" Returns=""SUCCESS""/>  
     	</TreeNodesModel>
     </root>",deepseek-coder-6.7b-instruct.Q4_K_M
-"check if path is clear, form a line at the center",two,289.1264033317566,"<root BTCPP_format=""3"" main_tree_to_execute=""PathAndLineFormation"">  
+"check if path is clear, form a line at the center",two,248.69892144203186,"<root BTCPP_format=""3"" main_tree_to_execute=""PathAndLineFormation"">  
     	<BehaviorTree ID=""PathAndLineFormation"">    
     		<Sequence name=""Check Path and Form Line"">      
     			<is_path_clear/>      
-    			<form_line/>    
+    			<form_line/>      
     		</Sequence>  
     	</BehaviorTree>  
     	<TreeNodesModel>    
     		<Condition ID=""is_path_clear""/>    
-    		<Action ID=""form_line"" editable=""true""/>    
-    		<Control ID=""Sequence"" editable=""true""/>  
+    		<Action ID=""form_line""/>   
+    		<Action ID=""change_color"" editable=""true"">
+      		<input_port name=""color""/>
+    		</Action>
     	</TreeNodesModel>
     </root>",deepseek-coder-6.7b-instruct.Q4_K_M
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,294.5294737815857,"<root BTCPP_format=""3"" main_tree_to_execute=""SwarmBehaviorTree"">  
-        <BehaviorTree ID=""SwarmBehaviorTree"">    
-            <Sequence name=""Find Goal and Align Movement"">      
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,153.36850929260254,"<root BTCPP_format=""3"" main_tree_to_execute=""SwarmGoalSearch"">  
+        <BehaviorTree ID=""SwarmGoalSearch"">    
+            <Sequence name=""Find Goal Sequence"">      
                 <is_target_detected/>      
-                <align_with_swarm/>      
-                <say message=""Target detected. Alignment successful.""/>  
-            </Sequence>    
-            <Fallback name=""Change Color to Red"">        
-                <Condition>          
-                    <is_target_reached/>        
-                </Condition>        
+                <say message=""Target detected""/>      
                 <change_color color=""red""/>      
-            </Fallback>    
+                <align_with_swarm/>      
+            </Sequence>  
         </BehaviorTree>  
         <TreeNodesModel>    
             <Condition ID=""is_target_detected""/>    
-            <Action ID=""say"" editable=""true""/>    
-            <Action ID=""align_with_swarm"" editable=""true""/>    
-            <Action ID=""change_color"" editable=""true""/>  
+            <Action ID=""say"" Args=""message""/>    
+            <Action ID=""change_color"" editable=""true"">
+                <input_port name=""color""/>
+            </Action>
+            <Action ID=""align_with_swarm""/>  
         </TreeNodesModel>
     </root>",deepseek-coder-6.7b-instruct.Q4_K_M
-"detect target, freeze movement upon reaching it",two,302.7755000591278,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
+"detect target, freeze movement upon reaching it",two,252.75853943824768,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
     	<BehaviorTree ID=""TargetDetection"">    
     		<Sequence name=""Target Detection and Movement Freeze"">      
     			<is_target_detected/>      
-    			<Fallback name=""Reached Target"">        
-    				<is_target_reached/>        
-    				<agent_movement_freeze/>      
-    			</Fallback>    
+    			<agent_movement_freeze/>    
     		</Sequence>  
     	</BehaviorTree>  
     	<TreeNodesModel>    
     		<Condition ID=""is_target_detected""/>    
-    		<Condition ID=""is_target_reached""/>    
-    		<Action ID=""agent_movement_freeze"" editable=""true""/>  
+    		<Action ID=""agent_movement_freeze""/>   
+    		<Action ID=""change_color"" editable=""true"">
+      		<input_port name=""color""/>
+    		</Action>
     	</TreeNodesModel>
     </root>",deepseek-coder-6.7b-instruct.Q4_K_M

@@ -44,8 +44,8 @@ generate behavior tree to "Rotate in a circle within 6 inches of current locatio
   <TreeNodesModel>
     <Condition ID="is_robot_in_range"/>
     <Action ID="rotate_in_circle"/>
-    <Action ID="task_completed" editable="true"/>
-    <Action ID="wander" editable="true"/>
+    <Action ID="task_completed"/>
+    <Action ID="wander"/>
   </TreeNodesModel>
 </root>
 ```
@@ -84,7 +84,7 @@ generate behavior tree to "Explore an unknown environment and map it" Output onl
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="ExploreMap">
   <BehaviorTree ID="ExploreMap">
-    <Selector name="Exploration Selector">
+    <Fallback name="Exploration Fallback">
       <Sequence name="Clear Path Mapping">
         <is_path_clear/>
         <move_forward/>
@@ -100,18 +100,18 @@ generate behavior tree to "Explore an unknown environment and map it" Output onl
         <turn_left/>
       </Sequence>
       <wander/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
-    <Action ID="avoid_obstacle" editable="true"/>
+    <Control ID="Fallback"/>
+    <Action ID="avoid_obstacle"/>
     <Condition ID="is_obstacle_detected"/>
     <Condition ID="is_path_blocked"/>
     <Condition ID="is_path_clear"/>
-    <Action ID="move_forward" editable="true"/>
-    <Action ID="turn_left" editable="true"/>
-    <Action ID="update_map" editable="true"/>
-    <Action ID="wander" editable="true"/>
+    <Action ID="move_forward"/>
+    <Action ID="turn_left"/>
+    <Action ID="update_map"/>
+    <Action ID="wander"/>
   </TreeNodesModel>
 </root>
 ```
@@ -168,12 +168,12 @@ generate behavior tree to "Collect items until inventory is full, then return to
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_inventory_full"/>
-    <Action ID="return_to_base" editable="true"/>
-    <Action ID="drop_items" editable="true"/>
+    <Action ID="return_to_base"/>
+    <Action ID="drop_items"/>
     <Condition ID="is_obstacle_present"/>
-    <Action ID="avoid_obstacle" editable="true"/>
-    <Action ID="search_area" editable="true"/>
-    <Action ID="collect_item" editable="true"/>
+    <Action ID="avoid_obstacle"/>
+    <Action ID="search_area"/>
+    <Action ID="collect_item"/>
   </TreeNodesModel>
 </root>
 ```
@@ -212,7 +212,7 @@ generate behavior tree to "Patrol area continuously and engage intruders when de
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="PatrolAndEngage">
   <BehaviorTree ID="PatrolAndEngage">
-    <Selector name="Patrol Selector">
+    <Fallback name="Patrol Fallback">
       <Sequence name="Intruder Engagement">
         <detect_intruder/>
         <engage_intruder/>
@@ -227,15 +227,15 @@ generate behavior tree to "Patrol area continuously and engage intruders when de
           <patrol_route/>
         </Fallback>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="detect_intruder"/>
-    <Action ID="engage_intruder" editable="true"/>
-    <Action ID="sound_alarm" editable="true"/>
+    <Action ID="engage_intruder"/>
+    <Action ID="sound_alarm"/>
     <Condition ID="is_obstacle_present"/>
-    <Action ID="avoid_obstacle" editable="true"/>
-    <Action ID="patrol_route" editable="true"/>
+    <Action ID="avoid_obstacle"/>
+    <Action ID="patrol_route"/>
   </TreeNodesModel>
 </root>
 ```
@@ -291,12 +291,12 @@ generate behavior tree to "Monitor battery and return to charging station when b
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Action ID="monitor_battery" editable="true"/>
+    <Action ID="monitor_battery"/>
     <Condition ID="is_battery_low"/>
-    <Action ID="navigate_to_charging_station" editable="true"/>
-    <Action ID="start_charging" editable="true"/>
+    <Action ID="navigate_to_charging_station"/>
+    <Action ID="start_charging"/>
     <Condition ID="is_charging_complete"/>
-    <Action ID="perform_tasks" editable="true"/>
+    <Action ID="perform_tasks"/>
   </TreeNodesModel>
 </root>
 ```
@@ -337,7 +337,7 @@ generate behavior tree to "Clean all dirty areas and return to dock when cleanin
   <BehaviorTree ID="CleaningTask">
     <Sequence name="Main Sequence">
       <start_cleaning/>
-      <Selector name="Cleaning Selector">
+      <Fallback name="Cleaning Fallback">
         <Sequence name="Check and Clean">
           <is_area_dirty/>
           <Fallback name="Obstacle Handling">
@@ -349,18 +349,18 @@ generate behavior tree to "Clean all dirty areas and return to dock when cleanin
         </Sequence>
         <return_to_dock/>
         <dock_cleaning/>
-      </Selector>
+      </Fallback>
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Action ID="start_cleaning" editable="true"/>
+    <Action ID="start_cleaning"/>
     <Condition ID="is_area_dirty"/>
     <Condition ID="is_obstacle_present"/>
-    <Action ID="avoid_obstacle" editable="true"/>
-    <Action ID="report_cleaning_status" editable="true"/>
-    <Action ID="move_to_next_area" editable="true"/>
-    <Action ID="return_to_dock" editable="true"/>
-    <Action ID="dock_cleaning" editable="true"/>
+    <Action ID="avoid_obstacle"/>
+    <Action ID="report_cleaning_status"/>
+    <Action ID="move_to_next_area"/>
+    <Action ID="return_to_dock"/>
+    <Action ID="dock_cleaning"/>
   </TreeNodesModel>
 </root>
 ```
@@ -401,7 +401,7 @@ generate behavior tree to "Monitor area for suspicious activity and alert securi
   <BehaviorTree ID="SurveillanceMonitoring">
     <Sequence name="Main Sequence">
       <start_surveillance/>
-      <Selector name="Surveillance Selector">
+      <Fallback name="Surveillance Fallback">
         <Sequence name="Suspicious Activity Handling">
           <detect_suspicious_activity/>
           <alert_security/>
@@ -412,19 +412,19 @@ generate behavior tree to "Monitor area for suspicious activity and alert securi
           <follow_patrol_route/>
         </Sequence>
         <standby_mode/>
-      </Selector>
+      </Fallback>
       <return_to_base/>
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Action ID="start_surveillance" editable="true"/>
+    <Action ID="start_surveillance"/>
     <Condition ID="detect_suspicious_activity"/>
-    <Action ID="alert_security" editable="true"/>
-    <Action ID="track_target" editable="true"/>
-    <Action ID="rotate_camera" editable="true"/>
-    <Action ID="follow_patrol_route" editable="true"/>
-    <Action ID="standby_mode" editable="true"/>
-    <Action ID="return_to_base" editable="true"/>
+    <Action ID="alert_security"/>
+    <Action ID="track_target"/>
+    <Action ID="rotate_camera"/>
+    <Action ID="follow_patrol_route"/>
+    <Action ID="standby_mode"/>
+    <Action ID="return_to_base"/>
   </TreeNodesModel>
 </root>
 ```

@@ -1,12 +1,19 @@
-<root BTCPP_format="3" main_tree_to_execute="FlockingBehaviorTree">  
-        <BehaviorTree ID="FlockingBehaviorTree">    
-            <Sequence name="Detect Food and Flock">      
-                <is_target_detected/>      
-                <flocking/>      
-            </Sequence>    
-        </BehaviorTree>  
-        <TreeNodesModel>    
-            <Condition ID="is_target_detected"/>    
-            <Action ID="flocking"/> 
+<root BTCPP_format="3" main_tree_to_execute="FormLine">
+        <BehaviorTree ID="FormLine">
+            <Sequence name="Form Line Sequence">
+                <is_agent_in_nest/>
+                <agent_movement_freeze/>
+                <form_line/>
+                <continue_movement_agent/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID="is_agent_in_nest"/>
+            <Action ID="agent_movement_freeze"/>
+            <Action ID="form_line"/>
+            <Action ID="continue_movement_agent"/>
+            <Action ID="change_color" editable="true">
+                <input_port name="color"/>
+            </Action>
         </TreeNodesModel>
     </root>

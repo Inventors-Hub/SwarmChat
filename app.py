@@ -7,7 +7,7 @@ from simulator_env import StreamableSimulation, SwarmAgent, MyConfig, MyWindow
 
 import speech_processing
 import text_processing
-import safety_module
+# import safety_module
 import bt_generator
 
 
@@ -169,8 +169,9 @@ def create_gradio_interface():
         streamer.stop_simulation()
         return gr.update(visible=False)
     
-    behaviors = bt_generator.call_behaviors()       
-    formatted_behaviors = "\n".join(f"- **{name}**: {doc.split('Returns:')[0].strip()}" for name, doc in behaviors.items())
+    # behaviors = bt_generator.call_behaviors()       
+    # formatted_behaviors = "\n".join(f"- **{name}**: {doc.split('Returns:')[0].strip()}" for name, doc in behaviors.items())
+    formatted_behaviors = "Test"
 
     # Gradio Interface
     with gr.Blocks() as demo:
@@ -212,8 +213,8 @@ def create_gradio_interface():
                     inputs=microphone_input,
                     outputs=output_text_audio
                 ).then(
-                    fn=safety_module.check_safety, 
-                    # fn=test_safe,
+                    # fn=safety_module.check_safety, 
+                    fn=test_safe,
                     inputs=[output_text_audio,safety_checkbox], 
                     outputs=safty_check_audio
                 ).then(
@@ -266,8 +267,8 @@ def create_gradio_interface():
                     inputs=text_input,
                     outputs=output_text_text
                 ).then(
-                    fn=safety_module.check_safety, 
-                    # fn=test_safe,
+                    # fn=safety_module.check_safety, 
+                    fn=test_safe,
                     inputs=[output_text_text,safety_checkbox_text], 
                     outputs=safty_check_text
                 ).then(

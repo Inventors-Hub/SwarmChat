@@ -23,7 +23,7 @@ OUTPUT:
       <input_port name="message"/>
     </Action>
     <Action ID="ContinueOperation"/>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -36,21 +36,21 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="EnemyEngagement">
   <BehaviorTree ID="EnemyEngagement">
-    <Selector name="Engagement Selector">
+    <Fallback name="Engagement Fallback">
       <Sequence name="Attack Sequence">
         <is_enemy_in_range/>
         <attack_enemy/>
         <alert_allies/>
       </Sequence>
       <patrol_area/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_enemy_in_range"/>
     <Action ID="attack_enemy"/>
     <Action ID="alert_allies"/>
     <Action ID="patrol_area"/>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -80,7 +80,7 @@ OUTPUT:
     <Action ID="report_status" editable="true">
       <input_port name="message"/>
     </Action>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -93,14 +93,14 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="CommunicationHandler">
   <BehaviorTree ID="CommunicationHandler">
-    <Selector name="Communication Selector">
+    <Fallback name="Communication Fallback">
       <Sequence name="Jammed Communication Sequence">
         <is_jammed/>
         <attempt_recovery/>
         <notify_control message="Communication jammed and recovery attempted"/>
       </Sequence>
       <switch_to_backup/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_jammed"/>
@@ -109,7 +109,7 @@ OUTPUT:
       <input_port name="message"/>
     </Action>
     <Action ID="switch_to_backup"/>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -138,7 +138,7 @@ OUTPUT:
       <input_port name="message"/>
     </Action>
     <Action ID="continue_operation"/>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -151,21 +151,21 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="IntruderResponse">
   <BehaviorTree ID="IntruderResponse">
-    <Selector name="Intruder Selector">
+    <Fallback name="Intruder Fallback">
       <Sequence name="Intruder Detected Sequence">
         <is_intruder_detected/>
         <sound_alarm/>
         <lock_down/>
       </Sequence>
       <monitor_area/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_intruder_detected"/>
     <Action ID="sound_alarm"/>
     <Action ID="lock_down"/>
     <Action ID="monitor_area"/>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -194,7 +194,7 @@ OUTPUT:
       <input_port name="message"/>
     </Action>
     <Action ID="start_task"/>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -223,7 +223,7 @@ OUTPUT:
       <input_port name="message"/>
     </Action>
     <Action ID="maintain_current_state"/>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -252,7 +252,7 @@ OUTPUT:
       <input_port name="message"/>
     </Action>
     <Action ID="continue_mission"/>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -265,21 +265,21 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="HazardResponse">
   <BehaviorTree ID="HazardResponse">
-    <Selector name="Hazard Selector">
+    <Fallback name="Hazard Fallback">
       <Sequence name="Hazard Detected Sequence">
         <is_hazard_detected/>
         <initiate_safety_protocol/>
         <evacuate_area/>
       </Sequence>
       <resume_operations/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_hazard_detected"/>
     <Action ID="initiate_safety_protocol"/>
     <Action ID="evacuate_area"/>
     <Action ID="resume_operations"/>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -310,7 +310,7 @@ OUTPUT:
       <input_port name="message"/>
     </Action>
     <Action ID="wait_for_data"/>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -323,14 +323,14 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="NavigationControl">
   <BehaviorTree ID="NavigationControl">
-    <Selector name="Navigation Selector">
+    <Fallback name="Navigation Fallback">
       <Sequence name="Clear Area Sequence">
         <is_area_clear/>
         <navigate_to_point/>
         <announce_arrival message="Arrived at the destination"/>
       </Sequence>
       <avoid_obstacle/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_area_clear"/>
@@ -339,7 +339,7 @@ OUTPUT:
       <input_port name="message"/>
     </Action>
     <Action ID="avoid_obstacle"/>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -368,7 +368,7 @@ OUTPUT:
       <input_port name="message"/>
     </Action>
     <Action ID="continue_operations"/>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -399,7 +399,7 @@ OUTPUT:
       <input_port name="message"/>
     </Action>
     <Action ID="wait_for_package"/>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -426,7 +426,7 @@ OUTPUT:
     <Action ID="execute_diagnostic"/>
     <Action ID="escalate_issue"/>
     <Action ID="resume_normal_operation"/>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -457,7 +457,7 @@ OUTPUT:
     <Action ID="report_security_status" editable="true">
       <input_port name="message"/>
     </Action>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Fallback"/>
     <Decorator ID="Not" editable="true">
       <input_port name="condition"/>
     </Decorator>
@@ -495,7 +495,7 @@ OUTPUT:
     <Action ID="initialize_system"/>
     <Action ID="start_operations"/>
     <Action ID="shutdown_system"/>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Fallback"/>
     <Decorator ID="Not" editable="true">
       <input_port name="condition"/>
     </Decorator>

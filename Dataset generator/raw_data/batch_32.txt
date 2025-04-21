@@ -23,13 +23,13 @@ OUTPUT:
     </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Condition ID="check_battery" editable="true"/>
-    <Action ID="patrol_area" editable="true"/>
-    <Action ID="report_status" editable="true"/>
-    <Action ID="return_to_base" editable="true"/>
-    <Action ID="recharge_battery" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Condition ID="check_battery"/>
+    <Action ID="patrol_area"/>
+    <Action ID="report_status"/>
+    <Action ID="return_to_base"/>
+    <Action ID="recharge_battery"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -56,13 +56,13 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Condition ID="detect_obstacle" editable="true"/>
-    <Action ID="navigate_to_point" editable="true"/>
-    <Action ID="avoid_obstacle" editable="true"/>
-    <Action ID="report_obstacle" editable="true"/>
-    <Action ID="idle" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Condition ID="detect_obstacle"/>
+    <Action ID="navigate_to_point"/>
+    <Action ID="avoid_obstacle"/>
+    <Action ID="report_obstacle"/>
+    <Action ID="idle"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -89,13 +89,13 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Condition ID="low_light_detected" editable="true"/>
-    <Action ID="activate_night_mode" editable="true"/>
-    <Action ID="perform_navigation" editable="true"/>
-    <Action ID="deactivate_night_mode" editable="true"/>
-    <Action ID="monitor_environment" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Condition ID="low_light_detected"/>
+    <Action ID="activate_night_mode"/>
+    <Action ID="perform_navigation"/>
+    <Action ID="deactivate_night_mode"/>
+    <Action ID="monitor_environment"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -121,13 +121,13 @@ OUTPUT:
     </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Condition ID="battery_full" editable="true"/>
-    <Action ID="collect_data" editable="true"/>
-    <Action ID="transmit_data" editable="true"/>
-    <Action ID="enter_sleep_mode" editable="true"/>
-    <Action ID="wake_up" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Condition ID="battery_full"/>
+    <Action ID="collect_data"/>
+    <Action ID="transmit_data"/>
+    <Action ID="enter_sleep_mode"/>
+    <Action ID="wake_up"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 

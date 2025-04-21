@@ -1,22 +1,34 @@
 Prompt,Prompt Type,Time,Behavior Tree,Model Name
-"detect an obstacle, avoid it, and then flock safely with other agents",zero,145.99450659751892,"<|assistant|>
+"detect an obstacle, avoid it, and then changing color to green",zero,121.99620747566223,"<|assistant|>
     ```xml
     <BehaviorTree BTCPP_format=""1.0"" main_tree_to_execute=""main"">
-        <TreeNodesModel>
-            <NodeModel id=""detect_obstacle"" type=""Condition"" name=""Detect Obstacle"" />
-            <NodeModel id=""avoid_obstacle_node"" type=""Action"" name=""Avoid Obstacle"" />
-            <NodeModel id=""flock_safely"" type=""Action"" name=""Flock Safely"" />
-        </TreeNodesModel>
-        <Sequence id=""main"">
-            <Condition id=""detect_obstacle"" />
-            <Fallback>
-                <Action id=""avoid_obstacle_node"" />
-                <Action id=""flock_safely"" />
+        <Sequence name=""main"">
+            <Condition name=""detect_obstacle"">
+                <is_obstacle_detected />
+            </Condition>
+            <Fallback name=""avoid_and_change_color"">
+                <Action name=""avoid_obstacle"">
+                    <avoid_obstacle />
+                </Action>
+                <Action name=""change_color"">
+                    <change_color color=""green"" />
+                </Action>
             </Fallback>
         </Sequence>
     </BehaviorTree>
+    <TreeNodesModel>
+        <Condition name=""detect_obstacle"">
+            <is_obstacle_detected />
+        </Condition>
+        <Action name=""avoid_obstacle"">
+            <avoid_obstacle />
+        </Action>
+        <Action name=""change_color"">
+            <change_color color=""green"" />
+        </Action>
+    </TreeNodesModel>
     ```",Falcon3-10B-Instruct-q4_k_m
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,71.79211711883545,"<|assistant|>
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,69.83067917823792,"<|assistant|>
     ```xml
     <BehaviorTree BTCPP_format=""1.0"" main_tree_to_execute=""main"">
         <TreeNodesModel>
@@ -39,7 +51,7 @@ Prompt,Prompt Type,Time,Behavior Tree,Model Name
         </Sequence>
     </BehaviorTree>
     ```",Falcon3-10B-Instruct-q4_k_m
-"check if path is clear, form a line at the center",zero,74.0885066986084,"<|assistant|>
+"check if path is clear, form a line at the center",zero,70.6328957080841,"<|assistant|>
     ```xml
     <BehaviorTree BTCPP_format=""1.0"" main_tree_to_execute=""main"">
         <Sequence name=""main"">
@@ -70,7 +82,7 @@ Prompt,Prompt Type,Time,Behavior Tree,Model Name
         </TreeNodesModel>
     </BehaviorTree>
     ```",Falcon3-10B-Instruct-q4_k_m
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,89.98851108551025,"<|assistant|>
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,85.7618260383606,"<|assistant|>
     ```xml
     <BTCPP_format version=""1.0"">
         <main_tree_to_execute>find_goal_and_align</main_tree_to_execute>
@@ -106,7 +118,7 @@ Prompt,Prompt Type,Time,Behavior Tree,Model Name
         </TreeNodesModel>
     </BTCPP_format>
     ```",Falcon3-10B-Instruct-q4_k_m
-"detect target, freeze movement upon reaching it",zero,73.98347067832947,"<|assistant|>
+"detect target, freeze movement upon reaching it",zero,67.30235242843628,"<|assistant|>
     ```xml
     <BehaviorTree BTCPP_format=""1.0"" main_tree_to_execute=""main"">
         <TreeNodesModel>
@@ -129,59 +141,56 @@ Prompt,Prompt Type,Time,Behavior Tree,Model Name
         </Sequence>
     </BehaviorTree>
     ```",Falcon3-10B-Instruct-q4_k_m
-"detect an obstacle, avoid it, and then flock safely with other agents",one,189.0645842552185,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidanceAndFlocking"">  
-	<BehaviorTree ID=""ObstacleAvoidanceAndFlocking"">    
-		<Sequence name=""Obstacle Detection and Avoidance"">      
-			<is_obstacle_detected/>      
-			<avoid_obstacle/>    
-		</Sequence>      
-		<Sequence name=""Flocking with Other Agents"">        
-			<flocking/>        
-			<align_with_swarm/>    
+"detect an obstacle, avoid it, and then changing color to green",one,159.1129128932953,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidance"">  
+	<BehaviorTree ID=""ObstacleAvoidance"">    
+		<Sequence name=""ObstacleDetectionAndAvoidance"">        
+			<is_obstacle_detected/>        
+			<avoid_obstacle/>        
+			<change_color color=""green""/>    
 		</Sequence>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_obstacle_detected""/>    
-		<Action ID=""avoid_obstacle"" editable=""true""/>    
-		<Action ID=""flocking"" editable=""true""/>    
-		<Action ID=""align_with_swarm"" editable=""true""/>  
+		<Action ID=""avoid_obstacle""/>    
+		<Action ID=""change_color"">
+      	<input_port name=""color""/>
+    	</Action>
 	</TreeNodesModel>
 </root>",Falcon3-10B-Instruct-q4_k_m
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,88.58842349052429,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderAndDetect"">  
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,75.15965056419373,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderAndDetect"">  
 	<BehaviorTree ID=""WanderAndDetect"">    
-		<Sequence name=""WanderUntilTargetDetected"">      
-			<Fallback name=""WanderLoop"">        
-				<move_randomly/>        
-				<is_target_detected/>      
-			</Fallback>      
+		<Sequence name=""WanderUntilTargetDetected"">        
+			<is_target_detected/>        
+			<move_randomly/>      
 		</Sequence>      
 		<Sequence name=""ApproachAndSignal"">        
+			<is_target_detected/>        
 			<align_with_swarm/>        
-			<is_target_reached/>        
 			<change_color color=""red""/>      
 		</Sequence>    
 	</BehaviorTree>  
 	<TreeNodesModel>    
-		<Action ID=""move_randomly"" editable=""true""/>    
 		<Condition ID=""is_target_detected""/>    
-		<Action ID=""align_with_swarm"" editable=""true""/>    
-		<Condition ID=""is_target_reached""/>    
-		<Action ID=""change_color"" editable=""true""/>  
+		<Action ID=""move_randomly""/>    
+		<Action ID=""align_with_swarm""/>    
+		<Action ID=""change_color"" editable=""true"">
+      	<input_port name=""color""/>
+    	</Action>
 	</TreeNodesModel>
 </root>",Falcon3-10B-Instruct-q4_k_m
-"check if path is clear, form a line at the center",one,53.66992902755737,"<root BTCPP_format=""3"" main_tree_to_execute=""PathAndLineFormation"">  
+"check if path is clear, form a line at the center",one,47.68592882156372,"<root BTCPP_format=""3"" main_tree_to_execute=""PathAndLineFormation"">  
 	<BehaviorTree ID=""PathAndLineFormation"">    
-		<Sequence name=""PathAndLineSequence"">      
-			<is_path_clear/>      
-			<form_line/>    
+		<Sequence name=""PathAndLineSequence"">        
+			<is_path_clear/>        
+			<form_line/>      
 		</Sequence>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_path_clear""/>    
-		<Action ID=""form_line"" editable=""true""/>  
+		<Action ID=""form_line""/>  
 	</TreeNodesModel>
 </root>",Falcon3-10B-Instruct-q4_k_m
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,68.75587344169617,"<root BTCPP_format=""3"" main_tree_to_execute=""SwarmBehavior"">  
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,68.49841547012329,"<root BTCPP_format=""3"" main_tree_to_execute=""SwarmBehavior"">  
 	<BehaviorTree ID=""SwarmBehavior"">    
 		<Sequence name=""FindGoalAndSignal"">      
 			<is_target_detected/>        
@@ -193,11 +202,14 @@ Prompt,Prompt Type,Time,Behavior Tree,Model Name
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_target_detected""/>    
-		<Action ID=""change_color"" editable=""true""/>    
-		<Action ID=""align_with_swarm"" editable=""true""/>  
+		<Action ID=""change_color""/>    
+		<Action ID=""align_with_swarm""/>  
+		<Action ID=""avoid_obstacle"" editable=""true"">
+      	<input_port name=""avoidance_vector""/>
+    	</Action>
 	</TreeNodesModel>
 </root>",Falcon3-10B-Instruct-q4_k_m
-"detect target, freeze movement upon reaching it",one,65.57926630973816,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
+"detect target, freeze movement upon reaching it",one,54.10744667053223,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
 	<BehaviorTree ID=""TargetDetection"">    
 		<Sequence name=""Target Detection and Freeze"">      
 			<is_target_detected/>      
@@ -208,52 +220,48 @@ Prompt,Prompt Type,Time,Behavior Tree,Model Name
 	<TreeNodesModel>    
 		<Condition ID=""is_target_detected""/>    
 		<Condition ID=""is_target_reached""/>    
-		<Action ID=""agent_movement_freeze"" editable=""true""/>  
+		<Action ID=""agent_movement_freeze""/>  
 	</TreeNodesModel>
 </root>",Falcon3-10B-Instruct-q4_k_m
-"detect an obstacle, avoid it, and then flock safely with other agents",two,204.0794277191162,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidanceAndFlocking"">  
-	<BehaviorTree ID=""ObstacleAvoidanceAndFlocking"">    
+"detect an obstacle, avoid it, and then changing color to green",two,168.1345398426056,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidance"">  
+	<BehaviorTree ID=""ObstacleAvoidance"">    
 		<Sequence name=""Obstacle Detection and Avoidance"">      
 			<is_obstacle_detected/>      
-			<avoid_obstacle/>    
-		</Sequence>    
-		<Sequence name=""Flocking with Other Agents"">      
-			<flocking/>      
-			<align_with_swarm/>    
+			<avoid_obstacle/>      
+			<change_color color=""green""/>    
 		</Sequence>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_obstacle_detected""/>    
-		<Action ID=""avoid_obstacle"" editable=""true""/>    
-		<Action ID=""flocking"" editable=""true""/>    
-		<Action ID=""align_with_swarm"" editable=""true""/>    
-		<Control ID=""Sequence"" editable=""true""/>  
+		<Action ID=""avoid_obstacle""/>    
+		<Action ID=""change_color"" editable=""true"">
+      	<input_port name=""color""/>
+    	</Action>
 	</TreeNodesModel>
 </root>",Falcon3-10B-Instruct-q4_k_m
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,100.71292543411255,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderAndApproach"">  
-	<BehaviorTree ID=""WanderAndApproach"">    
-		<Sequence name=""WanderUntilTargetDetected"">      
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,78.61800479888916,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderAndTarget"">  
+	<BehaviorTree ID=""WanderAndTarget"">    
+		<Sequence name=""WanderUntilTarget"">      
 			<Fallback name=""Wander"">        
 				<move_randomly/>      
 			</Fallback>      
 			<is_target_detected/>      
 		</Sequence>    
-		<Sequence name=""ApproachAndAchieve"">      
-			<is_target_detected/>      
+		<Sequence name=""ApproachAndSignal"">      
 			<form_line/>      
-			<change_color color=""red""/>    
+			<change_color color=""red""/>      
 		</Sequence>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
-		<Action ID=""move_randomly"" editable=""true""/>    
+		<Action ID=""move_randomly""/>    
 		<Condition ID=""is_target_detected""/>    
-		<Action ID=""form_line"" editable=""true""/>    
-		<Action ID=""change_color"" editable=""true""/>    
-		<Control ID=""Fallback"" editable=""true""/>    
-		<Control ID=""Sequence"" editable=""true""/>  
+		<Action ID=""form_line""/>    
+		<Action ID=""change_color"" editable=""true"">
+      	<input_port name=""color""/>
+    	</Action>
 	</TreeNodesModel>
 </root>",Falcon3-10B-Instruct-q4_k_m
-"check if path is clear, form a line at the center",two,61.96171164512634,"<root BTCPP_format=""3"" main_tree_to_execute=""PathAndLineFormation"">  
+"check if path is clear, form a line at the center",two,57.963032484054565,"<root BTCPP_format=""3"" main_tree_to_execute=""PathAndLineFormation"">  
 	<BehaviorTree ID=""PathAndLineFormation"">    
 		<Sequence name=""PathCheckAndLineFormation"">      
 			<is_path_clear/>      
@@ -262,40 +270,49 @@ Prompt,Prompt Type,Time,Behavior Tree,Model Name
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_path_clear""/>    
-		<Action ID=""form_line"" editable=""true""/>    
-		<Control ID=""Sequence"" editable=""true""/>  
+		<Action ID=""form_line""/>    
+		<Action ID=""change_color"" editable=""true"">
+      	<input_port name=""color""/>
+    	</Action>
 	</TreeNodesModel>
 </root>",Falcon3-10B-Instruct-q4_k_m
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,81.90676021575928,"<root BTCPP_format=""3"" main_tree_to_execute=""SwarmBehavior"">  
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,76.15823578834534,"<root BTCPP_format=""3"" main_tree_to_execute=""SwarmBehavior"">  
 	<BehaviorTree ID=""SwarmBehavior"">    
 		<Sequence name=""Goal Seeking and Alignment"">      
 			<is_target_detected/>      
 			<Fallback name=""Target Reached"">        
-				<change_color color=""red""/>      
+				<change_color color=""red""/>        
 			</Fallback>    
-			<align_with_swarm/>    
+		</Sequence>    
+		<Sequence name=""Swarm Alignment"">      
+			<align_with_swarm/>      
 		</Sequence>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_target_detected""/>    
-		<Action ID=""change_color"" editable=""true""/>    
-		<Action ID=""align_with_swarm"" editable=""true""/>    
-		<Control ID=""Fallback"" editable=""true""/>    
-		<Control ID=""Sequence"" editable=""true""/>  
+		<Action ID=""change_color""/>    
+		<Action ID=""align_with_swarm""/>    
+		<Action ID=""avoid_obstacle"" editable=""true"">
+      	<input_port name=""avoidance_type""/>
+    	</Action>
 	</TreeNodesModel>
 </root>",Falcon3-10B-Instruct-q4_k_m
-"detect target, freeze movement upon reaching it",two,68.43394255638123,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
+"detect target, freeze movement upon reaching it",two,70.31904172897339,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
 	<BehaviorTree ID=""TargetDetection"">    
-		<Sequence name=""Target Detection and Response"">      
+		<Sequence name=""Target Detection and Movement Control"">      
 			<is_target_detected/>      
-			<Fallback name=""Movement Freeze"">        
-				<agent_movement_freeze/>      
+			<Fallback name=""Movement Control"">        
+				<agent_movement_freeze/>        
+				<is_target_reached/>      
 			</Fallback>    
 		</Sequence>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_target_detected""/>    
-		<Control ID=""Fallback"" editable=""true""/>    
-		<Action ID=""agent_movement_freeze"" editable=""true""/>    
+		<Action ID=""agent_movement_freeze""/>    
+		<Condition ID=""is_target_reached""/>    
+		<Action ID=""change_color"" editable=""true"">
+      	<input_port name=""color""/>
+    	</Action>
 	</TreeNodesModel>
 </root>",Falcon3-10B-Instruct-q4_k_m

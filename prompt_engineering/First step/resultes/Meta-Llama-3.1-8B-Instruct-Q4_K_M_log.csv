@@ -1,30 +1,82 @@
 Prompt,Prompt Type,Time,Behavior Tree,Model Name
-"detect an obstacle, avoid it, and then flock safely with other agents",zero,288.6835479736328,"<root>
-        <BTCPP_format>1.0</BTCPP_format>
-        <main_tree_to_execute>detect_obstacle_avoid_flock</main_tree_to_execute>
-        <BehaviorTree>
-            <Sequence name=""detect_obstacle_avoid_flock"">
-                <Fallback name=""fallback_sequence"">
-                    <Condition name=""is_obstacle_detected"" />
-                    <Action name=""avoid_obstacle"" />
-                    <Sequence name=""flock_with_agents"">
-                        <Condition name=""is_path_clear"" />
-                        <Action name=""flocking"" />
-                    </Sequence>
-                </Fallback>
-            </Sequence>
-        </BehaviorTree>
-        <TreeNodesModel>
-            <NodeModel name=""detect_obstacle_avoid_flock"" type=""Sequence"" />
-            <NodeModel name=""fallback_sequence"" type=""Fallback"" />
-            <NodeModel name=""is_obstacle_detected"" type=""Condition"" />
-            <NodeModel name=""avoid_obstacle"" type=""Action"" />
-            <NodeModel name=""flock_with_agents"" type=""Sequence"" />
-            <NodeModel name=""is_path_clear"" type=""Condition"" />
-            <NodeModel name=""flocking"" type=""Action"" />
-        </TreeNodesModel>
-    </root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,234.25166988372803,"<BTCPP_format>1.0</BTCPP_format>
+"detect an obstacle, avoid it, and then changing color to green",zero,242.73691701889038,"<BTCPP_format>1.0</BTCPP_format>
+    <main_tree_to_execute>detect_obstacle_avoid_change_color</main_tree_to_execute>
+    <BehaviorTree>
+        <Sequence name=""detect_obstacle_avoid_change_color"">
+            <Fallback name=""fallback_sequence"">
+                <Condition name=""is_obstacle_detected"" />
+                <Action name=""avoid_obstacle"" />
+                <Action name=""change_color"" args=""color=green"" />
+            </Fallback>
+        </Sequence>
+    </BehaviorTree>
+    <TreeNodesModel>
+        <NodeModel name=""say"" type=""ActionNode"">
+            <Description>Speak the provided message using text-to-speech if it hasn't been spoken before.</Description>
+            <Args>
+                <Arg name=""message"" type=""str"">The message to be spoken</Arg>
+            </Args>
+            <Returns>Always returns SUCCESS, indicating the action was executed.</Returns>
+        </NodeModel>
+        <NodeModel name=""flocking"" type=""ActionNode"">
+            <Description>Adjust the agent's move vector by blending alignment and separation forces from nearby agents.</Description>
+            <Returns>Always returns SUCCESS, indicating the action was executed.</Returns>
+        </NodeModel>
+        <NodeModel name=""align_with_swarm"" type=""ActionNode"">
+            <Description>Align the agent's move vector with the average movement of nearby agents.</Description>
+            <Returns>Always returns SUCCESS, indicating the action was executed.</Returns>
+        </NodeModel>
+        <NodeModel name=""is_obstacle_detected"" type=""ConditionNode"">
+            <Description>Determine if any obstacles are detected in the vicinity of the agent.</Description>
+            <Returns>SUCCESS if an obstacle is detected, FAILURE otherwise.</Returns>
+        </NodeModel>
+        <NodeModel name=""avoid_obstacle"" type=""ActionNode"">
+            <Description>Execute an action to avoid detected obstacles.</Description>
+            <Returns>Always returns SUCCESS, indicating the action was executed.</Returns>
+        </NodeModel>
+        <NodeModel name=""is_target_detected"" type=""ConditionNode"">
+            <Description>Check if the target is within a detectable distance from the agent's position.</Description>
+            <Returns>SUCCESS if the target is within 20 units of distance, FAILURE otherwise.</Returns>
+        </NodeModel>
+        <NodeModel name=""is_target_reached"" type=""ConditionNode"">
+            <Description>Check if the agent has reached the target.</Description>
+            <Returns>SUCCESS if the target is within 15 units of distance, FAILURE otherwise.</Returns>
+        </NodeModel>
+        <NodeModel name=""change_color"" type=""ActionNode"">
+            <Description>Change the agent's color to 'white', 'green', or 'red'.</Description>
+            <Args>
+                <Arg name=""color"" type=""str"">Color name</Arg>
+            </Args>
+            <Returns>Always returns SUCCESS, indicating the action was executed.</Returns>
+        </NodeModel>
+        <NodeModel name=""is_agent_in_nest"" type=""ConditionNode"">
+            <Description>Determine if the agent is in the nest.</Description>
+            <Returns>SUCCESS if the agent is in the nest, FAILURE otherwise.</Returns>
+        </NodeModel>
+        <NodeModel name=""agent_movement_freeze"" type=""ActionNode"">
+            <Description>Freeze the agent's movement, typically to indicate a stop in activity.</Description>
+            <Returns>Always returns SUCCESS, indicating the action was executed.</Returns>
+        </NodeModel>
+        <NodeModel name=""continue_movement_agent"" type=""ActionNode"">
+            <Description>Continue the agent's movement after it has been previously frozen.</Description>
+            <Returns>Always returns SUCCESS, indicating the action was executed.</Returns>
+        </NodeModel>
+        <NodeModel name=""move_randomly"" type=""ActionNode"">
+            <Description>Perform a wandering action where the agent moves randomly within the environment.</Description>
+            <Returns>Always returns SUCCESS, indicating the action was executed.</Returns>
+        </NodeModel>
+        <NodeModel name=""is_path_clear"" type=""ConditionNode"">
+            <Description>Check if the path ahead of the agent is clear of obstacles.</Description>
+            <Returns>SUCCESS if no obstacles are detected ahead, FAILURE if obstacles are present.</Returns>
+        </NodeModel>
+        <NodeModel name=""is_line_formed"" type=""ConditionNode"">
+            <Description>Determine if the agent has formed a line with a reference point at the center of the window.</Description>
+            <Returns>SUCCESS if the line is formed with the center, FAILURE otherwise.</Returns>
+        </NodeModel>
+        <NodeModel name=""form_line"" type=""ActionNode"">
+            <Description>Direct the agent to form a line towards the center of the window. This function adjusts the agent's position to align it with the center.</Description>
+            <Returns>Always returns SUCCESS, indicating the",Meta-Llama-3.1-8B-Instruct-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,210.88910388946533,"<BTCPP_format>1.0</BTCPP_format>
     <main_tree_to_execute>WanderAndApproachTarget</main_tree_to_execute>
     <BehaviorTree>
         <Sequences>
@@ -81,7 +133,7 @@ form_line: Action node: Direct the agent to form a line towards the center of th
     - A <BehaviorTree> element with an inner structure of Sequences, Fallback, Conditions, and Actions.
     - A <TreeNodesModel> section listing all node models.
     - No additional text or",Meta-Llama-3.1-8B-Instruct-Q4_K_M
-"check if path is clear, form a line at the center",zero,233.06781387329102,"<BTCPP_format>1.0</BTCPP_format>
+"check if path is clear, form a line at the center",zero,210.21268844604492,"<BTCPP_format>1.0</BTCPP_format>
      <main_tree_to_execute>True</main_tree_to_execute>
     <BehaviorTree>
         <Sequence>
@@ -149,7 +201,7 @@ form_line: Action node: Direct the agent to form a line towards the center of th
             </Condition>
             <Action name=""form_line"" type=""action_node"">
                 <NodeModel name=""form_line"" type=""",Meta-Llama-3.1-8B-Instruct-Q4_K_M
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,233.5226228237152,"<BTCPP_format>1.0</BTCPP_format>
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,210.3411946296692,"<BTCPP_format>1.0</BTCPP_format>
     <main_tree_to_execute>find_goal</main_tree_to_execute>
     <BehaviorTree>
         <Sequence name=""find_goal"">
@@ -201,7 +253,7 @@ agent_movement_freeze: Action node: Freeze the agent's movement, typically to in
 continue_movement_agent: Action node: Continue the agent's movement after it has been previously frozen. Returns: Always returns SUCCESS, indicating the action was executed.
 move_randomly: Action node: Perform a wandering action where the agent moves randomly within the environment. Returns: Always returns SUCCESS, indicating the action was executed.
 is_path_clear: Condition node: Check if the path ahead of the agent is clear of obstacles. Returns:",Meta-Llama-3.1-8B-Instruct-Q4_K_M
-"detect target, freeze movement upon reaching it",zero,236.58856010437012,"<BTCPP_format>1.0</BTCPP_format>
+"detect target, freeze movement upon reaching it",zero,209.86936354637146,"<BTCPP_format>1.0</BTCPP_format>
      <main_tree_to_execute>detect_target_freeze_movement</main_tree_to_execute>
     <BehaviorTree>
         <Sequence name=""detect_target_freeze_movement"">
@@ -241,141 +293,165 @@ change_color: Action Node: Change the agent's color to 'white', 'green', or 'red
 is_agent_in_nest: Condition node: Determine if the agent is in the nest. Returns: SUCCESS if the agent is in the nest, FAILURE otherwise.
 agent_movement_freeze: Action node: Freeze the agent's movement, typically to indicate a stop in activity. Returns: Always returns SUCCESS, indicating the action was executed.
 continue_movement_agent: Action node: Continue the agent's movement after it has been previously frozen",Meta-Llama-3.1-8B-Instruct-Q4_K_M
-"detect an obstacle, avoid it, and then flock safely with other agents",one,311.08502769470215,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidance"">  
-        <BehaviorTree ID=""ObstacleAvoidance"">    
-            <Fallback name=""FlockingSequence"">      
-                <Sequence name=""ObstacleDetectionSequence"">        
-                    <is_obstacle_detected/>        
-                    <avoid_obstacle/>      
-                </Sequence>      
-                <flocking/>    
-            </Fallback>  
-        </BehaviorTree>  
-        <TreeNodesModel>    
-            <Condition ID=""is_obstacle_detected""/>    
-            <Action ID=""avoid_obstacle"" editable=""true""/>    
-            <Action ID=""flocking"" editable=""true""/>  
-        </TreeNodesModel>
-    </root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,243.69239902496338,"<root BTCPP_format=""3"" main_tree_to_execute=""RandomWanderTargetDetection"">  
-        <BehaviorTree ID=""RandomWanderTargetDetection"">    
-            <Fallback name=""MainDecision"">      
-                <Sequence name=""RandomWanderSequence"">        
-                    <move_randomly/>        
+"detect an obstacle, avoid it, and then changing color to green",one,282.5946819782257,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidance"">  
+	<BehaviorTree ID=""ObstacleAvoidance"">    
+		<Fallback name=""High-Level Decision"">      
+			<Sequence name=""Obstacle Detection Sequence"">        
+				<is_obstacle_detected/>        
+				<avoid_obstacle/>      
+			</Sequence>      
+			<Sequence name=""Color Change Sequence"">        
+				<change_color color=""green""/>        
+			</Sequence>    
+		</Fallback>  
+	</BehaviorTree>  
+	<TreeNodesModel>    
+		<Condition ID=""is_obstacle_detected""/>    
+		<Action ID=""avoid_obstacle""/>    
+		<Action ID=""change_color"">    
+			<input_port name=""color""/>    
+		</Action>
+	</TreeNodesModel>
+</root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,220.144788980484,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderAndTarget"">  
+	<BehaviorTree ID=""WanderAndTarget"">    
+		<Fallback name=""High-Level Decision"">      
+			<Sequence name=""Wandering Sequence"">        
+				<move_randomly/>        
+				<flocking/>      
+			</Sequence>      
+			<Sequence name=""Target Detection and Approach Sequence"">        
+				<is_target_detected/>        
+				<align_with_swarm/>        
+				<avoid_obstacle/>        
+				<form_line/>        
+				<continue_movement_agent/>        
+				<agent_movement_freeze/>        
+				<say message=""Target reached""/>      
+			</Sequence>    
+		</Fallback>  
+	</BehaviorTree>  
+	<TreeNodesModel>    
+		<Condition ID=""is_target_detected""/>    
+		<Action ID=""move_randomly""/>    
+		<Action ID=""flocking""/>    
+		<Condition ID=""is_obstacle_detected""/>    
+		<Action ID=""avoid_obstacle""/>    
+		<Condition ID=""is_path_clear""/>    
+		<Condition ID=""is_line_formed""/>    
+		<Action ID=""form_line""/>    
+		<Action ID=""continue_movement_agent""/>    
+		<Action ID=""agent_movement_freeze""/>    
+		<Action ID=""say"" editable=""true"">
+      	<input_port name=""message""/>
+    	</Action>
+	</TreeNodesModel>
+</root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M
+"check if path is clear, form a line at the center",one,219.15446662902832,"<root BTCPP_format=""3"" main_tree_to_execute=""PathManagement"">  
+	<BehaviorTree ID=""PathManagement"">    
+		<Fallback name=""High-Level Decision"">      
+			<Sequence name=""Clear Path Sequence"">        
+				<is_path_clear/>        
+				<form_line/>      
+			</Sequence>      
+		</Fallback>  
+	</BehaviorTree>  
+	<TreeNodesModel>    
+		<Condition ID=""is_path_clear""/>    
+		<Action ID=""form_line""/>    
+	</TreeNodesModel>
+</root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,219.82509064674377,"<root BTCPP_format=""3"" main_tree_to_execute=""SwarmManagement"">  
+        <BehaviorTree ID=""SwarmManagement"">    
+            <Fallback name=""High-Level Decision"">      
+                <Sequence name=""GoalDetectionSequence"">        
                     <is_target_detected/>        
-                    <flocking/>        
+                    <say message=""Target detected""/>      
                 </Sequence>      
-                <Sequence name=""ApproachAndSignalSequence"">        
-                    <align_with_swarm/>        
-                    <change_color color=""red""/>        
+                <Sequence name=""AlignmentSequence"">        
+                    <flocking/>        
+                    <align_with_swarm/>      
                 </Sequence>    
             </Fallback>  
-        </BehaviorTree>  
-        <TreeNodesModel>    
-            <Action ID=""move_randomly"" editable=""true""/>    
-            <Condition ID=""is_target_detected""/>    
-            <Action ID=""flocking"" editable=""true""/>    
-            <Action ID=""align_with_swarm"" editable=""true""/>    
-            <Action ID=""change_color"" editable=""true""/>  
-        </TreeNodesModel>
-    </root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M
-"check if path is clear, form a line at the center",one,242.52854466438293,"<root BTCPP_format=""3"" main_tree_to_execute=""PathManagement"">  
-        <BehaviorTree ID=""PathManagement"">    
-            <Selector name=""High-Level Decision"">      
-                <Sequence name=""Clear Path Sequence"">        
-                    <is_path_clear/>        
-                    <form_line/>      
-                </Sequence>      
-            </Selector>  
-        </BehaviorTree>  
-        <TreeNodesModel>    
-            <Condition ID=""is_path_clear""/>    
-            <Action ID=""form_line"" editable=""true""/>    
-        </TreeNodesModel>
-    </root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,242.92616200447083,"<root BTCPP_format=""3"" main_tree_to_execute=""SwarmManagement"">  
-        <BehaviorTree ID=""SwarmManagement"">    
-            <Fallback name=""GoalDetectionSequence"">      
-                <is_target_detected/>        
-                <align_with_swarm/>      
-            </Fallback>    
             <Sequence name=""SuccessSignalSequence"">        
-                <say message=""Goal reached!""/>        
+                <is_target_reached/>        
                 <change_color color=""red""/>      
             </Sequence>    
         </BehaviorTree>  
         <TreeNodesModel>    
             <Condition ID=""is_target_detected""/>    
-            <Action ID=""align_with_swarm"" editable=""true""/>    
-            <Action ID=""say"" editable=""true""/>    
-            <Action ID=""change_color"" editable=""true""/>  
+            <Action ID=""say""/>    
+            <Action ID=""flocking""/>    
+            <Action ID=""align_with_swarm""/>    
+            <Condition ID=""is_target_reached""/>    
+            <Action ID=""change_color""/>    
         </TreeNodesModel>
     </root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M
-"detect target, freeze movement upon reaching it",one,240.3681092262268,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
-        <BehaviorTree ID=""TargetDetection"">    
-            <Selector name=""High-Level Decision"">      
-                <Sequence name=""Detect Target Sequence"">        
-                    <is_target_detected/>        
-                    <agent_movement_freeze/>      
-                </Sequence>      
-            </Selector>  
-        </BehaviorTree>  
-        <TreeNodesModel>    
-            <Condition ID=""is_target_detected""/>    
-            <Action ID=""agent_movement_freeze"" editable=""true""/>  
-        </TreeNodesModel>
-    </root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M
-"detect an obstacle, avoid it, and then flock safely with other agents",two,328.95582604408264,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidance"">  
+"detect target, freeze movement upon reaching it",one,218.63039445877075,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
+	<BehaviorTree ID=""TargetDetection"">    
+		<Fallback name=""High-Level Decision"">      
+			<Sequence name=""Detect Target Sequence"">        
+				<is_target_detected/>        
+				<form_line/>      
+			</Sequence>      
+			<Sequence name=""Freeze Movement Sequence"">        
+				<agent_movement_freeze/>        
+				<continue_movement_agent/>      
+			</Sequence>    
+		</Fallback>  
+	</BehaviorTree>  
+	<TreeNodesModel>    
+		<Condition ID=""is_target_detected""/>    
+		<Action ID=""form_line""/>    
+		<Action ID=""agent_movement_freeze""/>    
+		<Action ID=""continue_movement_agent""/>  
+	</TreeNodesModel>
+</root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M
+"detect an obstacle, avoid it, and then changing color to green",two,296.86789417266846,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidance"">  
 	<BehaviorTree ID=""ObstacleAvoidance"">    
 		<Fallback name=""Obstacle Handling"">      
 			<Sequence name=""Detection and Avoidance"">        
 				<is_obstacle_detected/>        
 				<avoid_obstacle/>      
 			</Sequence>      
-			<Sequence name=""Flocking Sequence"">        
-				<flocking/>        
-				<align_with_swarm/>      
-			</Sequence>    
+			<Action name=""Color Change"">        
+				<change_color color=""green""/>      
+			</Action>    
 		</Fallback>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_obstacle_detected""/>    
-		<Action ID=""avoid_obstacle"" editable=""true""/>    
-		<Action ID=""flocking"" editable=""true""/>    
-		<Action ID=""align_with_swarm"" editable=""true""/>  
+		<Action ID=""avoid_obstacle""/>    
+		<Action ID=""change_color"">        
+			<input_port name=""color""/>      
+		</Action>
 	</TreeNodesModel>
 </root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,252.74313712120056,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderAndTarget"">  
-	<BehaviorTree ID=""WanderAndTarget"">    
-		<Fallback name=""Wander and Target Detection"">      
-			<Sequence name=""Random Movement Sequence"">        
-				<move_randomly/>        
-				<is_target_detected/>      
-			</Sequence>      
-			<Sequence name=""Approach Target Sequence"">        
-				<align_with_swarm/>        
-				<form_line/>        
-				<avoid_obstacle/>        
-				<is_target_reached/>      
-			</Sequence>    
-		</Fallback>  
-		<Fallback name=""Target Reached Signal"">      
-			<say message=""Target reached!""/>      
-			<change_color color=""red""/>      
-		</Fallback>  
-	</BehaviorTree>  
-	<TreeNodesModel>    
-		<Action ID=""move_randomly"" editable=""true""/>    
-		<Condition ID=""is_target_detected""/>    
-		<Action ID=""align_with_swarm"" editable=""true""/>    
-		<Action ID=""form_line"" editable=""true""/>    
-		<Action ID=""avoid_obstacle"" editable=""true""/>    
-		<Condition ID=""is_target_reached""/>    
-		<Action ID=""say"" editable=""true""/>    
-		<Action ID=""change_color"" editable=""true""/>  
-	</TreeNodesModel>
-</root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M
-"check if path is clear, form a line at the center",two,252.22395777702332,"<root BTCPP_format=""3"" main_tree_to_execute=""PathClearing"">  
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,229.38978266716003,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderAndTarget"">  
+        <BehaviorTree ID=""WanderAndTarget"">    
+            <Sequence name=""Random Movement Sequence"">      
+                <move_randomly/>        
+                <is_target_detected/>      
+            </Sequence>      
+            <Fallback name=""Approach Target Sequence"">        
+                <align_with_swarm/>        
+                <say message=""Target detected!""/>        
+                <change_color color=""red""/>      
+            </Fallback>    
+        </BehaviorTree>  
+        <TreeNodesModel>    
+            <Action ID=""move_randomly""/>    
+            <Condition ID=""is_target_detected""/>    
+            <Action ID=""align_with_swarm""/>    
+            <Action ID=""say"">        
+                <input_port name=""message""/>      
+            </Action>    
+            <Action ID=""change_color"">        
+                <input_port name=""color""/>      
+            </Action>
+        </TreeNodesModel>
+    </root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M
+"check if path is clear, form a line at the center",two,228.93294620513916,"<root BTCPP_format=""3"" main_tree_to_execute=""PathClearing"">  
 	<BehaviorTree ID=""PathClearing"">    
 		<Fallback name=""Line Formation"">      
 			<is_path_clear/>      
@@ -384,44 +460,42 @@ continue_movement_agent: Action node: Continue the agent's movement after it has
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_path_clear""/>    
-		<Action ID=""form_line"" editable=""true""/>    
+		<Action ID=""form_line""/>    
 	</TreeNodesModel>
 </root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,254.87592029571533,"<root BTCPP_format=""3"" main_tree_to_execute=""SwarmBehavior"">  
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,229.25352597236633,"<root BTCPP_format=""3"" main_tree_to_execute=""SwarmBehavior"">  
 	<BehaviorTree ID=""SwarmBehavior"">    
-		<Sequence name=""GoalFinding"">      
-			<is_target_detected/>      
-			<Fallback name=""ColorChangeAndAlignment"">        
-				<say message=""Success!""/>        
-				<form_line/>        
-				<flocking/>      
-			</Fallback>    
-		</Sequence>  
+		<Fallback name=""Goal Detection and Alignment"">      
+			<Sequence name=""Find Goal Sequence"">        
+				<is_target_detected/>        
+				<say message=""Target found!""/>      
+			</Sequence>      
+			<Sequence name=""Alignment Sequence"">        
+				<flocking/>        
+				<form_line/>      
+			</Sequence>    
+		</Fallback>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_target_detected""/>    
-		<Action ID=""say"" editable=""true""/>    
-		<Action ID=""form_line"" editable=""true""/>    
-		<Action ID=""flocking"" editable=""true""/>    
-		<Control ID=""Fallback"" editable=""true""/>    
-		<Control ID=""Sequence"" editable=""true""/>  
+		<Action ID=""say"">       
+			<input_port name=""message""/>     
+		</Action>
+		<Action ID=""flocking""/>    
+		<Action ID=""form_line""/>    
 	</TreeNodesModel>
 </root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M
-"detect target, freeze movement upon reaching it",two,248.27180528640747,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
+"detect target, freeze movement upon reaching it",two,228.4929051399231,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
 	<BehaviorTree ID=""TargetDetection"">    
-		<Sequence name=""Target Detection Sequence"">      
-			<is_target_detected/>      
-			<Fallback name=""Freeze Movement Fallback"">        
-				<agent_movement_freeze/>        
-				<continue_movement_agent/>      
-			</Fallback>    
-		</Sequence>  
+		<Fallback name=""Freeze Movement Upon Target Detection"">      
+			<Sequence name=""Detect and Freeze Sequence"">        
+				<is_target_detected/>        
+				<agent_movement_freeze/>      
+			</Sequence>    
+		</Fallback>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_target_detected""/>    
-		<Action ID=""agent_movement_freeze"" editable=""true""/>    
-		<Action ID=""continue_movement_agent"" editable=""true""/>    
-		<Control ID=""Fallback"" editable=""true""/>    
-		<Control ID=""Sequence"" editable=""true""/>  
+		<Action ID=""agent_movement_freeze""/>    
 	</TreeNodesModel>
 </root>",Meta-Llama-3.1-8B-Instruct-Q4_K_M

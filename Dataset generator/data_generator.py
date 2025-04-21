@@ -39,7 +39,7 @@ def encode_prompt(prompt_instructions):
 
 
 
-for i in range(2):
+for i in range(1):
     output_folder = r"Dataset generator\raw_data"
     files = os.listdir(output_folder)
     prompt_files = [f for f in files if f.startswith("batch_") and f.endswith(".txt")]
@@ -47,7 +47,7 @@ for i in range(2):
     new_filename = f"batch_{next_number}.txt"
     new_filepath = os.path.join(output_folder, new_filename)
 
-    for j in range(10):
+    for j in range(1):
         print("\n###########,",i ,",,", j,",############\n")
 
         # Open and read the JSON file

@@ -32,12 +32,12 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Sequence" editable="true"/>
-    <Action ID="patrol_area" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Sequence"/>
+    <Action ID="patrol_area"/>
+    <Control ID="Fallback"/>
     <Condition ID="detect_obstacle"/>
-    <Action ID="avoid_obstacle" editable="true"/>
-    <Action ID="report_status" editable="true"/>
+    <Action ID="avoid_obstacle"/>
+    <Action ID="report_status"/>
   </TreeNodesModel>
 </root>
 
@@ -61,7 +61,7 @@ Generate a behavior tree for "if the battery is low, recharge it and alert the b
 Output only the XML behavior tree without extra text.
 
 OUTPUT:
-<?xml version="1.0" encoding="UTF-8"?><root BTCPP_format="3"      main_tree_to_execute="BatteryManagement">  <BehaviorTree ID="BatteryManagement">    <Selector name="Battery Selector">      <Sequence name="Recharge Sequence">        <check_battery/>        <recharge_battery/>        <alert_low_battery/>      </Sequence>      <continue_operation/>    </Selector>  </BehaviorTree>  <TreeNodesModel>    <Control ID="Selector"             editable="true"/>    <Condition ID="check_battery"/>    <Action ID="recharge_battery"        editable="true"/>    <Action ID="alert_low_battery"        editable="true"/>    <Action ID="continue_operation"        editable="true"/>  </TreeNodesModel></root>
+<?xml version="1.0" encoding="UTF-8"?><root BTCPP_format="3"      main_tree_to_execute="BatteryManagement">  <BehaviorTree ID="BatteryManagement">    <Fallback name="Battery Fallback">      <Sequence name="Recharge Sequence">        <check_battery/>        <recharge_battery/>        <alert_low_battery/>      </Sequence>      <continue_operation/>    </Fallback>  </BehaviorTree>  <TreeNodesModel>    <Control ID="Fallback"            />    <Condition ID="check_battery"/>    <Action ID="recharge_battery"       />    <Action ID="alert_low_battery"       />    <Action ID="continue_operation"       />  </TreeNodesModel></root>
 
 
 ###
@@ -83,7 +83,7 @@ Generate a behavior tree for "if the temperature is high then trigger the coolin
 Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
 
 OUTPUT:
-<?xml version="1.0" encoding="UTF-8"?><root BTCPP_format="3"      main_tree_to_execute="TemperatureControl">  <BehaviorTree ID="TemperatureControl">    <Selector name="Temperature Selector">      <Sequence name="Cooling Sequence">        <is_temperature_high/>        <trigger_cooling/>      </Sequence>      <continue_operation/>    </Selector>  </BehaviorTree>  <TreeNodesModel>    <Control ID="Selector"             editable="true"/>    <Action ID="continue_operation"            editable="true"/>    <Condition ID="is_temperature_high"/>    <Action ID="trigger_cooling"            editable="true"/>  </TreeNodesModel></root>
+<?xml version="1.0" encoding="UTF-8"?><root BTCPP_format="3"      main_tree_to_execute="TemperatureControl">  <BehaviorTree ID="TemperatureControl">    <Fallback name="Temperature Fallback">      <Sequence name="Cooling Sequence">        <is_temperature_high/>        <trigger_cooling/>      </Sequence>      <continue_operation/>    </Fallback>  </BehaviorTree>  <TreeNodesModel>    <Control ID="Fallback"            />    <Action ID="continue_operation"           />    <Condition ID="is_temperature_high"/>    <Action ID="trigger_cooling"           />  </TreeNodesModel></root>
 
 
 ###
@@ -106,7 +106,7 @@ Generate a behavior tree for "continuously patrol the area, but if an enemy is d
 Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
 
 OUTPUT:
-<?xml version="1.0" encoding="UTF-8"?><root BTCPP_format="3"      main_tree_to_execute="EnemyEngagement">  <BehaviorTree ID="EnemyEngagement">    <Sequence name="Main Sequence">      <Fallback name="Engagement Fallback">        <Sequence name="Engage Enemy Sequence">          <detect_enemy/>          <engage_enemy/>        </Sequence>        <seek_cover/>      </Fallback>      <patrol_area/>    </Sequence>  </BehaviorTree>  <TreeNodesModel>    <Control ID="Sequence" editable="true"/>    <Control ID="Fallback" editable="true"/>    <Condition ID="detect_enemy"/>    <Action ID="engage_enemy" editable="true"/>    <Action ID="seek_cover" editable="true"/>    <Action ID="patrol_area" editable="true"/>  </TreeNodesModel></root>
+<?xml version="1.0" encoding="UTF-8"?><root BTCPP_format="3"      main_tree_to_execute="EnemyEngagement">  <BehaviorTree ID="EnemyEngagement">    <Sequence name="Main Sequence">      <Fallback name="Engagement Fallback">        <Sequence name="Engage Enemy Sequence">          <detect_enemy/>          <engage_enemy/>        </Sequence>        <seek_cover/>      </Fallback>      <patrol_area/>    </Sequence>  </BehaviorTree>  <TreeNodesModel>    <Control ID="Sequence"/>    <Control ID="Fallback"/>    <Condition ID="detect_enemy"/>    <Action ID="engage_enemy"/>    <Action ID="seek_cover"/>    <Action ID="patrol_area"/>  </TreeNodesModel></root>
 
 
 ###
@@ -127,7 +127,7 @@ Generate a behavior tree for "if resources are detected, collect them and report
 Output only the XML behavior tree without extra text.
 
 OUTPUT:
-<?xml version="1.0" encoding="UTF-8"?><root BTCPP_format="3"      main_tree_to_execute="ResourceCollection">  <BehaviorTree ID="ResourceCollection">    <Selector name="Resource Selector">      <Sequence name="Collect and Report">        <detect_resource/>        <collect_resource/>        <report_found/>      </Sequence>      <idle/>    </Selector>  </BehaviorTree>  <TreeNodesModel>    <Control ID="Selector"             editable="true"/>    <Condition ID="detect_resource"/>    <Action ID="collect_resource"       editable="true"/>    <Action ID="report_found"          editable="true"/>    <Action ID="idle"                  editable="true"/>  </TreeNodesModel></root>
+<?xml version="1.0" encoding="UTF-8"?><root BTCPP_format="3"      main_tree_to_execute="ResourceCollection">  <BehaviorTree ID="ResourceCollection">    <Fallback name="Resource Fallback">      <Sequence name="Collect and Report">        <detect_resource/>        <collect_resource/>        <report_found/>      </Sequence>      <idle/>    </Fallback>  </BehaviorTree>  <TreeNodesModel>    <Control ID="Fallback"            />    <Condition ID="detect_resource"/>    <Action ID="collect_resource"      />    <Action ID="report_found"         />    <Action ID="idle"                 />  </TreeNodesModel></root>
 
 
 ###
@@ -150,7 +150,7 @@ Generate a behavior tree for "ensure communication is active; if not, establish 
 Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
 
 OUTPUT:
-<?xml version="1.0" encoding="UTF-8"?><root BTCPP_format="3"      main_tree_to_execute="CommunicationHandler">  <BehaviorTree ID="CommunicationHandler">    <Sequence name="Communication Sequence">      <Fallback name="Communication Fallback">        <check_communication/>        <establish_communication/>      </Fallback>      <send_data/>      <wait_for_signal/>    </Sequence>  </BehaviorTree>  <TreeNodesModel>    <Control ID="Sequence" editable="true"/>    <Control ID="Fallback" editable="true"/>    <Condition ID="check_communication"/>    <Action ID="establish_communication" editable="true"/>    <Action ID="send_data" editable="true"/>    <Action ID="wait_for_signal" editable="true"/>  </TreeNodesModel></root>
+<?xml version="1.0" encoding="UTF-8"?><root BTCPP_format="3"      main_tree_to_execute="CommunicationHandler">  <BehaviorTree ID="CommunicationHandler">    <Sequence name="Communication Sequence">      <Fallback name="Communication Fallback">        <check_communication/>        <establish_communication/>      </Fallback>      <send_data/>      <wait_for_signal/>    </Sequence>  </BehaviorTree>  <TreeNodesModel>    <Control ID="Sequence"/>    <Control ID="Fallback"/>    <Condition ID="check_communication"/>    <Action ID="establish_communication"/>    <Action ID="send_data"/>    <Action ID="wait_for_signal"/>  </TreeNodesModel></root>
 
 
 ###
@@ -171,4 +171,4 @@ Generate a behavior tree for "monitor the environment, and if an anomaly is dete
 Output only the XML behavior tree without extra text.
 
 OUTPUT:
-<?xml version="1.0" encoding="UTF-8"?><root BTCPP_format="3"      main_tree_to_execute="EnvironmentalMonitoring">  <BehaviorTree ID="EnvironmentalMonitoring">    <Sequence name="Monitoring Sequence">      <monitor_environment/>      <Fallback name="Anomaly Handling">        <Sequence name="Alarm Sequence">          <detect_anomaly/>          <initiate_alarm/>        </Sequence>        <log_data/>      </Fallback>      <log_data/>    </Sequence>  </BehaviorTree>  <TreeNodesModel>    <Control ID="Sequence" editable="true"/>    <Control ID="Fallback" editable="true"/>    <Action ID="monitor_environment" editable="true"/>    <Condition ID="detect_anomaly"/>    <Action ID="initiate_alarm" editable="true"/>    <Action ID="log_data" editable="true"/>  </TreeNodesModel></root>
+<?xml version="1.0" encoding="UTF-8"?><root BTCPP_format="3"      main_tree_to_execute="EnvironmentalMonitoring">  <BehaviorTree ID="EnvironmentalMonitoring">    <Sequence name="Monitoring Sequence">      <monitor_environment/>      <Fallback name="Anomaly Handling">        <Sequence name="Alarm Sequence">          <detect_anomaly/>          <initiate_alarm/>        </Sequence>        <log_data/>      </Fallback>      <log_data/>    </Sequence>  </BehaviorTree>  <TreeNodesModel>    <Control ID="Sequence"/>    <Control ID="Fallback"/>    <Action ID="monitor_environment"/>    <Condition ID="detect_anomaly"/>    <Action ID="initiate_alarm"/>    <Action ID="log_data"/>  </TreeNodesModel></root>

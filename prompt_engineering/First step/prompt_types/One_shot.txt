@@ -17,7 +17,7 @@ RESPONSE:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="BatteryManagement">  
 	<BehaviorTree ID="BatteryManagement">    
-		<Selector name="High-Level Decision">      
+		<Fallback name="High-Level Decision">      
 			<Sequence name="Low Battery Sequence">        
 				<is_battery_low/>        
 				<charge_battery/>      
@@ -26,7 +26,7 @@ RESPONSE:
 				<patrol_area/>        
 				<report_status/>      
 			</Sequence>    
-		</Selector>  
+		</Fallback>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID="is_battery_low"/>    

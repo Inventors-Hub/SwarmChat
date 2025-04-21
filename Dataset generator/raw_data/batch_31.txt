@@ -32,8 +32,8 @@ OUTPUT:
   <TreeNodesModel>
     <Condition ID="is_obstacle_detected"/>
     <Action ID="avoid_obstacle"/>
-    <Action ID="report_status" editable="true"/>
-    <Action ID="patrol_area" editable="true"/>
+    <Action ID="report_status"/>
+    <Action ID="patrol_area"/>
   </TreeNodesModel>
 </root>
 
@@ -71,8 +71,8 @@ OUTPUT:
   <TreeNodesModel>
     <Condition ID="is_battery_low"/>
     <Action ID="return_to_base"/>
-    <Action ID="charge_battery" editable="true"/>
-    <Action ID="idle" editable="true"/>
+    <Action ID="charge_battery"/>
+    <Action ID="idle"/>
   </TreeNodesModel>
 </root>
 
@@ -114,8 +114,8 @@ OUTPUT:
     <Condition ID="is_sample_available"/>
     <Action ID="move_to_location"/>
     <Action ID="gather_samples"/>
-    <Action ID="analyze_samples" editable="true"/>
-    <Action ID="report_findings" editable="true"/>
+    <Action ID="analyze_samples"/>
+    <Action ID="report_findings"/>
   </TreeNodesModel>
 </root>
 
@@ -158,8 +158,8 @@ OUTPUT:
     <Condition ID="monitor_temperature"/>
     <Action ID="maintain_operations"/>
     <Action ID="activate_cooling_system"/>
-    <Action ID="shutdown_system" editable="true"/>
-    <Action ID="log_event" editable="true"/>
+    <Action ID="shutdown_system"/>
+    <Action ID="log_event"/>
   </TreeNodesModel>
 </root>
 
@@ -198,8 +198,8 @@ OUTPUT:
   <TreeNodesModel>
     <Condition ID="is_device_connected"/>
     <Action ID="charge_device"/>
-    <Action ID="notify_user" editable="true"/>
-    <Action ID="enter_low_power_mode" editable="true"/>
+    <Action ID="notify_user"/>
+    <Action ID="enter_low_power_mode"/>
   </TreeNodesModel>
 </root>
 
@@ -238,8 +238,8 @@ OUTPUT:
     <Condition ID="is_anomaly_detected"/>
     <Action ID="inspect_area"/>
     <Action ID="alert_supervisor"/>
-    <Action ID="record_data" editable="true"/>
-    <Action ID="continue_inspection" editable="true"/>
+    <Action ID="record_data"/>
+    <Action ID="continue_inspection"/>
   </TreeNodesModel>
 </root>
 
@@ -280,7 +280,7 @@ OUTPUT:
     <Condition ID="is_sensor_deployed"/>
     <Action ID="deploy_sensor"/>
     <Action ID="calibrate_sensor"/>
-    <Action ID="report_deployment" editable="true"/>
-    <Action ID="relocate_sensor" editable="true"/>
+    <Action ID="report_deployment"/>
+    <Action ID="relocate_sensor"/>
   </TreeNodesModel>
 </root>

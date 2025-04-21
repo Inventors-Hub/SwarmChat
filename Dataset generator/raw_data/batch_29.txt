@@ -40,17 +40,17 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Action ID="InitializeSensors" editable="true"/>
+    <Action ID="InitializeSensors"/>
     <Condition ID="CheckBatteryLevel"/>
-    <Action ID="ReportLowBattery" editable="true"/>
-    <Action ID="EnterLowPowerMode" editable="true"/>
+    <Action ID="ReportLowBattery"/>
+    <Action ID="EnterLowPowerMode"/>
     <Action ID="NavigateToWaypoint" editable="true">
       <input_port name="waypoint"/>
     </Action>
     <Condition ID="IsWaypointReached"/>
-    <Action ID="ResumeNormalOperation" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Action ID="ResumeNormalOperation"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -111,17 +111,17 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Action ID="DetectEnemy" editable="true"/>
+    <Action ID="DetectEnemy"/>
     <Condition ID="DetectEnemy"/>
-    <Action ID="EvadeEnemy" editable="true"/>
-    <Action ID="EngageEnemy" editable="true"/>
-    <Action ID="MonitorEnvironment" editable="true"/>
+    <Action ID="EvadeEnemy"/>
+    <Action ID="EngageEnemy"/>
+    <Action ID="MonitorEnvironment"/>
     <Condition ID="IsHealthLow"/>
-    <Action ID="SeekHealthPack" editable="true"/>
+    <Action ID="SeekHealthPack"/>
     <Condition ID="IsHealthPackReached"/>
-    <Action ID="RestoreHealth" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Action ID="RestoreHealth"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -176,17 +176,17 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Action ID="StartPatrol" editable="true"/>
+    <Action ID="StartPatrol"/>
     <Condition ID="CheckIntrusion"/>
-    <Action ID="NotifySecurity" editable="true"/>
-    <Action ID="PausePatrol" editable="true"/>
-    <Action ID="ResumePatrol" editable="true"/>
-    <Action ID="HandleWithLocalMeasures" editable="true"/>
-    <Action ID="LogIntrusion" editable="true"/>
+    <Action ID="NotifySecurity"/>
+    <Action ID="PausePatrol"/>
+    <Action ID="ResumePatrol"/>
+    <Action ID="HandleWithLocalMeasures"/>
+    <Action ID="LogIntrusion"/>
     <Condition ID="IsSecurityAvailable"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
-    <Action ID="ContinuePatrol" editable="true"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
+    <Action ID="ContinuePatrol"/>
   </TreeNodesModel>
 </root>
 
@@ -241,13 +241,13 @@ OUTPUT:
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="MonitorTemperature"/>
-    <Action ID="ActivateCoolingSystem" editable="true"/>
+    <Action ID="ActivateCoolingSystem"/>
     <Condition ID="IsCoolingEffective"/>
-    <Action ID="MaintainCurrentState" editable="true"/>
-    <Action ID="LogTemperatureReading" editable="true"/>
-    <Action ID="EscalateAlert" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Action ID="MaintainCurrentState"/>
+    <Action ID="LogTemperatureReading"/>
+    <Action ID="EscalateAlert"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -299,15 +299,15 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Action ID="StartDataCollection" editable="true"/>
+    <Action ID="StartDataCollection"/>
     <Condition ID="CheckDataIntegrity"/>
-    <Action ID="StoreData" editable="true"/>
-    <Action ID="ClearDataCache" editable="true"/>
-    <Action ID="HandleDataCorruption" editable="true"/>
-    <Action ID="NotifyDataManager" editable="true"/>
+    <Action ID="StoreData"/>
+    <Action ID="ClearDataCache"/>
+    <Action ID="HandleDataCorruption"/>
+    <Action ID="NotifyDataManager"/>
     <Condition ID="IsDataManagerAvailable"/>
-    <Action ID="RetryDataCollection" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Action ID="RetryDataCollection"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
