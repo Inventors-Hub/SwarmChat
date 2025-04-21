@@ -1,112 +1,92 @@
 Prompt,Prompt Type,Time,Behavior Tree,Model Name
-"detect an obstacle, avoid it, and then flock safely with other agents",zero,316.7982847690582,"<BTCPP_format version=""1.0"">
-      <BehaviorTree>
-        <!-- Sequence of actions -->
-        <Sequence name=""ObstacleAvoidanceAndFlocking"">
-          <Condition name=""is_obstacle_detected"">
-            <Action name=""avoid_obstacle""/>
-          </</Condition>
-          <Fallback>
-            <Condition name=""is_target_reached"">
-              <Action name=""flock""/>
-            </</Fallback>
-          </</Sequence>
-        </</BehaviorTree>
-      </BTCPP_format>
-
-    But wait, the user's command is to ""detect an obstacle, avoid it, and then flock safely with other agents"". So perhaps I need to include a step where after avoiding the obstacle, the agent checks if it can flock. Maybe using a Fallback in case the first action fails.
-
-      <BTCPP_format version=""1.2"">
+"detect an obstacle, avoid it, and then changing color to green",zero,253.15817260742188,"<BTCPP_format main_tree_to_execute=""detect_obstacle_avoid_and_change_color"">
         <BehaviorTree>
-          <Sequence name=""ObstacleAvoidanceAndFlocking"">
-            <Condition name=""is_obstacle_detected"">
-              <Action name=""avoid_obstacle""/>
-            </</Condition>
-            <Fallback>
-              <Condition name=""is_target_reached"">
-                <Action name=""flock""/>
-              </</Fallback>
-            </</Sequence>
-          </</BehaviorTree>
-        </BTCPP_format>
+            <Sequence name=""detect_obstacle_avoid_and_change_color"">
+                <Fallback id=""fallback"">
+                    <ConditionRef id=""is_target_detected"">
+                        <ActionRef id=""change_color""/>
+                    </BehaviorTree>
+                </Fallback>
+                <ConditionRef id=""is_obstacle_detected"">
+                    <Fallback id=""fallback2"">
+                        <ActionRef id=""avoid_obstacle""/>
+                        <ConditionRef id=""is_target_reached"">
+                            <ActionRef id=""agent_movement_freeze""/>
+                            <ConditionRef id=""is_agent_in_nest"">
+                                <ActionRef id=""change_color""/>
+                            </BehaviorTree>
+                        </Fallback>
+                    </BehaviorTree>
+                </BehaviorTree>
+            </Sequence>
+        </BehaviorTree>
+    </SYS>
+    </s>
 
-    But wait, the user's command is to ""detect an obstacle, avoid it, and then flock safely with other agents"". So perhaps I need to include a step where after avoiding the obstacle, the agent checks if it can flock. Maybe using a Fallback in case the first action fails.
+Okay, so I need to generate a behavior tree in XML format based on the user's command. The command is to ""detect an obstacle, avoid it, and then change color to green."" Let me break this down step by step.
 
-      <BTCPP_format version=""1.2"">
-        <BehaviorTree>
-          <Sequence name=""ObstacleAvoidanceAndFlocking"">
-            <Condition name=""is_obstacle_detected"">
-              <Action name=""avoid_obstacle""/>
-            </</Condition>
-            <Fallback>
-              <Condition name=""is_target_reached"">
-                <Action name=""flock""/>
-              </</Fallback>
-            </</Sequence>
-          </</BehaviorTree>
-        </BTCPP_format>
+First, I should identify the required behaviors from the provided dictionary. The user mentioned detecting an obstacle, avoiding it, and changing color. Looking at the available actions:
 
-    Hmm, but the user's command is to ""detect an obstacle, avoid it, and then flock safely with other agents"". So perhaps I need to include a step where after avoiding the obstacle, the agent checks if it can flock. Maybe using a Fallback in case the first action fails.
+- is_obstacle_detected: A condition node that checks for obstacles.
+- avoid_obstacle: An action to execute when an obstacle is detected.
+- change_color: An action to change the agent's color.
 
-      <BTCPP_format version=""1.2"">
-        <BehaviorTree>
-          <Sequence name=""ObstacleAvoidanceAndFlocking"">
-            <Condition name=""is_obstacle_detected"">
-              <Action name=""avoid_obstacle""/>
-            </</Condition>
-            <Fallback>
-              <Condition name=""is_target_reached"">
-                <Action name=""flock""/>
-              </</Fallback>
-            </</Sequence>
-          </</BehaviorTree>
-        </BTCPP_format>
+So, I need to structure these into a behavior tree. The user also provided an example output, so I can use that as a reference.
 
-    But wait, the user's command is to ""detect an obstacle, avoid it, and then flock safely with other agents"". So perhaps I need to include a step where after avoiding the obstacle, the agent checks if it can flock. Maybe using a Fallback in case the first action fails.
+The behavior tree should start with detecting the obstacle. If an obstacle is detected, the agent should avoid it. After avoiding the obstacle, if the target is reached, maybe there's a fallback where the agent stops and changes color. But wait, in the user's command, they just want to change color after avoiding the obstacle, regardless of whether the target is reached.
 
-      <BTCPP_format version=""1.2"">
-        <BehaviorTree>
-          <Sequence name=""ObstacleAvoidanceAndFlocking"">
-            <Condition name=""is_obstacle_detected"">
-              <Action name=""avoid_obstacle""/>
-            </</Condition>
-            <Fallback>
-              <Condition name=""is_target_reached"">
-                <Action name=""flock""/>
-              </</Fallback>
-            </</Sequence>
-          </</BehaviorTree>
-        </BTCPP_format>
+Wait, looking at the example output provided by the user, it seems like they have a sequence where first, detect_obstacle_detected is checked. If true, then avoid_obstacle is executed. Then, check if the target is reached. If so, freeze movement and change color. Otherwise, maybe fallback to changing color.
 
-    But wait, the user's command is to ""detect an obstacle, avoid it, and then flock safely with other agents"". So perhaps I need to include a step where after avoiding the obstacle, the agent checks if it can flock. Maybe using a Fallback in case the first action fails.
+But in the user's command, it's just ""detect an obstacle, avoid it, and then change color."" So perhaps after avoiding the obstacle, regardless of other conditions, the agent should change color.
 
-      <BTCPP_format version=""1.2"">
-        <BehaviorTree>
-          <Sequence name=""ObstacleAvoidanceAndFlocking"">
-            <Condition name=""is_obstacle_detected"">
-              <Action name=""avoid_obstacle""/>
-            </</Condition>
-            <Fallback>
-              <Condition name=""is_target_reached"">
-                <Action name=""flock""/>
-              </</Fallback>
-            </</Sequence>
-          </</BehaviorTree>
-        </BTCPP_format>
+So the structure would be:
 
-    But wait, the user's command is to ""detect an obstacle, avoid it, and then flock safely with other agents"". So perhaps I need to include a step where after avoiding the obstacle, the agent checks if it can flock. Maybe using a Fallback in case the first action fails.
+1. Check if obstacle is detected.
+   - If yes, execute avoid_obstacle.
+2. After avoiding the obstacle, check if target is reached (maybe not necessary here).
+3. Then, change color to green.
 
-      <BTCPP_format version=""1.2"">
-        <BehaviorTree>
-          <Sequence name=""ObstacleAvoidanceAndFlocking"">
-            <Condition name=""is_obstacle_detected"">
-              <Action name=""avoid_obstacle""/>
-            </</Condition>
-            <Fallback>
-              <Condition name=""is_target_reached"">
-                <Action name=""flock""/>
-              </",DeepSeek-R1-Distill-llama-8B-Q4_K_M
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,243.55992531776428,"<BTCPP_format version=""1.0"">
+Wait, but in the example output, after avoid_obstacle, it checks if the target is reached. If so, it freezes movement and changes color. Otherwise, it falls back to changing color. But maybe for this command, we don't need the target check. The user just wants to change color after avoiding the obstacle.
+
+So perhaps the sequence should be:
+
+- Detect obstacle.
+   - If detected, avoid it.
+      - Then, change color.
+
+But I also need to consider that if the obstacle isn't detected, what happens? Maybe the agent proceeds normally, but since the command is about detecting and avoiding, maybe in that case, it doesn't do anything else. Or perhaps after avoiding, it changes color regardless of other conditions.
+
+Wait, looking at the example output provided by the user, they have a fallback where if the target isn't reached, it still changes color. So maybe I should structure it similarly to ensure that even if the target isn't reached, the color change happens.
+
+So putting it all together:
+
+- The main sequence starts.
+- First, check is_obstacle_detected.
+   - If true, execute avoid_obstacle.
+      - Then, check is_target_reached.
+         - If true, freeze movement and change color.
+         - Else, fallback to changing color.
+   - If false, proceed without doing anything else.
+
+Wait, but in the user's command, they just want to detect, avoid, then change color. So maybe after avoiding, regardless of target status, change color.
+
+Alternatively, perhaps the target check is unnecessary here. The example output includes it, so I should follow that structure.
+
+So the XML would have a Sequence with a Fallback for each Condition.
+
+Let me outline the steps:
+
+1. Start with a Sequence named ""detect_obstacle_avoid_and_change_color"".
+2. First, add a ConditionRef to is_obstacle_detected.
+3. If true, execute avoid_obstacle and then check if target is reached.
+   - If target is reached: freeze movement and change color.
+   - Else: fallback to changing color.
+4. If obstacle isn't detected, do nothing else.
+
+Wait, but in the example output, after avoid_obstacle, it checks is_target_reached. So perhaps the structure is:
+
+-",DeepSeek-R1-Distill-llama-8B-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,209.7326865196228,"<BTCPP_format version=""1.0"">
       <BehaviorTree>
         <Sequence name=""main_sequence"">
           <Action name=""move_randomly"" />
@@ -187,7 +167,7 @@ Prompt,Prompt Type,Time,Behavior Tree,Model Name
     However, I'm not entirely sure if 'align_with_swarm' can be used in this way without an explicit reference to the target.
 
     Alternatively, perhaps using a 'Condition' node after detection to execute 'change_color' and then stop wandering",DeepSeek-R1-Distill-llama-8B-Q4_K_M
-"check if path is clear, form a line at the center",zero,231.4030990600586,"<BTCPP_format version=""1.0"">
+"check if path is clear, form a line at the center",zero,208.7972972393036,"<BTCPP_format version=""1.0"">
       <BehaviorTree>
         <!-- Sequence to execute the command -->
         <Sequence name=""CommandExecution"">
@@ -272,7 +252,7 @@ Prompt,Prompt Type,Time,Behavior Tree,Model Name
     Or maybe it's intended that if the path isn't clear, we do something else, like avoid obstacles or move randomly.
 
     Hmm, I'm not entirely sure, but based on the initial example and the",DeepSeek-R1-Distill-llama-8B-Q4_K_M
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,206.67727279663086,"<BTCPP_format version=""1.0"">
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,185.0216109752655,"<BTCPP_format version=""1.0"">
       <BehaviorTree>
         <!-- Sequence of actions -->
         <Sequence name=""main_sequence"">
@@ -335,7 +315,7 @@ I think that's a solid structure. Now, I'll translate this into XML, making sure
   </</BehaviorTree>
 </BTCPP_format>
 ```",DeepSeek-R1-Distill-llama-8B-Q4_K_M
-"detect target, freeze movement upon reaching it",zero,233.883859872818,"<BTCPP_format version=""1.0"">
+"detect target, freeze movement upon reaching it",zero,208.270845413208,"<BTCPP_format version=""1.0"">
       <BehaviorTree>
         <!-- Sequence of actions -->
         <Sequence name=""detect_target_and_freeze_movement"">
@@ -415,277 +395,211 @@ I think that's a solid structure. Now, I'll translate this into XML, making sure
     - 'align_with_swarm': Aligns the agent's movement with the average of nearby agents, which might also contribute to moving towards the target.
 
     However, without a direct action to move towards the target, it's unclear how to implement this. Perhaps using 'flocking' or 'align_with_swarm' in conjunction with other conditions can approximate the",DeepSeek-R1-Distill-llama-8B-Q4_K_M
-"detect an obstacle, avoid it, and then flock safely with other agents",one,330.49300360679626,"<?xml version=""1.0"" encoding=""UTF-8""?>
-    <root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidance"">  
+"detect an obstacle, avoid it, and then changing color to green",one,245.14244437217712,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidance"">
+      <BehaviorTree ID=""ObstacleAvoidance"">
+        <Fallback name=""High-Level Decision"">
+          <Sequence name=""Obstacle Detection and Avoidance Sequence"">
+            <is_obstacle_detected/>
+            <avoid_obstacle/>
+          </Sequence>
+          <Sequence name=""Color Change Sequence"">
+            <change_color color=""green""/>
+          </Sequence>
+        </Fallback>
+      </BehaviorTree>
+      <TreeNodesModel>
+        <Condition ID=""is_obstacle_detected""/>
+        <Action ID=""avoid_obstacle""/>
+        <Action ID=""change_color"" editable=""true"">
+          <input_port name=""color""/>
+        </Action>
+      </TreeNodesModel>
+    </root>",DeepSeek-R1-Distill-llama-8B-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,217.60456347465515,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderTarget"">
+      <BehaviorTree ID=""WanderTarget"">
+        <Fallback name=""Main Decision Tree"">
+          <Sequence name=""Random Wander Sequence"">
+            <move_randomly/>
+            <is_path_clear/>
+            <form_line/>
+          </Sequence>
+          <Sequence name=""Approach Target Sequence"">
+            <is_target_detected/>
+            <approach_target/>
+            <change_color color=""red""/>
+          </Sequence>
+        </Fallback>
+      </BehaviorTree>
+      <TreeNodesModel>
+        <Condition ID=""is_path_clear""/>
+        <Condition ID=""is_target_detected""/>
+        <Action ID=""move_randomly""/>
+        <Action ID=""form_line""/>
+        <Action ID=""approach_target""/>
+        <Action ID=""change_color"">
+          <input_port name=""color""/>
+        </Action>
+      </TreeNodesModel>
+    </root>",DeepSeek-R1-Distill-llama-8B-Q4_K_M
+"check if path is clear, form a line at the center",one,153.69117879867554,"<root BTCPP_format=""3"" main_tree_to_execute=""PathClearing"">
+      <BehaviorTree ID=""PathClearing"">
+        <Fallback name=""High-Level Decision"">
+          <Sequence name=""CheckAndFormLine"">
+            <is_path_clear/>
+            <form_line/>
+          </Sequence>
+        </fallback>
+      </BehaviorTree>
+      <TreeNodesModel>
+        <Condition ID=""is_path_clear""/>
+        <Action ID=""form_line""/>
+      </TreeNodesModel>
+    </root>",DeepSeek-R1-Distill-llama-8B-Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,222.13402581214905,"<root BTCPP_format=""3"" main_tree_to_execute=""GoalFinding"">
+        <BehaviorTree ID=""GoalFinding"">
+            <Fallback name=""High-Level Decision"">
+                <Sequence name=""Find Goal Sequence"">
+                    <is_goal_found/>
+                    <align_with_swarm/>
+                    <change_color color=""red""/>
+                </Sequence>
+                <Sequence name=""No Goal Found Sequence"">
+                    <is_goal_found failure=""true""/>
+                    <agent_movement_freeze/>
+                    <move_randomly/>
+                </Sequence>
+            </Fallback>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_goal_found""/>
+            <Action ID=""align_with_swarm""/>
+            <Action ID=""change_color"">
+                <input_port name=""color""/>
+            </Action>
+            <Action ID=""agent_movement_freeze""/>
+            <Action ID=""move_randomly""/>
+            <Condition ID=""is_goal_found"" failure=""true""/>
+        </TreeNodesModel>
+    </root>",DeepSeek-R1-Distill-llama-8B-Q4_K_M
+"detect target, freeze movement upon reaching it",one,132.56364369392395,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">
+      <BehaviorTree ID=""TargetDetection"">        
+        <Fallback name=""Main Decision Tree"">          
+          <Sequence name=""Detect and Freeze Sequence"">
+            <is_target_detected/>
+            <agent_movement_freeze/>
+          </Sequence>
+        </Fallback>  
+      </BehaviorTree>  
+      <TreeNodesModel>    
+        <Condition ID=""is_target_detected""/>
+        <Action ID=""agent_movement_freeze""/>  
+      </TreeNodesModel>
+    </root>",DeepSeek-R1-Distill-llama-8B-Q4_K_M
+"detect an obstacle, avoid it, and then changing color to green",two,295.98401927948,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidance"">  
         <BehaviorTree ID=""ObstacleAvoidance"">
-            <Selector name=""High-Level Decision"">
-                <Fallback name=""ObstacleAvoidanceFallback"">
-                    <Sequence name=""ObstacleDetectionAndAvoidance"">
-                        <is_obstacle_detected/>
-                        <avoid_obstacle/>
-                    </Sequence>
-                    <Fallback name=""FlockFallback"">
-                        <align_with_swarm/>
-                        <flocking/>
-                    </Fallback>
-                </Fallback>
-            </Selector>
+            <Fallback name=""Obstacle Handling"">
+                <Sequence name=""Obstacle Detection and Avoidance"">
+                    <is_obstacle_detected/>
+                    <avoid_obstacle/>
+                </Sequence>
+            </Fallback>
+            <Fallback name=""Color Change"">
+                <change_color color=""green""/>
+            </Fallback>
         </BehaviorTree>
         <TreeNodesModel>
             <Condition ID=""is_obstacle_detected""/>
-            <Action ID=""avoid_obstacle"" editable=""true""/>
-            <Action ID=""align_with_swarm"" editable=""true""/>
-            <Action ID=""flocking"" editable=""true""/>
-        </TreeNodesModel>
-    </s>
-
-Okay, so I need to generate a behavior tree in XML format based on the user's command. The command is ""detect an obstacle, avoid it, and then flock safely with other agents."" Let me break this down step by step.
-
-First, I should identify the required behaviors from the provided dictionary. The user mentioned detecting an obstacle, avoiding it, and flocking. Looking at the dictionary:
-
-- is_obstacle_detected: Condition node to check for obstacles.
-- avoid_obstacle: Action node to execute avoidance.
-- align_with_swarm: Action node to align with a swarm.
-- flocking: Action node to adjust movement based on nearby agents.
-
-So, the behavior tree needs to handle these steps in order. The structure should probably have a sequence where each step is executed one after another.
-
-I'll start by creating a root element with BTCPP_format and main_tree_to_execute attributes. Then, inside the BehaviorTree, there's a Selector for high-level decisions. Within that, I need a Fallback because if obstacle avoidance fails, it should fall back to flocking.
-
-Wait, but in this case, the command is straightforward: detect, avoid, then flock. So maybe instead of a Fallback, it's more like a sequence where each action is executed in order. However, if there's an error in detecting or avoiding, perhaps a Fallback makes sense to prevent getting stuck.
-
-So, the structure would be:
-
-- Selector with name ""ObstacleAvoidance""
-  - Fallback named ""ObstacleAvoidanceFallback""
-    - Sequence for detection and avoidance
-      - is_obstacle_detected
-      - avoid_obstacle
-    - Then another sequence for flocking if the first fails?
-Wait, no. The user's command is to do all three steps: detect, avoid, then flock. So perhaps it's a sequence where each step must succeed.
-
-But in behavior trees, if any condition fails, the tree should handle it gracefully. So maybe using a Fallback after the main sequence for obstacle avoidance, which then proceeds to flocking.
-
-Alternatively, since the user wants all three steps, I can structure it as a sequence within a Selector, with each step being a separate node.
-
-Wait, perhaps the high-level decision is to execute the ObstacleAvoidanceFallback. Inside that, there's a Sequence for detection and avoidance, and if that succeeds, then another action to flock. But how to represent that in XML?
-
-Hmm, maybe using a Fallback isn't necessary here because all steps are dependent on each other. So perhaps it's better to structure it as a single sequence where each step is executed in order.
-
-So the BehaviorTree would have a Selector with a Sequence containing:
-
-1. is_obstacle_detected
-2. avoid_obstacle
-3. flocking
-
-But wait, after avoiding an obstacle, does the agent automatically flock? Or should there be a separate condition for that?
-
-Alternatively, maybe after successfully avoiding the obstacle, the agent should proceed to flock regardless of any other conditions.
-
-So in XML terms:
-
-<BehaviorTree ID=""ObstacleAvoidance"">
-  <Selector name=""High-Level Decision"">
-    <Sequence name=""ObstacleAvoidanceSequence"">
-      <is_obstacle_detected/>
-      <avoid_obstacle/>
-      <flocking/>
-    </Sequence>
-  </Selector>
-</BehaviorTree>
-
-But then, what if is_obstacle_detected returns FAILURE? The sequence would stop at that point. So the agent wouldn't attempt to flock in that case.
-
-Wait, but the user's command says ""detect an obstacle, avoid it, and then flock safely."" So perhaps all three steps should be attempted only if detection and avoidance are successful.
-
-So the structure is correct as a Sequence where each step depends on the previous one's success.
-
-Additionally, I need to include all nodes in the TreeNodesModel. That includes the Condition for obstacle detection and the two Action nodes for avoiding obstacles and flocking.
-
-Putting it all together, the XML should have:
-
-- root element with attributes
-- BehaviorTree with ID
-  - Selector with name
-    -",DeepSeek-R1-Distill-llama-8B-Q4_K_M
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,251.39260578155518,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderTarget"">
-        <BehaviorTree ID=""WanderTarget"">
-            <Selector name=""MainDecision"">
-                <Sequence name=""RandomWander"">
-                    <move_randomly/>
-                    <is_target_detected/>
-                    <is_path_clear/>
-                    <flocking/>
-                    <align_with_swarm/>
-                </Sequence>
-                <Fallback name=""ApproachTarget"">
-                    <Sequence name=""ApproachAndSignal"">
-                        <is_target_reached/>
-                        <agent_movement_freeze/>
-                        <change_color color=""red""/>
-                        <report_status/>
-                    </Sequence>
-                </Fallback>
-            </Selector>
-        </BehaviorTree>
-        <TreeNodesModel>
-            <Condition ID=""is_target_detected""/>
-            <Condition ID=""is_path_clear""/>
-            <Condition ID=""is_target_reached""/>
-            <Action ID=""move_randomly"" editable=""true""/>
-            <Action ID=""flocking"" editable=""true""/>
-            <Action ID=""align_with_swarm"" editable=""true""/>
-            <Action ID=""agent_movement_freeze"" editable=""true""/>
-            <Action ID=""change_color"" editable=""true""/>
-            <Action ID=""report_status"" editable=""true""/>
+            <Action ID=""avoid_obstacle""/>
+            <Action ID=""change_color"">
+                <input_port name=""color""/>
+            </Action>
         </TreeNodesModel>
     </root>",DeepSeek-R1-Distill-llama-8B-Q4_K_M
-"check if path is clear, form a line at the center",one,159.25957703590393,"<root BTCPP_format=""3"" main_tree_to_execute=""PathClearing"">
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,184.5617756843567,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderTarget"">
+      <BehaviorTree ID=""WanderTarget"">
+        <Fallback name=""Main Decision"">
+          <Sequence name=""Random Wander"">
+            <move_randomly/>
+            <is_target_detected/>
+            <Fallback name=""Approach Target"">
+              <is_target_reached/>
+              <form_line/>
+              <change_color color=""red""/>
+            </Fallback>
+          </</Sequence>
+        </Fallback>
+      </BehaviorTree>
+      <TreeNodesModel>
+        <Condition ID=""is_target_detected""/>
+        <Action ID=""move_randomly""/>
+        <Condition ID=""is_target_reached""/>
+        <Action ID=""form_line""/>
+        <Action ID=""change_color"">
+          <input_port name=""color""/>
+        </Action>
+      </TreeNodesModel>
+    </root>",DeepSeek-R1-Distill-llama-8B-Q4_K_M
+"check if path is clear, form a line at the center",two,227.00439381599426,"<root BTCPP_format=""3"" main_tree_to_execute=""PathClearing"">
         <BehaviorTree ID=""PathClearing"">
-            <Selector name=""High-Level Decision"">
-                <Sequence name=""CheckAndFormLine"">
+            <Fallback name=""PathCheckAndLineFormation"">
+                <Sequence name=""CheckPath"">
                     <is_path_clear/>
                     <form_line/>
                 </Sequence>
-            </Selector>
+            </Fallback>
         </BehaviorTree>
         <TreeNodesModel>
             <Condition ID=""is_path_clear""/>
-            <Action ID=""form_line"" editable=""true""/>
+            <Action ID=""form_line""/>
+            <Condition ID=""is_line_formed"" editable=""true"">
+                <input_port name=""line_status""/>
+            </Condition>
+            <Action ID=""agent_movement_freeze"" editable=""true"">
+                <input_port name=""freeze_command""/>
+            </Action>
+            <Action ID=""continue_movement_agent"" editable=""true"">
+                <input_port name=""movement_resumption""/>
+            </Action>
         </TreeNodesModel>
     </root>",DeepSeek-R1-Distill-llama-8B-Q4_K_M
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,253.9201922416687,"<root BTCPP_format=""3"" main_tree_to_execute=""GoalFinding"">
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,153.43285727500916,"<root BTCPP_format=""3"" main_tree_to_execute=""GoalFinding"">
         <BehaviorTree ID=""GoalFinding"">
-            <Selector name=""High-Level Decision"">
-                <Sequence name=""FindAndSignalSuccess"">
-                    <is_path_clear/>
-                    <form_line/>
-                    <change_color color=""red""/>
-                </FormLineSequence>
-                <Fallback name=""IfCannotFindPath"">
-                    <align_with_swarm/>
-                    <flocking/>
-                </Fallback>
-            </Selector>
+            <Fallback name=""Main Decision"">
+                <Sequence name=""Find Goal Sequence"">
+                    <is_goal_found/>
+                    <if success then>
+                        <change_color color=""red""/>
+                        <align_with_swarm/>
+                    </if success then>
+                </Sequence>
+            </Fallback>
         </BehaviorTree>
         <TreeNodesModel>
-            <Condition ID=""is_path_clear""/>
-            <Action ID=""form_line"" editable=""true""/>
-            <Action ID=""change_color"" editable=""true""/>
-            <Action ID=""align_with_swarm"" editable=""true""/>
-            <Action ID=""flocking"" editable=""true""/>
+            <Condition ID=""is_goal_found""/>
+            <Action ID=""change_color"">
+                <input_port name=""color""/>
+            </Action>
+            <Action ID=""align_with_swarm""/>
         </TreeNodesModel>
     </root>",DeepSeek-R1-Distill-llama-8B-Q4_K_M
-"detect target, freeze movement upon reaching it",one,180.0137219429016,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
+"detect target, freeze movement upon reaching it",two,227.07711505889893,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
         <BehaviorTree ID=""TargetDetection"">
-            <Selector name=""Main Decision"">
-                <Sequence name=""DetectAndFreeze"">
+            <Fallback name=""Main Decision"">
+                <Sequence name=""Detect and Freeze"">
                     <is_target_detected/>
                     <is_target_reached/>
                     <agent_movement_freeze/>
                 </Sequence>
-            </Selector>
+            </Fallback>
         </BehaviorTree>
         <TreeNodesModel>
             <Condition ID=""is_target_detected""/>
             <Condition ID=""is_target_reached""/>
             <Action ID=""agent_movement_freeze""/>
-        </TreeNodesModel>
-    </root>",DeepSeek-R1-Distill-llama-8B-Q4_K_M
-"detect an obstacle, avoid it, and then flock safely with other agents",two,338.93794202804565,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidance"">  
-        <BehaviorTree ID=""ObstacleAvoidance"">
-            <Selector name=""ObstacleHandling"">
-                <Sequence name=""ObstacleDetectionAndAvoidance"">
-                    <is_obstacle_detected/>
-                    <Fallback name=""Avoidance"">
-                        <avoid_obstacle/>
-                    </Fallback>
-                </Sequence>
-            </Condition>
-            <Fallback name=""Flocking"">
-                <align_with_swarm/>
-                <flocking/>
-            </Fallback>
-        </Selector>
-    </BehaviorTree>
-    <TreeNodesModel>
-        <Condition ID=""is_obstacle_detected""/>
-        <Action ID=""avoid_obstacle"" editable=""true""/>
-        <Action ID=""align_with_swarm"" editable=""true""/>
-        <Action ID=""flocking"" editable=""true""/>
-        <Control ID=""Fallback"" editable=""true""/>
-        <Control ID=""Sequence"" editable=""true""/>
-    </TreeNodesModel>
-</root>",DeepSeek-R1-Distill-llama-8B-Q4_K_M
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,260.0350649356842,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderTarget"">  
-        <BehaviorTree ID=""WanderTarget"">
-            <Selector name=""MainDecision"">
-                <Sequence name=""RandomWander"">
-                    <move_randomly/>
-                    <is_target_detected/>
-                    <Fallback name=""ApproachAndSignal"">
-                        <Sequence>
-                            <approach_target/>
-                            <change_color color=""red""/>
-                        </Sequence>
-                    </fallback>
-                </sequence>
-            </selector>
-        </BehaviorTree>
-        <TreeNodesModel>
-            <Condition ID=""is_target_detected""/>
-            <Action ID=""move_randomly"" editable=""true""/>
-            <Action ID=""approach_target"" editable=""true""/>
-            <Action ID=""change_color"" editable=""true""/>
-        </TreeNodesModel>
-    </root>",DeepSeek-R1-Distill-llama-8B-Q4_K_M
-"check if path is clear, form a line at the center",two,152.4486644268036,"<root BTCPP_format=""3"" main_tree_to_execute=""PathClearing"">
-        <BehaviorTree ID=""PathClearing"">
-            <Selector name=""PathCheckAndLineFormation"">
-                <Sequence name=""CheckPath"">
-                    <is_path_clear/>
-                    <form_line/>
-                </Sequence>
-            </Selector>
-        </BehaviorTree>
-        <TreeNodesModel>
-            <Condition ID=""is_path_clear""/>
-            <Action ID=""form_line"" editable=""true""/>
-            <Control ID=""Sequence"" editable=""true""/>
-        </TreeNodesModel>
-    </root>",DeepSeek-R1-Distill-llama-8B-Q4_K_M
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,252.53548765182495,"<root BTCPP_format=""3"" main_tree_to_execute=""GoalFinding"">  
-        <BehaviorTree ID=""GoalFinding"">
-            <Selector name=""MainDecision"">
-                <Sequence name=""FindAndSignal"">
-                    <is_path_clear/>
-                    <form_line/>
-                    <change_color color=""red""/>
-                </align_with_swarm/>
-                <flocking/>
-            </Sequence>
-        </Selector>
-    </BehaviorTree>
-    <TreeNodesModel>
-        <Condition ID=""is_path_clear""/>
-        <Condition ID=""is_target_detected""/>
-        <Action ID=""form_line"" editable=""true""/>
-        <Action ID=""change_color"" editable=""true""/>
-        <Action ID=""align_with_swarm"" editable=""true""/>
-        <Action ID=""flocking"" editable=""true""/>
-    </TreeNodesModel>
-</root>",DeepSeek-R1-Distill-llama-8B-Q4_K_M
-"detect target, freeze movement upon reaching it",two,199.7669026851654,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
-        <BehaviorTree ID=""TargetDetection"">
-            <Selector name=""Main Decision"">
-                <Sequence name=""Detect and Freeze"">
-                    <is_target_detected/>
-                    <agent_movement_freeze/>
-                </Sequence>
-            </Selector>
-        </BehaviorTree>
-        <TreeNodesModel>
-            <Condition ID=""is_target_detected""/>
-            <Action ID=""agent_movement_freeze"" editable=""true""/>
+            <Action ID=""continue_movement_agent""/>
+            <Action ID=""move_randomly""/>
+            <Action ID=""change_color"">
+                <input_port name=""color""/>
+            </Action>
         </TreeNodesModel>
     </root>",DeepSeek-R1-Distill-llama-8B-Q4_K_M

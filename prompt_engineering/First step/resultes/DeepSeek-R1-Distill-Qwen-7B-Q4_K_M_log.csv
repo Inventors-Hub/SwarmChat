@@ -1,48 +1,5 @@
 Prompt,Prompt Type,Time,Behavior Tree,Model Name
-"detect an obstacle, avoid it, and then flock safely with other agents",zero,281.48358941078186,"<s>
-     <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
-     INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
-flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
-align_with_swarm: Action Node: Align the agent's move vector with the average movement of nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
-is_obstacle_detected: Condition node: Determine if any obstacles are detected in the vicinity of the agent. Returns: SUCCESS if an obstacle is detected, FAILURE otherwise.
-avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Returns: Always returns SUCCESS, indicating the action was executed.
-is_target_detected: Condition node: Check if the target is within a detectable distance from the agent's position. Returns: SUCCESS if the target is within 20 units of distance, FAILURE otherwise.
-is_target_reached: Condition node: Check if the agent has reached the target. Returns: SUCCESS if the target is within 15 units of distance, FAILURE otherwise.
-change_color: Action Node: Change the agent's color to 'white', 'green', or 'red'. Args: color (str): Color name. Returns: Always returns SUCCESS, indicating the action was executed.
-is_agent_in_nest: Condition node: Determine if the agent is in the nest. Returns: SUCCESS if the agent is in the nest, FAILURE otherwise.
-agent_movement_freeze: Action node: Freeze the agent's movement, typically to indicate a stop in activity. Returns: Always returns SUCCESS, indicating the action was executed.
-continue_movement_agent: Action node: Continue the agent's movement after it has been previously frozen. Returns: Always returns SUCCESS, indicating the action was executed.
-move_randomly: Action node: Perform a wandering action where the agent moves randomly within the environment. Returns: Always returns SUCCESS, indicating the action was executed.
-is_path_clear: Condition node: Check if the path ahead of the agent is clear of obstacles. Returns: SUCCESS if no obstacles are detected ahead, FAILURE if obstacles are present.
-is_line_formed: Condition node: Determine if the agent has formed a line with a reference point at the center of the window. Returns: SUCCESS if the line is formed with the center, FAILURE otherwise.
-form_line: Action node: Direct the agent to form a line towards the center of the window. This function adjuststhe agent's position to align it with the center. Returns: Always returns SUCCESS, indicating the action was executed.
-
-    The output MUST follow this XML structure and the behaviors you use must be from the provided dictionary. AVOID AT ALL COSTS.
-    USER COMMAND: generate behavior tree to ""detect an obstacle, avoid it, and then flock safely with other agents"".
-
-    Take a step back and think deeply about the behavior you need for this command.
-
-    Consider the XML structure and the behaviors you use.
-
-    The output MUST follow this XML structure exactly, including:
-    - A root element with BTCPP_format and main_tree_to_execute attributes.
-    - A <BehaviorTree> element with an inner structure of Sequences, Fallback, Conditions, and Actions.
-    - A <TreeNodesModel> section listing all node models.
-
-    No additional text or commentary outside the XML.
-
-    Output only the XML behavior tree without extra text.
-
-    XML output:
-     <s>
-     <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
-     INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
-flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
-align_with_swarm: Action Node: Align the agent's move vector with the average movement of nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
-is_obstacle_detected: Condition node: Determine if any obstacles are detected in the vicinity of the agent. Returns: SUCCESS if an obstacle is detected, FAILURE otherwise.
-avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Returns: Always returns SUCCESS, indicating the action was executed.
-is_target_detected: Condition node: Check if the target is",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,213.4683587551117,"<s>
+"detect an obstacle, avoid it, and then changing color to green",zero,222.67616176605225,"<s>
      <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
      INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
 flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
@@ -77,7 +34,42 @@ avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Retu
 is_target_detected: Condition node: Check if the target is within a detectable distance from the agent's position. Returns: SUCCESS if the target is within 20 units of distance, FAILURE otherwise.
 is_target_reached: Condition node: Check if the agent has reached the target. Returns: SUCCESS if the target is within 15 units of distance, FAILURE otherwise.
 change_color: Action Node: Change the agent's color to 'white',",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
-"check if path is clear, form a line at the center",zero,215.66591668128967,"<s>
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,192.99073481559753,"<s>
+     <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+     INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
+flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
+align_with_swarm: Action Node: Align the agent's move vector with the average movement of nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
+is_obstacle_detected: Condition node: Determine if any obstacles are detected in the vicinity of the agent. Returns: SUCCESS if an obstacle is detected, FAILURE otherwise.
+avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Returns: Always returns SUCCESS, indicating the action was executed.
+is_target_detected: Condition node: Check if the target is within a detectable distance from the agent's position. Returns: SUCCESS if the target is within 20 units of distance, FAILURE otherwise.
+is_target_reached: Condition node: Check if the agent has reached the target. Returns: SUCCESS if the target is within 15 units of distance, FAILURE otherwise.
+change_color: Action Node: Change the agent's color to 'white', 'green', or 'red'. Args: color (str): Color name. Returns: Always returns SUCCESS, indicating the action was executed.
+is_agent_in_nest: Condition node: Determine if the agent is in the nest. Returns: SUCCESS if the agent is in the nest, FAILURE otherwise.
+agent_movement_freeze: Action node: Freeze the agent's movement, typically to indicate a stop in activity. Returns: Always returns SUCCESS, indicating the action was executed.
+continue_movement_agent: Action node: Continue the agent's movement after it has been previously frozen. Returns: Always returns SUCCESS, indicating the action was executed.
+move_randomly: Action node: Perform a wandering action where the agent moves randomly within the environment. Returns: Always returns SUCCESS, indicating the action was executed.
+is_path_clear: Condition node: Check if the path ahead of the agent is clear of obstacles. Returns: SUCCESS if no obstacles are detected ahead, FAILURE if obstacles are present.
+is_line_formed: Condition node: Determine if the agent has formed a line with a reference point at the center of the window. Returns: SUCCESS if the line is formed with the center, FAILURE otherwise.
+form_line: Action node: Direct the agent to form a line towards the center of the window. This function adjuststhe agent's position to align it with the center. Returns: Always returns SUCCESS, indicating the action was executed.
+
+    The output MUST follow this XML structure exactly, including:
+    - A root element with BTCPP_format and main_tree_to_execute attributes.
+    - A <BehaviorTree> element with an inner structure of Sequences, Fallback, Conditions, and Actions.
+    - A <TreeNodesModel> section listing all node models.
+    - No additional text or commentary outside the XML.
+    Output only the XML behavior tree without extra text.
+    OUTPUT:
+     <s>
+     <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+     INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
+flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
+align_with_swarm: Action Node: Align the agent's move vector with the average movement of nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
+is_obstacle_detected: Condition node: Determine if any obstacles are detected in the vicinity of the agent. Returns: SUCCESS if an obstacle is detected, FAILURE otherwise.
+avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Returns: Always returns SUCCESS, indicating the action was executed.
+is_target_detected: Condition node: Check if the target is within a detectable distance from the agent's position. Returns: SUCCESS if the target is within 20 units of distance, FAILURE otherwise.
+is_target_reached: Condition node: Check if the agent has reached the target. Returns: SUCCESS if the target is within 15 units of distance, FAILURE otherwise.
+change_color: Action Node: Change the agent's color to 'white',",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
+"check if path is clear, form a line at the center",zero,192.40825390815735,"<s>
      <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
      INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
 flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
@@ -110,7 +102,7 @@ avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Retu
 is_target_detected: Condition node: Check if the target is within a detectable distance from the agent's position. Returns: SUCCESS if the target is within 20 units of distance, FAILURE otherwise.
 is_target_reached: Condition node: Check if the agent has reached the target. Returns: SUCCESS if the target is within 15 units of distance, FAILURE otherwise.
 change_color: Action Node: Change the agent's color to 'white', 'green', or 'red'.",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,26677.098007440567,"<s>
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,192.64376282691956,"<s>
      <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
      INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
 flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
@@ -145,7 +137,7 @@ avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Retu
 is_target_detected: Condition node: Check if the target is within a detectable distance from the agent's position. Returns: SUCCESS if the target is within 20 units of distance, FAILURE otherwise.
 is_target_reached: Condition node: Check if the agent has reached the target. Returns: SUCCESS if the target is within 15 units of distance, FAILURE otherwise.
 change_color: Action Node: Change the agent's color to 'white',",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
-"detect target, freeze movement upon reaching it",zero,302.88191509246826,"<s>
+"detect target, freeze movement upon reaching it",zero,191.9902048110962,"<s>
      <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
      INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
 flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
@@ -180,98 +172,7 @@ avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Retu
 is_target_detected: Condition node: Check if the target is within a detectable distance from the agent's position. Returns: SUCCESS if the target is within 20 units of distance, FAILURE otherwise.
 is_target_reached: Condition node: Check if the agent has reached the target. Returns: SUCCESS if the target is within 15 units of distance, FAILURE otherwise.
 change_color: Action Node: Change the agent's color to 'white',",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
-"detect an obstacle, avoid it, and then flock safely with other agents",one,145.22625374794006,"<root BTCPP_format=""3"" main_tree_to_execute=""FlockingBehavior"">  
-		<BehaviorTree ID=""FlockingBehavior"">    
-			<Sequence name=""ObstacleDetectionAndAvoidance"">        
-				<is_obstacle_detected/>        
-				<avoid_obstacle/>        
-			</Sequence>      
-			<Sequence name=""FormLine"">        
-				<form_line/>        
-			</Sequence>    
-		</BehaviorTree>  
-	<TreeNodesModel>    
-		<Condition ID=""is_obstacle_detected""/>    
-		<Action ID=""avoid_obstacle"" editable=""true""/>    
-		<Action ID=""form_line"" editable=""true""/>  
-	</TreeNodesModel>
-    </root>",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,237.40855598449707,"<s>
-     <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
-     INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
-flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
-align_with_swarm: Action Node: Align the agent's move vector with the average movement of nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
-is_obstacle_detected: Condition node: Determine if any obstacles are detected in the vicinity of the agent. Returns: SUCCESS if an obstacle is detected, FAILURE otherwise.
-avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Returns: Always returns SUCCESS, indicating the action was executed.
-is_target_detected: Condition node: Check if the target is within a detectable distance from the agent's position. Returns: SUCCESS if the target is within 20 units of distance, FAILURE otherwise.
-is_target_reached: Condition node: Check if the agent has reached the target. Returns: SUCCESS if the target is within 15 units of distance, FAILURE otherwise.
-change_color: Action Node: Change the agent's color to 'white', 'green', or 'red'. Args: color (str): Color name. Returns: Always returns SUCCESS, indicating the action was executed.
-is_agent_in_nest: Condition node: Determine if the agent is in the nest. Returns: SUCCESS if the agent is in the nest, FAILURE otherwise.
-agent_movement_freeze: Action node: Freeze the agent's movement, typically to indicate a stop in activity. Returns: Always returns SUCCESS, indicating the action was executed.
-continue_movement_agent: Action node: Continue the agent's movement after it has been previously frozen. Returns: Always returns SUCCESS, indicating the action was executed.
-move_randomly: Action node: Perform a wandering action where the agent moves randomly within the environment. Returns: Always returns SUCCESS, indicating the action was executed.
-is_path_clear: Condition node: Check if the path ahead of the agent is clear of obstacles. Returns: SUCCESS if no obstacles are detected ahead, FAILURE if obstacles are present.
-is_line_formed: Condition node: Determine if the agent has formed a line with a reference point at the center of the window. Returns: SUCCESS if the line is formed with the center, FAILURE otherwise.
-form_line: Action node: Direct the agent to form a line towards the center of the window. This function adjuststhe agent's position to align it with the center. Returns: Always returns SUCCESS, indicating the action was executed.
-
-    To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
-USER COMMAND: generate behavior tree to ""wander randomly until a target is detected, approach it, and signal achievement by changing color to red"".
-
-    The output MUST follow this XML structure exactly, including:
-    - A root element with BTCPP_format and main_tree_to_execute attributes.
-    - A <BehaviorTree> element with an inner structure of Sequences, Fallback, Conditions, and Actions.
-    - A <TreeNodesModel> section listing all node models.
-    - No additional text or commentary outside the XML.
-    Output only the XML behavior tree without extra text.
-    OUTPUT:
-     <?xml version=""1.0"" encoding=""UTF-8""?>
-     <s>
-     <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
-     INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
-flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
-align_with_swarm: Action Node: Align the agent's move vector with the average movement of nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
-is_obstacle_detected: Condition node: Determine if any obstacles are detected in the vicinity of the agent. Returns: SUCCESS if an obstacle is detected, FAILURE otherwise.
-avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Returns: Always returns SUCCESS, indicating the action was executed.
-is_target_detected: Condition node: Check if the target is",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
-"check if path is clear, form a line at the center",one,270.05491971969604,"<s>
-     <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
-     INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
-flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
-align_with_swarm: Action Node: Align the agent's move vector with the average movement of nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
-is_obstacle_detected: Condition node: Determine if any obstacles are detected in the vicinity of the agent. Returns: SUCCESS if an obstacle is detected, FAILURE otherwise.
-avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Returns: Always returns SUCCESS, indicating the action was executed.
-is_target_detected: Condition node: Check if the target is within a detectable distance from the agent's position. Returns: SUCCESS if the target is within 20 units of distance, FAILURE otherwise.
-is_target_reached: Condition node: Check if the agent has reached the target. Returns: SUCCESS if the target is within 15 units of distance, FAILURE otherwise.
-change_color: Action Node: Change the agent's color to 'white', 'green', or 'red'. Args: color (str): Color name. Returns: Always returns SUCCESS, indicating the action was executed.
-is_agent_in_nest: Condition node: Determine if the agent is in the nest. Returns: SUCCESS if the agent is in the nest, FAILURE otherwise.
-agent_movement_freeze: Action node: Freeze the agent's movement, typically to indicate a stop in activity. Returns: Always returns SUCCESS, indicating the action was executed.
-continue_movement_agent: Action node: Continue the agent's movement after it has been previously frozen. Returns: Always returns SUCCESS, indicating the action was executed.
-move_randomly: Action node: Perform a wandering action where the agent moves randomly within the environment. Returns: Always returns SUCCESS, indicating the action was executed.
-is_path_clear: Condition node: Check if the path ahead of the agent is clear of obstacles. Returns: SUCCESS if no obstacles are detected ahead, FAILURE if obstacles are present.
-is_line_formed: Condition node: Determine if the agent has formed a line with a reference point at the center of the window. Returns: SUCCESS if the line is formed with the center, FAILURE otherwise.
-form_line: Action node: Direct the agent to form a line towards the center of the window. This function adjuststhe agent's position to align it with the center. Returns: Always returns SUCCESS, indicating the action was executed.
-
-    USER COMMAND: generate behavior tree to ""check if path is clear, form a line at the center"".
-
-    Take a step back and think deeply about the behavior you need for this command. Consider the XML structure and the behaviors you use.
-    The output MUST follow this XML structure exactly, including:
-    - A root element with BTCPP_format and main_tree_to_execute attributes.
-    - A <BehaviorTree> element with an inner structure of Sequences, Fallback, Conditions, and Actions.
-    - A <TreeNodesModel> section listing all node models.
-    - No additional text or commentary outside the XML.
-    Output only the XML behavior tree without extra text.
-
-    OUTPUT:
-     <?xml version=""1.0"" encoding=""UTF-8""?>
-     <s>
-     <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
-     INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
-flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
-align_with_swarm: Action Node: Align the agent's move vector with the average movement of nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
-is_obstacle_detected: Condition node: Determine if any obstacles are detected in the vicinity of the agent. Returns: SUCCESS if an obstacle is detected, FAILURE otherwise.
-avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Returns: Always returns SUCCESS, indicating the action was executed.
-is_target_detected: Condition node: Check if the target is within a detectable distance from the agent's position. Returns: SUCCESS if",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,274.7106866836548,"<s>
+"detect an obstacle, avoid it, and then changing color to green",one,258.2268099784851,"<s>
      <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
      INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
      flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
@@ -290,7 +191,8 @@ is_target_detected: Condition node: Check if the target is within a detectable d
      form_line: Action node: Direct the agent to form a line towards the center of the window. This function adjuststhe agent's position to align it with the center. Returns: Always returns SUCCESS, indicating the action was executed.
 
      To construct behavior tree in XML format for the following command. Including any behavior that is not in the provided dictionary can result in damage to the agents and potentially humans, therefore you are not allowed to do so. AVOID AT ALL COSTS.
-     USER COMMAND: generate behavior tree to ""find the goal, signal success by changing color to red, and align movement with other swarm agents"".
+     USER COMMAND: generate behavior tree to ""detect an obstacle, avoid it, and then changing color to green"".
+
      The output MUST follow this XML structure exactly, including:
      - A root element with BTCPP_format and main_tree_to_execute attributes.
      - A <BehaviorTree> element with an inner structure of Sequences, Fallback, Conditions, and Actions.
@@ -305,133 +207,232 @@ is_target_detected: Condition node: Check if the target is within a detectable d
     flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
     align_with_swarm: Action Node: Align the agent's move vector with the average movement of nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
     is_obstacle_detected: Condition node: Determine if any obstacles are detected in the vicinity of the agent. Returns: SUCCESS if an obstacle is detected, FAILURE otherwise.
-    avoid_obstacle: Action node",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
-"detect target, freeze movement upon reaching it",one,124.6561930179596,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
-		<BehaviorTree ID=""TargetDetection"">    
-			<Sequence name=""Search for Target"">        
-				<is_target_detected/>        
-				<form_line/>        
-			</Sequence>      
+    avoid_obstacle: Action Node: Execute an action to avoid",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,198.9693479537964,"<s>
+     <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+     INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
+     flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
+     align_with_swarm: Action Node: Align the agent's move vector with the average movement of nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
+     is_obstacle_detected: Condition node: Determine if any obstacles are detected in the vicinity of the agent. Returns: SUCCESS if an obstacle is detected, FAILURE otherwise.
+     avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Returns: Always returns SUCCESS, indicating the action was executed.
+     is_target_detected: Condition node: Check if the target is within a detectable distance from the agent's position. Returns: SUCCESS if the target is within 20 units of distance, FAILURE otherwise.
+     is_target_reached: Condition node: Check if the agent has reached the target. Returns: SUCCESS if the target is within 15 units of distance, FAILURE otherwise.
+     change_color: Action Node: Change the agent's color to 'white', 'green', or 'red'. Args: color (str): Color name. Returns: Always returns SUCCESS, indicating the action was executed.
+     is_agent_in_nest: Condition node: Determine if the agent is in the nest. Returns: SUCCESS if the agent is in the nest, FAILURE otherwise.
+     agent_movement_freeze: Action node: Freeze the agent's movement, typically to indicate a stop in activity. Returns: Always returns SUCCESS, indicating the action was executed.
+     continue_movement_agent: Action node: Continue the agent's movement after it has been previously frozen. Returns: Always returns SUCCESS, indicating the action was executed.
+     move_randomly: Action node: Perform a wandering action where the agent moves randomly within the environment. Returns: Always returns SUCCESS, indicating the action was executed.
+     is_path_clear: Condition node: Check if the path ahead of the agent is clear of obstacles. Returns: SUCCESS if no obstacles are detected ahead, FAILURE if obstacles are present.
+     is_line_formed: Condition node: Determine if the agent has formed a line with a reference point at the center of the window. Returns: SUCCESS if the line is formed with the center, FAILURE otherwise.
+     form_line: Action node: Direct the agent to form a line towards the center of the window. This function adjuststhe agent's position to align it with the center. Returns: Always returns SUCCESS, indicating the action was executed.
+
+     to construct behavior tree in XML format for the following command. Including any behavior that is not in the provided dictionary can result in damage to the agents and potentially humans, therefore you are not allowed to do so. AVOID AT ALL COSTS.
+     USER COMMAND: generate behavior tree to ""wander randomly until a target is detected, approach it, and signal achievement by changing color to red"".
+
+     The output MUST follow this XML structure exactly, including:
+     - A root element with BTCPP_format and main_tree_to_execute attributes.
+     - A <BehaviorTree> element with an inner structure of Sequences, Fallback, Conditions, and Actions.
+     - A <TreeNodesModel> section listing all node models.
+     - No additional text or commentary outside the XML.
+     Output only the XML behavior tree without extra text.
+     OUTPUT:
+    <?xml version=""1.0"" encoding=""UTF-8""?>
+    <s>
+    <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+    INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
+    flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
+    align_with_swarm: Action Node: Align the agent's move vector with the average movement of nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
+    is_obstacle_detected: Condition node: Determine if any obstacles are detected in the vicinity of the agent. Returns: SUCCESS if an obstacle is detected, FAILURE otherwise.
+    avoid_obstacle: Action",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
+"check if path is clear, form a line at the center",one,198.84038853645325,"<root BTCPP_format=""3"" main_tree_to_execute=""PathChecking"">  
+        <BehaviorTree ID=""PathChecking"">    
+            <Fallback name=""Default Path Handling"">      
+                <Sequence name=""Default Sequence"">        
+                    <is_path_clear/>        
+                    <form_line/>      
+                </Sequence>      
+            </Fallback>  
+            <Sequence name=""Check and Form"">        
+                <is_path_clear/>        
+                <if is_path_clear then>        
+                    <form_line/>      
+                </if>        
+            </Sequence>    
+        </BehaviorTree>  
+        <TreeNodesModel>    
+            <Condition ID=""is_path_clear""/>    
+            <Action ID=""form_line""/>    
+        </TreeNodesModel>
+    </root>",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,199.01825213432312,"<s>
+     <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+     INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
+flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
+align_with_swarm: Action Node: Align the agent's move vector with the average movement of nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
+is_obstacle_detected: Condition node: Determine if any obstacles are detected in the vicinity of the agent. Returns: SUCCESS if an obstacle is detected, FAILURE otherwise.
+avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Returns: Always returns SUCCESS, indicating the action was executed.
+is_target_detected: Condition node: Check if the target is within a detectable distance from the agent's position. Returns: SUCCESS if the target is within 20 units of distance, FAILURE otherwise.
+is_target_reached: Condition node: Check if the agent has reached the target. Returns: SUCCESS if the target is within 15 units of distance, FAILURE otherwise.
+change_color: Action Node: Change the agent's color to 'white', 'green', or 'red'. Args: color (str): Color name. Returns: Always returns SUCCESS, indicating the action was executed.
+is_agent_in_nest: Condition node: Determine if the agent is in the nest. Returns: SUCCESS if the agent is in the nest, FAILURE otherwise.
+agent_movement_freeze: Action node: Freeze the agent's movement, typically to indicate a stop in activity. Returns: Always returns SUCCESS, indicating the action was executed.
+continue_movement_agent: Action node: Continue the agent's movement after it has been previously frozen. Returns: Always returns SUCCESS, indicating the action was executed.
+move_randomly: Action node: Perform a wandering action where the agent moves randomly within the environment. Returns: Always returns SUCCESS, indicating the action was executed.
+is_path_clear: Condition node: Check if the path ahead of the agent is clear of obstacles. Returns: SUCCESS if no obstacles are detected ahead, FAILURE if obstacles are present.
+is_line_formed: Condition node: Determine if the agent has formed a line with a reference point at the center of the window. Returns: SUCCESS if the line is formed with the center, FAILURE otherwise.
+form_line: Action node: Direct the agent to form a line towards the center of the window. This function adjuststhe agent's position to align it with the center. Returns: Always returns SUCCESS, indicating the action was executed.
+
+    To construct a behavior tree in XML format for the following command: ""find the goal, signal success by changing color to red, and align movement with other swarm agents"".
+
+    The output MUST follow this XML structure exactly, including:
+    - A root element with BTCPP_format and main_tree_to_execute attributes.
+    - A <BehaviorTree> element with an inner structure of Sequences, Fallback, Conditions, and Actions.
+    - A <TreeNodesModel> section listing all node models.
+    - No additional text or commentary outside the XML.
+    Output only the XML behavior tree without extra text.
+
+    OUTPUT:
+     <?xml version=""1.0"" encoding=""UTF-8""?>
+     <s>
+     <<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+     INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: say: Action Node: Speak the provided message using text-to-speech if it hasn't been spoken before. Args: message (str): The message to be spoken. Returns: Always returns SUCCESS, indicating the action was executed.
+flocking: Action Node: Adjust the agent's move vector by blending alignment and separation forces from nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
+align_with_swarm: Action Node: Align the agent's move vector with the average movement of nearby agents. Returns: Always returns SUCCESS, indicating the action was executed.
+is_obstacle_detected: Condition node: Determine if any obstacles are detected in the vicinity of the agent. Returns: SUCCESS if an obstacle is detected, FAILURE otherwise.
+avoid_obstacle: Action node: Execute an action to avoid detected obstacles. Returns: Always returns SUCCESS, indicating the action was executed.
+is_target_detected: Condition node: Check if the target is within a detectable distance from the agent's position. Returns: SUCCESS if the target is within 20 units of distance, FAILURE otherwise.",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
+"detect target, freeze movement upon reaching it",one,198.3338656425476,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">
+         <BehaviorTree ID=""TargetDetection"">
+             <Fallback name=""Default Path"">    
+                 <Sequence name=""Default Sequence"">        
+                     <is_target_detected/>        
+                     <change_color action=""white""/>      
+                 </Sequence>    
+             </Fallback>  
+             <Sequence name=""Target Detection and Freeze"">        
+                 <is_target_detected/>        
+                 <if is_target_reached then freeze_movement/>        
+             </Sequence>    
+         </BehaviorTree>  
+         <TreeNodesModel>
+             <Condition ID=""is_target_detected""/>    
+             <Condition ID=""is_target_reached""/>    
+             <Action ID=""freeze_movement"" args=""true""/>
+             <Action ID=""change_color"" args=""white""/>
+         </TreeNodesModel>
+     </root>",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
+"detect an obstacle, avoid it, and then changing color to green",two,154.8695204257965,"<root BTCPP_format=""3"" main_tree_to_execute=""AvoidObstacleAndChangeColor"">  
+	<BehaviorTree ID=""AvoidObstacleAndChangeColor"">    
+		<Sequence name=""Obstacle Detection and Avoidance"">        
+			<is_obstacle_detected/>        
 			<Fallback name=""Avoid Obstacles"">        
 				<avoid_obstacle/>        
-			</Fallback>    
-			<Condition name=""Is Target Detected"">        
-				<is_target_detected/>        
-				<change_color ""white""/>        
-			</Condition>    
-			<Action name=""Move to Target"">        
-				<movement_to_target/>        
-			</Action>    
-		</BehaviorTree>  
-		<TreeNodesModel>    
-			<Condition ID=""is_target_detected""/>    
-			<Action ID=""form_line"" editable=""true""/>    
-			<Action ID=""change_color"" editable=""true""/>    
-		<Action ID=""movement_to_target"" editable=""true""/>    
-		</TreeNodesModel>
-    </root>",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
-"detect an obstacle, avoid it, and then flock safely with other agents",two,399.81439304351807,"<root BTCPP_format=""3"" main_tree_to_execute=""FlockingBehavior"">  
-	<BehaviorTree ID=""FlockingBehavior"">    
-		<Sequence name=""Obstacle Avoidance and Flocking"">        
-			<is_obstacle_detected/>        
-			<Fallback name=""Avoid and Flock"">        
-				<avoid_obstacle/>        
-				<flocking/>        
+				<change_color color=""green""/>      
 			</Fallback>    
 		</Sequence>    
-		<Fallback name=""Default Flocking"">        
+		<Fallback name=""Default Actions"">        
 			<Sequence>        
-				<flocking/>        
-				<align_with_swarm/>        
+				<change_color color=""green""/>      
 			</Sequence>    
 		</Fallback>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_obstacle_detected""/>    
-		<Action ID=""avoid_obstacle"" editable=""true""/>    
-		<Action ID=""flocking"" editable=""true""/>    
-		<Action ID=""align_with_swarm"" editable=""true""/>    
-		<Control ID=""Fallback"" editable=""true""/>    
-		<Control ID=""Sequence"" editable=""true""/>  
-     </TreeNodesModel>
+		<Action ID=""avoid_obstacle""/>    
+		<Action ID=""change_color"" editable=""true"">
+      	<input_port name=""color""/>
+    	</Action>
+	</TreeNodesModel>
 </root>",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,115.88013744354248,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderingBehavior"">  
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,91.31062245368958,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderingBehavior"">  
 	<BehaviorTree ID=""WanderingBehavior"">    
-		<Sequence name=""Wander Until Target Detected"">        
-			<move_randomly/>        
-			<Fallback name=""Approach Target"">        
-				<is_target_detected/>        
-				<change_color color=""red""/>        
+		<Sequence name=""Random Wander Until Target Detected"">        
+			<moving randomly/>        
+			<is_target_detected/>        
+			<Fallback name=""Approach Target and Achieve"">        
+				<move_to_target/>        
+				<change_color to 'red' />      
 			</Fallback>    
 		</Sequence>    
-		<Fallback name=""Continue Wandering"">        
+		<Fallback name=""Default Actions"">      
 			<Sequence>        
-				<move_randomly/>        
+				<moving randomly/>        
+				<is_target_detected/>        
 			</Sequence>    
 		</Fallback>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_target_detected""/>    
-		<Action ID=""change_color"" editable=""true""/>    
-		<Action ID=""move_randomly"" editable=""true""/>    
-		<Control ID=""Fallback"" editable=""true""/>    
-		<Control ID=""Sequence"" editable=""true""/>  
+		<Action ID=""move_to_target""/>    
+		<Action ID=""change_color"" editable=""true"">
+      	<input_port name=""color""/>
+    	</Action>
 	</TreeNodesModel>
 </root>",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
-"check if path is clear, form a line at the center",two,195.37027978897095,"<root BTCPP_format=""3"" main_tree_to_execute=""agent_movement"">  
-	<BehaviorTree ID=""agent_movement"">    
-		<Sequence name=""Check Path Clear"">        
-			<is_path_clear/>        
-			<Fallback name=""Form Line"">        
-				<form_line/>        
-			</Fallback>    
-		</Sequence>    
-		<Sequence name=""Proceed Safely"">        
-			<move_randomly/>        
-		</Sequence>    
-	</BehaviorTree>  
-	<TreeNodesModel>    
-		<Condition ID=""is_path_clear""/>    
-		<Action ID=""form_line"" editable=""true""/>    
-		<Action ID=""move_randomly"" editable=""true""/>    
-		<Control ID=""Fallback"" editable=""true""/>    
-		<Control ID=""Sequence"" editable=""true""/>  
-     </TreeNodesModel>
-    </root>",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,157.69629645347595,"<root BTCPP_format=""3"" main_tree_to_execute=""SwarmBehavior"">  
+"check if path is clear, form a line at the center",two,205.40320134162903,"<root BTCPP_format=""3"" main_tree_to_execute=""FormationCheck"">
+        <BehaviorTree ID=""FormationCheck"">
+           <Sequence name=""Path Clearance Check"">        
+               <is_path_clear/>        
+               <form_line/>      
+           </Sequence>      
+           <Fallback name=""Line Formation"">        
+               <is_line_formed/>        
+               <form_line/>      
+           </Fallback>  
+        </BehaviorTree>  
+        <TreeNodesModel>    
+            <Condition ID=""is_path_clear""/>    
+            <Action ID=""form_line""/>    
+            <Condition ID=""is_line_formed""/>    
+            <Action ID=""change_color"" editable=""true"">
+               <input_port name=""color""/>
+            </Action>
+         </TreeNodesModel>
+     </root>",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,94.01323509216309,"<root BTCPP_format=""3"" main_tree_to_execute=""SwarmBehavior"">  
 	<BehaviorTree ID=""SwarmBehavior"">    
 		<Sequence name=""Find Goal and Align"">        
 			<is_target_detected/>        
-			<change_color color=""red""/>        
+			<change_color action_name=""SignalSuccess"" color=""red""/>        
 			<align_with_swarm/>        
 		</Sequence>    
 		<Fallback name=""Default Actions"">        
 			<Sequence>        
-				<moving_to_goal/>        
-				<align_with_swarm/>        
+				<move_randomly/>        
+				<agent_movement_freeze/>        
+				<continue_movement_agent/>        
 			</Sequence>    
 		</Fallback>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_target_detected""/>    
-		<Action ID=""change_color"" editable=""true""/>    
-		<Action ID=""align_with_swarm"" editable=""true""/>    
-		<Action ID=""moving_to_goal"" editable=""true""/>    
-		<Control ID=""Fallback"" editable=""true""/>    
-		<Control ID=""Sequence"" editable=""true""/>  
-     </TreeNodesModel>
-</root>",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
-"detect target, freeze movement upon reaching it",two,131.99115252494812,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">  
-	<BehaviorTree ID=""TargetDetection"">    
-		<Sequence name=""Detect and Freeze"">        
-			<is_target_detected/>        
-			<Fallback name=""Freeze Movement"">        
-				<movement_freeze/>        
-			</Fallback>    
-		</Sequence>    
-	</BehaviorTree>  
-	<TreeNodesModel>    
-		<Condition ID=""is_target_detected""/>    
-		<Action ID=""movement_freeze"" editable=""true""/>    
-	</TreeNodesModel>
+		<Action ID=""change_color"" args=""action_name"", color=""red""/>    
+		<Action ID=""align_with_swarm""/>    
+		<Action ID=""move_randomly""/>    
+		<Action ID=""agent_movement_freeze""/>    
+		<Action ID=""continue_movement_agent""/>    
+    	</TreeNodesModel>
     </root>",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M
+"detect target, freeze movement upon reaching it",two,78.17936301231384,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetSearch"">
+        <BehaviorTree ID=""TargetSearch"">
+           <Sequence name=""Search for Target"">        
+               <is_target_detected/>        
+               <is_target_reached/>      
+           </Sequence>      
+           <Fallback name=""Freeze Movement"">        
+               <agent_movement_freeze/>        
+           </Fallback>  
+           <Fallback name=""Default Search"">        
+               <move_randomly/>        
+           </Fallback>  
+        </BehaviorTree>  
+        <TreeNodesModel>    
+            <Condition ID=""is_target_detected""/>    
+            <Condition ID=""is_target_reached""/>    
+            <Action ID=""agent_movement_freeze""/>    
+            <Action ID=""move_randomly""/>    
+            <Action ID=""change_color"" editable=""true"">
+               <input_port name=""color""/>
+             </Action>
+         </TreeNodesModel>
+     </root>",DeepSeek-R1-Distill-Qwen-7B-Q4_K_M

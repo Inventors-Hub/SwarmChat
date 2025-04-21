@@ -46,7 +46,7 @@ class SwarmAgent(Agent):
         self.target_detected_flag = False
         self.target_reached_flag = False
         self.is_agent_in_nest_flag = False
-        self.obstacle_radius = 5
+        self.obstacle_radius = 3
         self.state = "seeking"
         self.bt_active = True  # Add a flag
         self.tts_engine = pyttsx3.init()  # Initialize text-to-speech engine

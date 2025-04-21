@@ -6,19 +6,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="AssemblyProcess">
   <BehaviorTree ID="AssemblyProcess">
-    <Selector name="Assembly Selector">
+    <Fallback name="Assembly Fallback">
       <Sequence name="Assembly Sequence">
         <are_parts_available/>
         <assemble_part/>
       </Sequence>
       <signal_error/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="are_parts_available"/>
-    <Action ID="assemble_part" editable="true"/>
-    <Action ID="signal_error" editable="true"/>
+    <Action ID="assemble_part"/>
+    <Action ID="signal_error"/>
   </TreeNodesModel>
 </root>
 
@@ -42,7 +42,7 @@ OUTPUT:
     </ReactiveSequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Condition ID="CheckBattery" editable="true"/>
+    <Condition ID="CheckBattery"/>
     <Action ID="MoveBase" editable="true">
       <input_port name="goal"/>
     </Action>
@@ -61,14 +61,14 @@ OUTPUT:
 <root BTCPP_format="3" main_tree_to_execute="FindAndReturn">
   <BehaviorTree ID="FindAndReturn">
     <Sequence name="Main Sequence">
-      <Selector name="Find Target">
+      <Fallback name="Find Target">
         <Sequence>
           <is_target_detected/>
           <change_color_to_green/>
           <task_completed/>
         </Sequence>
         <wander/>
-      </Selector>
+      </Fallback>
       <Sequence name="Return Home">
         <is_agent_in_nest/>
         <change_color_to_white/>
@@ -76,13 +76,13 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
-    <Action ID="change_color_to_green" editable="true"/>
-    <Action ID="change_color_to_white" editable="true"/>
+    <Control ID="Fallback"/>
+    <Action ID="change_color_to_green"/>
+    <Action ID="change_color_to_white"/>
     <Condition ID="is_agent_in_nest"/>
     <Condition ID="is_target_detected"/>
-    <Action ID="task_completed" editable="true"/>
-    <Action ID="wander" editable="true"/>
+    <Action ID="task_completed"/>
+    <Action ID="wander"/>
   </TreeNodesModel>
 </root>
 
@@ -94,7 +94,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="SampleCollection">
   <BehaviorTree ID="SampleCollection">
-    <Selector name="Main Selector">
+    <Fallback name="Main Fallback">
       <Sequence name="Handle Battery Low">
         <is_battery_low/>
         <return_to_base/>
@@ -107,16 +107,16 @@ OUTPUT:
         <is_obstacle_present/>
         <avoid_obstacle/>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_obstacle_present"/>
-    <Action ID="avoid_obstacle" editable="true"/>
+    <Action ID="avoid_obstacle"/>
     <Condition ID="is_sample_available"/>
-    <Action ID="collect_sample" editable="true"/>
+    <Action ID="collect_sample"/>
     <Condition ID="is_battery_low"/>
-    <Action ID="return_to_base" editable="true"/>
+    <Action ID="return_to_base"/>
   </TreeNodesModel>
 </root>
 
@@ -128,7 +128,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="SecurityMonitor">
   <BehaviorTree ID="SecurityMonitor">
-    <Selector name="Monitor Selector">
+    <Fallback name="Monitor Fallback">
       <Sequence name="Handle Intruder">
         <is_intruder_detected/>
         <alert_security/>
@@ -137,14 +137,14 @@ OUTPUT:
         <patrol_area/>
         <report_status/>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_intruder_detected"/>
-    <Action ID="alert_security" editable="true"/>
-    <Action ID="patrol_area" editable="true"/>
-    <Action ID="report_status" editable="true"/>
+    <Action ID="alert_security"/>
+    <Action ID="patrol_area"/>
+    <Action ID="report_status"/>
   </TreeNodesModel>
 </root>
 
@@ -156,7 +156,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="SensorMonitor">
   <BehaviorTree ID="SensorMonitor">
-    <Selector name="Monitor Selector">
+    <Fallback name="Monitor Fallback">
       <Sequence name="Handle High Temperature">
         <is_temperature_high/>
         <cool_system/>
@@ -168,15 +168,15 @@ OUTPUT:
         <log_event message="High pressure detected and pressure released."/>
       </Sequence>
       <maintain_normal/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_temperature_high"/>
-    <Action ID="cool_system" editable="true"/>
+    <Action ID="cool_system"/>
     <Condition ID="is_pressure_high"/>
-    <Action ID="release_pressure" editable="true"/>
-    <Action ID="maintain_normal" editable="true"/>
+    <Action ID="release_pressure"/>
+    <Action ID="maintain_normal"/>
     <Action ID="log_event" editable="true">
       <input_port name="message"/>
     </Action>
@@ -192,7 +192,7 @@ OUTPUT:
 <root BTCPP_format="3" main_tree_to_execute="DataCollector">
   <BehaviorTree ID="DataCollector">
     <Sequence name="Main Sequence">
-      <Selector name="Check Storage">
+      <Fallback name="Check Storage">
         <Sequence>
           <is_storage_full/>
           <Sequence name="Handle Full Storage">
@@ -202,15 +202,15 @@ OUTPUT:
           </Sequence>
         </Sequence>
         <collect_data/>
-      </Selector>
+      </Fallback>
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_storage_full"/>
-    <Action ID="process_data" editable="true"/>
-    <Action ID="upload_data" editable="true"/>
-    <Action ID="report_completion" editable="true"/>
-    <Action ID="collect_data" editable="true"/>
+    <Action ID="process_data"/>
+    <Action ID="upload_data"/>
+    <Action ID="report_completion"/>
+    <Action ID="collect_data"/>
   </TreeNodesModel>
 </root>

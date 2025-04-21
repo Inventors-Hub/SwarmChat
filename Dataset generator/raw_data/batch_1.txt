@@ -6,7 +6,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="BatteryManagement">
   <BehaviorTree ID="BatteryManagement">
-    <Selector name="High-Level Decision">
+    <Fallback name="High-Level Decision">
       <Sequence name="Low Battery Sequence">
         <is_battery_low/>
         <charge_battery/>
@@ -15,13 +15,13 @@ OUTPUT:
         <patrol_area/>
         <report_status/>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_battery_low"/>
-    <Action ID="charge_battery" editable="true"/>
-    <Action ID="patrol_area" editable="true"/>
-    <Action ID="report_status" editable="true"/>
+    <Action ID="charge_battery"/>
+    <Action ID="patrol_area"/>
+    <Action ID="report_status"/>
   </TreeNodesModel>
 </root>
 
@@ -49,12 +49,12 @@ OUTPUT:
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_intruder_detected"/>
-    <Action ID="sound_alarm" editable="true"/>
-    <Action ID="notify_security" editable="true"/>
-    <Action ID="perform_scan" editable="true"/>
-    <Action ID="continue_patrol" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Action ID="sound_alarm"/>
+    <Action ID="notify_security"/>
+    <Action ID="perform_scan"/>
+    <Action ID="continue_patrol"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -66,7 +66,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="WeatherResponse">
   <BehaviorTree ID="WeatherResponse">
-    <Selector name="Weather Condition">
+    <Fallback name="Weather Condition">
       <Sequence name="Stormy Condition">
         <is_weather_stormy/>
         <Sequence name="Shelter Sequence">
@@ -78,16 +78,16 @@ OUTPUT:
         <continue_mission/>
         <report_weather/>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_weather_stormy"/>
-    <Action ID="seek_shelter" editable="true"/>
-    <Action ID="wait_out_storm" editable="true"/>
-    <Action ID="continue_mission" editable="true"/>
-    <Action ID="report_weather" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
-    <Control ID="Selector" editable="true"/>
+    <Action ID="seek_shelter"/>
+    <Action ID="wait_out_storm"/>
+    <Action ID="continue_mission"/>
+    <Action ID="report_weather"/>
+    <Control ID="Sequence"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -99,7 +99,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="ResourceManagement">
   <BehaviorTree ID="ResourceManagement">
-    <Selector name="Resource Check">
+    <Fallback name="Resource Check">
       <Sequence name="Low Resource Workflow">
         <is_resource_low/>
         <Sequence name="Gather and Deploy">
@@ -111,16 +111,16 @@ OUTPUT:
         <monitor_resources/>
         <optimize_usage/>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_resource_low"/>
-    <Action ID="gather_resources" editable="true"/>
-    <Action ID="deploy_resources" editable="true"/>
-    <Action ID="monitor_resources" editable="true"/>
-    <Action ID="optimize_usage" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
-    <Control ID="Selector" editable="true"/>
+    <Action ID="gather_resources"/>
+    <Action ID="deploy_resources"/>
+    <Action ID="monitor_resources"/>
+    <Action ID="optimize_usage"/>
+    <Control ID="Sequence"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -132,7 +132,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="TargetEngagement">
   <BehaviorTree ID="TargetEngagement">
-    <Selector name="Target Decision">
+    <Fallback name="Target Decision">
       <Sequence name="Engage Target">
         <is_target_visible/>
         <Sequence name="Acquire and Alert">
@@ -147,17 +147,17 @@ OUTPUT:
         </Sequence>
         <return_to_base/>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_target_visible"/>
-    <Action ID="acquire_target" editable="true"/>
-    <Action ID="alert_team" editable="true"/>
-    <Action ID="search_area" editable="true"/>
-    <Action ID="evaluate_situation" editable="true"/>
-    <Action ID="return_to_base" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
-    <Control ID="Selector" editable="true"/>
+    <Action ID="acquire_target"/>
+    <Action ID="alert_team"/>
+    <Action ID="search_area"/>
+    <Action ID="evaluate_situation"/>
+    <Action ID="return_to_base"/>
+    <Control ID="Sequence"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -169,7 +169,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="PayloadDelivery">
   <BehaviorTree ID="PayloadDelivery">
-    <Selector name="Delivery Check">
+    <Fallback name="Delivery Check">
       <Sequence name="Successful Delivery">
         <is_payload_delivered/>
         <verify_delivery/>
@@ -186,17 +186,17 @@ OUTPUT:
           <request_additional_payload/>
         </Sequence>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_payload_delivered"/>
     <Condition ID="verify_delivery"/>
-    <Action ID="load_payload" editable="true"/>
-    <Action ID="transport_payload" editable="true"/>
-    <Action ID="unload_payload" editable="true"/>
-    <Action ID="return_to_base_after_delivery" editable="true"/>
-    <Action ID="request_additional_payload" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
-    <Control ID="Selector" editable="true"/>
+    <Action ID="load_payload"/>
+    <Action ID="transport_payload"/>
+    <Action ID="unload_payload"/>
+    <Action ID="return_to_base_after_delivery"/>
+    <Action ID="request_additional_payload"/>
+    <Control ID="Sequence"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>

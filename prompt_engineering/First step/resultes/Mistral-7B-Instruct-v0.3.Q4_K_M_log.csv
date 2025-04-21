@@ -1,0 +1,382 @@
+Prompt,Prompt Type,Time,Behavior Tree,Model Name
+"detect an obstacle, avoid it, and then changing color to green",zero,91.97417783737183,"```
+    <BTCPP_format main_tree_to_execute=""mainTree"">
+        <BehaviorTree>
+            <Sequence id=""sequence1"">
+                <Condition refId=""condition1""/>
+                <Action refId=""action1""/>
+                <Action refId=""action2""/>
+            </Sequence>
+            <Fallback refId=""fallbackNode""/>
+            <Conditions>
+                <ConditionModel id=""condition1"" name=""is_obstacle_detected"">
+                    <Arguments/>
+                </ConditionModel>
+            </Conditions>
+            <Actions>
+                <ActionModel id=""action1"" name=""avoid_obstacle"">
+                    <Arguments/>
+                </ActionModel>
+                <ActionModel id=""action2"" name=""change_color"">
+                    <Arguments>
+                        <Argument name=""color"">green</Argument>
+                    </Arguments>
+                </ActionModel>
+            </Actions>
+            <FallbackModel refId=""fallbackNode""/>
+        </BehaviorTree>
+    </BTCPP_format>
+     ```",Mistral-7B-Instruct-v0.3.Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,86.4247076511383,"```
+    <BTCPP_format main_tree_to_execute=""main"">
+        <BehaviorTree>
+            <Sequence id=""wander_and_approach"">
+                <Action id=""wander"" name=""move_randomly""/>
+                <Condition id=""target_detected"" name=""is_target_detected"">
+                    <Args>
+                        <Arg name=""distance"">20</Arg>
+                    </Args>
+                </Condition>
+                <Sequence id=""approach_and_signal"">
+                    <Action id=""move_towards"" name=""flocking"">
+                        <Args>
+                            <Arg name=""target"">
+                                <Reference idRef=""agent_target""/>
+                            </Arg>
+                        </Args>
+                    </Action>
+                    <Condition id=""reached_target"" name=""is_target_reached"">
+                        <Args>
+                            <Arg name=""distance"">15</Arg>
+                        </Args>
+                    </Condition>
+                    <Action id=""signal_achievement"" name=""change_color"">
+                        <Args>
+                            <Arg name=""color"">red</Arg>
+                        </Args>
+                    </Action>
+                </Sequence>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <NodeModel id=""move_randomly"" type=""Action""/>
+            <NodeModel id=""flocking"" type=""Action""/>
+            <NodeModel id=""is_target_detected"" type=""Condition""/>
+            <NodeModel id=""move_towards"" type=""Action""/>
+            <NodeModel id=""is_target_reached"" type=""Condition""/>
+            <NodeModel id=""change_color"" type=""Action""/>
+        </TreeNodesModel>
+    </BTCPP_format>
+     ```",Mistral-7B-Instruct-v0.3.Q4_K_M
+"check if path is clear, form a line at the center",zero,57.82512021064758,"```
+    <BTCPP_format main_tree_to_execute=""main"">
+        <BehaviorTree>
+            <Sequence name=""sequence1"">
+                <Condition refId=""is_path_clear"" />
+                <Sequence name=""sequence2"">
+                    <Action refId=""form_line"" />
+                </Sequence>
+            </Sequence>
+            <Fallback>
+                <!-- Empty fallback section -->
+            </Fallback>
+            <TreeNodesModel>
+                <Condition id=""is_path_clear"">
+                    <Name>is_path_clear</Name>
+                    <Class>Condition</Class>
+                    <Arguments>
+                        <Argument name=""check_ahead"" value=""true"" />
+                    </Arguments>
+                </TreeNodesModel>
+                <Action id=""form_line"">
+                    <Name>form_line</Name>
+                    <Class>Action</Class>
+                    <Arguments>
+                        <Argument name=""center_reference"" value=""true"" />
+                    </Arguments>
+                </TreeNodesModel>
+            </TreeNodesModel>
+        </BehaviorTree>
+    </BTCPP_format>
+     ```",Mistral-7B-Instruct-v0.3.Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,154.41960048675537,"```
+    <BTCPP_format main_tree_to_execute=""main"">
+        <BehaviorTree>
+            <Sequence id=""sequence1"">
+                <Action id=""find_goal"" model=""flocking""/>
+                <Condition id=""is_target_detected"" model=""is_target_detected""/>
+                <Action id=""signal_success"" model=""change_color"">
+                    <Argument name=""color"">red</Argument>
+                </Action>
+            </Sequence>
+            <Fallback id=""fallback1"">
+                <Condition id=""is_obstacle_detected"" model=""is_obstacle_detected""/>
+                <Action id=""avoid_obstacle"" model=""avoid_obstacle""/>
+            </Fallback>
+            <Sequence id=""alignment"">
+                <Condition id=""is_line_formed"" model=""is_line_formed""/>
+                <Action id=""form_line"" model=""form_line""/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <NodeModel name=""flocking"">
+                <Description>Adjust the agent's move vector by blending alignment and separation forces from nearby agents.</Description>
+            </NodeModel>
+            <NodeModel name=""is_target_detected"">
+                <Description>Check if the target is within a detectable distance from the agent's position.</Description>
+            </NodeModel>
+            <NodeModel name=""change_color"">
+                <Description>Change the agent's color to 'white', 'green', or 'red'.</Description>
+            </NodeModel>
+            <NodeModel name=""is_obstacle_detected"">
+                <Description>Determine if any obstacles are detected in the vicinity of the agent.</Description>
+            </NodeModel>
+            <NodeModel name=""avoid_obstacle"">
+                <Description>Execute an action to avoid detected obstacles.</Description>
+            </NodeModel>
+            <NodeModel name=""is_agent_in_nest"">
+                <Description>Determine if the agent is in the nest.</Description>
+            </NodeModel>
+            <NodeModel name=""agent_movement_freeze"">
+                <Description>Freeze the agent's movement, typically to indicate a stop in activity.</Description>
+            </NodeModel>
+            <NodeModel name=""continue_movement_agent"">
+                <Description>Continue the agent's movement after it has been previously frozen.</Description>
+            </NodeModel>
+            <NodeModel name=""move_randomly"">
+                <Description>Perform a wandering action where the agent moves randomly within the environment.</Description>
+            </NodeModel>
+            <NodeModel name=""is_path_clear"">
+                <Description>Check if the path ahead of the agent is clear of obstacles.</Description>
+            </NodeModel>
+            <NodeModel name=""is_line_formed"">
+                <Description>Determine if the agent has formed a line with a reference point at the center of the window.</Description>
+            </NodeModel>
+            <NodeModel name=""form_line"">
+                <Description>Direct the agent to form a line towards the center of the window. This function adjusts the agent's position to align it with the center.</Description>
+            </NodeModel>
+        </TreeNodesModel>
+    </BTCPP_format>
+     ```",Mistral-7B-Instruct-v0.3.Q4_K_M
+"detect target, freeze movement upon reaching it",zero,39.07451248168945,"```
+    <BTCPP_format main_tree_to_execute=""main"">
+        <BehaviorTree>
+            <Sequence name=""Main Sequence"">
+                <Condition name=""Target Detected Condition"">
+                    <ModelName>is_target_detected</ModelName>
+                </Condition>
+                <Action name=""Freeze Movement Action"">
+                    <ModelName>agent_movement_freeze</ModelName>
+                </Action>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <NodeModel name=""is_target_detected"" type=""Condition""/>
+            <NodeModel name=""agent_movement_freeze"" type=""Action""/>
+        </TreeNodesModel>
+    </BTCPP_format>
+    ```",Mistral-7B-Instruct-v0.3.Q4_K_M
+"detect an obstacle, avoid it, and then changing color to green",one,127.30684328079224,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidanceAndColorChange"">
+       <BehaviorTree ID=""ObstacleAvoidanceAndColorChange"">
+         <Sequence name=""DetectAndAvoidObstacle"">
+           <is_obstacle_detected/>
+           <avoid_obstacle/>
+         </Sequence>
+         <Action ID=""change_color"" editable=""true"">
+           <input_port name=""color""/>
+         </Action>
+       </BehaviorTree>
+       <TreeNodesModel>
+         <Condition ID=""is_obstacle_detected""/>
+         <Action ID=""avoid_obstacle""/>
+         <Action ID=""change_color"" editable=""true"">
+           <input_port name=""color""/>
+         </Action>
+       </TreeNodesModel>
+     </root>",Mistral-7B-Instruct-v0.3.Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,61.43000674247742,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderAndApproachTarget"">
+        <BehaviorTree ID=""WanderAndApproachTarget"">
+            <Sequence name=""Wander Sequence"">
+                <move_randomly/>
+                <is_target_detected>
+                    <ConditionRef ID=""is_target_detected""/>
+                </is_target_detected>
+            </Sequence>
+            <Sequence name=""Approach Target Sequence"">
+                <is_target_reached>
+                    <ConditionRef ID=""is_target_reached""/>
+                </is_target_reached>
+                <agent_movement_freeze/>
+                <change_color color=""red""/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Action ID=""move_randomly""/>
+            <Condition ID=""is_target_detected""/>
+            <Condition ID=""is_target_reached""/>
+            <Action ID=""agent_movement_freeze""/>
+            <Action ID=""change_color""/>
+        </TreeNodesModel>
+    </root>",Mistral-7B-Instruct-v0.3.Q4_K_M
+"check if path is clear, form a line at the center",one,34.11099100112915,"<root BTCPP_format=""3"" main_tree_to_execute=""PathCheckAndLineFormation"">
+        <BehaviorTree ID=""PathCheckAndLineFormation"">
+            <Sequence name=""Path Check and Line Formation Sequence"">
+                <is_path_clear/>
+                <form_line/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_path_clear""/>
+            <Action ID=""form_line""/>
+        </TreeNodesModel>
+    </root>",Mistral-7B-Instruct-v0.3.Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,52.071292877197266,"<root BTCPP_format=""3"" main_tree_to_execute=""FindGoalAndAlign"">
+        <BehaviorTree ID=""FindGoalAndAlign"">
+            <Sequence name=""Find Goal Sequence"">
+                <is_target_detected/>
+                <continue_movement_agent/>
+            </Sequence>
+            <Sequence name=""Color Change and Alignment Sequence"">
+                <is_target_reached/>
+                <change_color color=""red""/>
+                <align_with_swarm/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_target_detected""/>
+            <Action ID=""continue_movement_agent""/>
+            <Action ID=""change_color""/>
+            <Action ID=""align_with_swarm""/>
+            <Condition ID=""is_target_reached""/>
+        </TreeNodesModel>
+    </root>",Mistral-7B-Instruct-v0.3.Q4_K_M
+"detect target, freeze movement upon reaching it",one,40.52700090408325,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetectionAndFreeze"">
+        <BehaviorTree ID=""TargetDetectionAndFreeze"">
+            <Sequence name=""Detect Target and Freeze Movement Sequence"">
+                <is_target_detected/>
+                <agent_movement_freeze/>
+                <is_target_reached/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_target_detected""/>
+            <Action ID=""agent_movement_freeze""/>
+            <Condition ID=""is_target_reached""/>
+        </TreeNodesModel>
+    </root>",Mistral-7B-Instruct-v0.3.Q4_K_M
+"detect an obstacle, avoid it, and then changing color to green",two,149.71106600761414,"<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidance"">
+       <BehaviorTree ID=""ObstacleAvoidance"">
+         <Sequence name=""Detect and Avoid Obstacle Sequence"">
+           <is_obstacle_detected/>
+           <Fallback name=""Avoidance"">
+             <avoid_obstacle/>
+           </Fallback>
+         </Sequence>
+         <Sequence name=""Change Color to Green Sequence"">
+           <agent_movement_freeze/>
+           <change_color color=""green""/>
+         </Sequence>
+       </BehaviorTree>
+       <TreeNodesModel>
+         <Condition ID=""is_obstacle_detected""/>
+         <Action ID=""avoid_obstacle""/>
+         <Action ID=""agent_movement_freeze""/>
+         <Action ID=""change_color"" editable=""true"">
+           <input_port name=""color""/>
+         </Action>
+         <Action ID=""change_color2"" editable=""true"">
+           <input_port name=""color""/>
+         </Action>
+       </TreeNodesModel>
+     </root>",Mistral-7B-Instruct-v0.3.Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,84.75173735618591,"<root BTCPP_format=""3"" main_tree_to_execute=""WanderAndApproach"">
+       <BehaviorTree ID=""WanderAndApproach"">
+         <Sequence name=""WanderUntilTargetDetected"">
+           <move_randomly/>
+           <Fallback name=""TargetDetected"">
+             <is_target_detected/>
+             <Sequence name=""ApproachTarget"">
+               <agent_movement_freeze/>
+               <Fallback name=""ReachedTarget"">
+                 <is_target_reached/>
+                 <change_color color=""red""/>
+               </Fallback>
+               <continue_movement_agent/>
+             </Sequence>
+           </Fallback>
+         </Sequence>
+       </BehaviorTree>
+       <TreeNodesModel>
+         <Action ID=""move_randomly""/>
+         <Action ID=""agent_movement_freeze""/>
+         <Action ID=""change_color"" editable=""true"">
+           <input_port name=""color""/>
+         </Action>
+         <Action ID=""continue_movement_agent""/>
+         <Condition ID=""is_target_detected""/>
+         <Condition ID=""is_target_reached""/>
+         <Condition ID=""is_obstacle_detected""/>
+         <Condition ID=""is_path_clear""/>
+         <Condition ID=""is_line_formed""/>
+         <Action ID=""avoid_obstacle""/>
+         <Action ID=""flocking""/>
+         <Action ID=""align_with_swarm""/>
+       </TreeNodesModel>
+     </root>",Mistral-7B-Instruct-v0.3.Q4_K_M
+"check if path is clear, form a line at the center",two,44.261171102523804,"<root BTCPP_format=""3"" main_tree_to_execute=""LineFormation"">
+        <BehaviorTree ID=""LineFormation"">
+            <Sequence name=""CheckPathAndFormLine"">
+                <is_path_clear/>
+                <Fallback name=""FormLine"">
+                    <form_line/>
+                </Fallback>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_path_clear""/>
+            <Action ID=""form_line""/>
+            <Action ID=""change_color"" editable=""true"">
+                <input_port name=""color""/>
+            </Action>
+        </TreeNodesModel>
+    </root>",Mistral-7B-Instruct-v0.3.Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,55.631574392318726,"<root BTCPP_format=""3"" main_tree_to_execute=""FindGoalAndAlign"">
+        <BehaviorTree ID=""FindGoalAndAlign"">
+            <Sequence name=""Find Goal and Align Movement"">
+                <is_target_detected/>
+                <Fallback name=""Movement Alignment"">
+                    <align_with_swarm/>
+                </Fallback>
+            </Sequence>
+            <Sequence name=""Change Color on Success"">
+                <is_target_reached/>
+                <change_color color=""red""/>
+            </Sequence>
+        </BehaviorTree>
+        <TreeNodesModel>
+            <Condition ID=""is_target_detected""/>
+            <Action ID=""align_with_swarm""/>
+            <Action ID=""change_color"" editable=""true"">
+                <input_port name=""color""/>
+            </Action>
+        </TreeNodesModel>
+    </root>",Mistral-7B-Instruct-v0.3.Q4_K_M
+"detect target, freeze movement upon reaching it",two,49.89320182800293,"<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetection"">
+       <BehaviorTree ID=""TargetDetection"">
+         <Sequence name=""Detect and Freeze"">
+           <is_target_detected/>
+           <Fallback name=""Freeze Movement"">
+             <is_target_reached/>
+             <agent_movement_freeze/>
+           </Fallback>
+         </Sequence>
+       </BehaviorTree>
+       <TreeNodesModel>
+         <Condition ID=""is_target_detected""/>
+         <Condition ID=""is_target_reached""/>
+         <Action ID=""agent_movement_freeze""/>
+         <Action ID=""change_color"" editable=""true"">
+           <input_port name=""color""/>
+         </Action>
+       </TreeNodesModel>
+     </root>",Mistral-7B-Instruct-v0.3.Q4_K_M

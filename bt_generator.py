@@ -4,7 +4,9 @@ import re
 from llama_cpp import Llama
 
 # Load the Llama model for safety classification
-model_path = r"G:\Inventors Hub Projects\SwarmChat\model\deepseek-coder-6.7b-instruct.Q4_K_M.gguf"
+# model_path = r"G:\Inventors Hub Projects\SwarmChat\model\deepseek-coder-6.7b-instruct.Q4_K_M.gguf"
+model_path = r"G:\Inventors Hub Projects\SwarmChat\models finetuned\unsloth.Q4_K_M.gguf"
+
 llm = Llama(model_path=model_path, n_ctx=1024*4)
 
 def call_behaviors() -> dict:

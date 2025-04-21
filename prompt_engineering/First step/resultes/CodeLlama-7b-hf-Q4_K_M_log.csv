@@ -1,12 +1,12 @@
 Prompt,Prompt Type,Time,Behavior Tree,Model Name
-"detect an obstacle, avoid it, and then flock safely with other agents",zero,403.5312924385071,"<BTCPP_format main_tree_to_execute=""main"">
+"detect an obstacle, avoid it, and then changing color to green",zero,282.2949047088623,"<BTCPP_format main_tree_to_execute=""main"">
         <BehaviorTree>
             <Sequence name=""root"">
                 <Fallback name=""fallback"">
                     <Condition name=""is_obstacle_detected"" />
                     <Action name=""avoid_obstacle"" />
                 </Fallback>
-                <Action name=""flocking"" />
+                <Action name=""change_color"" color=""green"" />
             </Sequence>
         </BehaviorTree>
         <TreeNodesModel>
@@ -16,8 +16,8 @@ Prompt,Prompt Type,Time,Behavior Tree,Model Name
             <NodeModel name=""avoid_obstacle"">
                 <Action name=""avoid_obstacle"" />
             </NodeModel>
-            <NodeModel name=""flocking"">
-                <Action name=""flocking"" />
+            <NodeModel name=""change_color"">
+                <Action name=""change_color"" color=""green"" />
             </NodeModel>
         </TreeNodesModel>
     </BTCPP_format>
@@ -38,8 +38,8 @@ move_randomly: Action node: Perform a wandering action where the agent moves ran
 is_path_clear: Condition node: Check if the path ahead of the agent is clear of obstacles. Returns: SUCCESS if no obstacles are detected ahead, FAILURE if obstacles are present.
 is_line_formed: Condition node: Determine if the agent has formed a line with a reference point at the center of the window. Returns: SUCCESS if the line is formed with the center, FAILURE otherwise.
 form_line: Action node: Direct the agent to form a line towards the center of the window. This function adjuststhe agent's position to align it with the center. Returns: Always returns SUCCESS, indicating the action was executed. to construct behavior tree in XML format for the following command. Including any behavior that is not in the provided dictionary can result in damage to the agents and potentially humans, therefore you are not allowed to do so. AVOID AT ALL COSTS.
-    USER COMMAND: generate behavior tree to """,CodeLlama-7b-hf-Q4_K_M
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,231.97241735458374,"<BTCPP_format main_tree_to_execute=""main"">
+    USER COM",CodeLlama-7b-hf-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",zero,206.81693840026855,"<BTCPP_format main_tree_to_execute=""main"">
         <BehaviorTree>
             <Sequence name=""main"">
                 <Fallback name=""wander until target detected"">
@@ -97,7 +97,7 @@ agent_movement_freeze: Action node: Freeze the agent's movement, typically to in
 continue_movement_agent: Action node: Continue the agent's movement after it has been previously frozen. Returns: Always returns SUCCESS, indicating the action was executed.
 move_randomly: Action node: Perform a wandering action where the agent moves randomly within the environment. Returns: Always returns SUCCESS, indicating the action was executed.
 is_",CodeLlama-7b-hf-Q4_K_M
-"check if path is clear, form a line at the center",zero,229.5088074207306,"<BTCPP_format main_tree_to_execute=""main"">
+"check if path is clear, form a line at the center",zero,205.82622456550598,"<BTCPP_format main_tree_to_execute=""main"">
         <BehaviorTree>
             <Sequence name=""sequence1"">
                 <IsPathClear/>
@@ -140,7 +140,7 @@ move_randomly: Action node: Perform a wandering action where the agent moves ran
 is_path_clear: Condition node: Check if the path ahead of the agent is clear of obstacles. Returns: SUCCESS if no obstacles are detected ahead, FAILURE otherwise.
 is_line_formed: Condition node: Determine if the agent has formed a line with a reference point at the center of the window. Returns: SUCCESS if the line is formed with the center, FAILURE otherwise.
 form_line: Action node: Direct the agent to form a line towards the center of the window. This function adjuststhe agent's position to align it with the center. Returns: Always returns SUCCESS, indicating the action was executed. to construct behavior tree in XML format for the following command. Including any behavior that is not in the provided dictionary can result in damage to the agents and potentially humans, therefore you are",CodeLlama-7b-hf-Q4_K_M
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,230.8295545578003,"<BTCPP_format main_tree_to_execute=""main"">
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",zero,206.97694659233093,"<BTCPP_format main_tree_to_execute=""main"">
         <BehaviorTree>
             <Sequence name=""main"">
                 <Fallback name=""find the goal, signal success by changing color to red, and align movement with other swarm agents"">
@@ -180,7 +180,7 @@ move_randomly: Action node: Perform a wandering action where the agent moves ran
 is_path_clear: Condition node: Check if the path ahead of the agent is clear of obstacles. Returns: SUCCESS if no obstacles are detected ahead, FAILURE if obstacles are present.
 is_line_formed: Condition node: Determine if the agent has formed a line with a reference point at the center of the window. Returns: SUCCESS if the line is formed with the center, FAILURE otherwise.
 form_line: Action node: Direct the agent to form a line towards the center of the window. This function adjuststhe agent's position to align it with the center. Returns: Always returns SUCCESS, indicating the action was executed. to construct behavior tree in XML format for the following command. Including any behavior that is not",CodeLlama-7b-hf-Q4_K_M
-"detect target, freeze movement upon reaching it",zero,230.2044084072113,"<BTCPP_format main_tree_to_execute=""main"">
+"detect target, freeze movement upon reaching it",zero,205.95672798156738,"<BTCPP_format main_tree_to_execute=""main"">
         <BehaviorTree>
             <Sequence name=""sequence_0"">
                 <IsTargetDetected/>
@@ -214,33 +214,23 @@ form_line: Action node: Direct the agent to form a line towards the center of th
     - A root element with BTCPP_format and main_tree_to_execute attributes.
     - A <BehaviorTree> element with an inner structure of Sequences, Fallback, Conditions, and Actions.
     - A",CodeLlama-7b-hf-Q4_K_M
-"detect an obstacle, avoid it, and then flock safely with other agents",one,172.0362901687622,"<root BTCPP_format=""3"" main_tree_to_execute=""Main"">  
+"detect an obstacle, avoid it, and then changing color to green",one,124.31072664260864,"<root BTCPP_format=""3"" main_tree_to_execute=""Main"">  
 	<BehaviorTree ID=""Main"">    
 		<Sequence name=""Detect Obstacle Sequence"">      
 			<is_obstacle_detected/>      
 			<avoid_obstacle/>    
 		</Sequence>    
-		<Fallback name=""Flocking Sequence"">      
-			<flocking/>      
-			<align_with_swarm/>    
-		</Fallback>  
-		<Sequence name=""Form Line Sequence"">        
-			<is_path_clear/>        
-			<is_line_formed/>        
-			<form_line/>      
-		</Sequence>    
+		<change_color color=""green""/>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_obstacle_detected""/>    
-		<Action ID=""avoid_obstacle"" editable=""true""/>    
-		<Action ID=""flocking"" editable=""true""/>    
-		<Action ID=""align_with_swarm"" editable=""true""/>    
-		<Condition ID=""is_path_clear""/>    
-		<Condition ID=""is_line_formed""/>    
-		<Action ID=""form_line"" editable=""true""/>  
+		<Action ID=""avoid_obstacle""/>    
+		<Action ID=""change_color"" editable=""true"">
+      	<input_port name=""color""/>
+    	</Action>
 	</TreeNodesModel>
 </root>",CodeLlama-7b-hf-Q4_K_M
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,90.18785452842712,"<root BTCPP_format=""3"" main_tree_to_execute=""Main"">  
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",one,82.42914533615112,"<root BTCPP_format=""3"" main_tree_to_execute=""Main"">  
 	<BehaviorTree ID=""Main"">    
 		<Sequence name=""Wander Randomly"">      
 			<move_randomly/>      
@@ -262,71 +252,98 @@ form_line: Action node: Direct the agent to form a line towards the center of th
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_target_detected""/>    
-		<Action ID=""move_towards_point"" editable=""true""/>    
+		<Action ID=""move_towards_point""/>    
 		<Condition ID=""is_path_clear""/>    
-		<Action ID=""avoid_obstacle"" editable=""true""/>    
-		<Action ID=""change_color"" editable=""true""/>    
+		<Action ID=""avoid_obstacle""/>    
+		<Action ID=""change_color"" editable=""true"">
+      	<input_port name=""color""/>
+    	</Action>
 	</TreeNodesModel>
 </root>",CodeLlama-7b-hf-Q4_K_M
-"check if path is clear, form a line at the center",one,42.68272662162781,"<root BTCPP_format=""3"" main_tree_to_execute=""Main"">  
+"check if path is clear, form a line at the center",one,43.401500940322876,"<root BTCPP_format=""3"" main_tree_to_execute=""Main"">  
 	<BehaviorTree ID=""Main"">    
-		<Sequence name=""Check if path is clear, form a line at the center"">      
-			<is_path_clear/>      
-			<form_line/>    
-		</Sequence>  
+		<Fallback name=""Main"">      
+			<Sequence name=""Check if path is clear, form a line at the center"">        
+				<is_path_clear/>        
+				<form_line/>      
+			</Sequence>    
+		</Fallback>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_path_clear""/>    
-		<Action ID=""form_line"" editable=""true""/>  
+		<Action ID=""form_line""/>    
 	</TreeNodesModel>
 </root>",CodeLlama-7b-hf-Q4_K_M
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,58.08757948875427,"<root BTCPP_format=""3"" main_tree_to_execute=""FindGoal"">  
-	<BehaviorTree ID=""FindGoal"">    
-		<Sequence name=""Find Goal Sequence"">      
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",one,90.15472149848938,"<root BTCPP_format=""3"" main_tree_to_execute=""Main"">  
+	<BehaviorTree ID=""Main"">    
+		<Sequence name=""Find Goal"">      
 			<is_target_detected/>      
 			<is_target_reached/>      
 			<change_color color=""red""/>    
-			<align_with_swarm/>    
+			<align_with_swarm/>  
 		</Sequence>  
+		<Fallback name=""Main"">      
+			<Sequence name=""Find Goal"">        
+				<is_target_detected/>        
+				<is_target_reached/>        
+				<change_color color=""red""/>      
+				<align_with_swarm/>      
+			</Sequence>        
+			<Sequence name=""Move Randomly"">          
+				<move_randomly/>        
+			</Sequence>      
+		</Fallback>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_target_detected""/>    
 		<Condition ID=""is_target_reached""/>    
-		<Action ID=""change_color"" editable=""true""/>    
-		<Action ID=""align_with_swarm"" editable=""true""/>  
+		<Action ID=""change_color"">      
+			<input_port name=""color""/>    
+		</Action>    
+		<Action ID=""align_with_swarm""/>    
+		<Action ID=""move_randomly""/>    
+		<Condition ID=""is_path_clear""/>    
+		<Condition ID=""is_line_formed""/>    
+		<Action ID=""form_line""/>  
 	</TreeNodesModel>
 </root>",CodeLlama-7b-hf-Q4_K_M
-"detect target, freeze movement upon reaching it",one,44.88476252555847,"<root BTCPP_format=""3"" main_tree_to_execute=""Main"">  
+"detect target, freeze movement upon reaching it",one,53.87682223320007,"<root BTCPP_format=""3"" main_tree_to_execute=""Main"">  
 	<BehaviorTree ID=""Main"">    
-		<Sequence name=""Detect Target, Freeze Movement Upon Reaching It"">      
+		<Sequence name=""Detect Target and Freeze Movement"">      
 			<is_target_detected/>      
 			<agent_movement_freeze/>    
-		</Sequence>  
+		</Sequence>    
+		<Fallback name=""Continue Movement"">      
+			<continue_movement_agent/>    
+			<move_randomly/>      
+		</Fallback>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_target_detected""/>    
-		<Action ID=""agent_movement_freeze"" editable=""true""/>    
+		<Action ID=""agent_movement_freeze""/>    
+		<Action ID=""continue_movement_agent""/>    
+		<Action ID=""move_randomly""/>  
 	</TreeNodesModel>
 </root>",CodeLlama-7b-hf-Q4_K_M
-"detect an obstacle, avoid it, and then flock safely with other agents",two,158.0820415019989,"<root BTCPP_format=""3"" main_tree_to_execute=""Main"">  
-      <BehaviorTree ID=""Main"">    
-        <Sequence name=""Detect Obstacle"">      
-          <is_obstacle_detected/>      
-          <avoid_obstacle/>    
-        </Sequence>    
-        <Fallback name=""Flocking"">      
-          <flocking/>        
-          <align_with_swarm/>      
-        </Fallback>  
-      </BehaviorTree>  
-      <TreeNodesModel>    
-        <Condition ID=""is_obstacle_detected""/>    
-        <Action ID=""avoid_obstacle"" editable=""true""/>    
-        <Action ID=""flocking"" editable=""true""/>    
-        <Action ID=""align_with_swarm"" editable=""true""/>  
-      </TreeNodesModel>
-    </root>",CodeLlama-7b-hf-Q4_K_M
-"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,96.6138367652893,"<root BTCPP_format=""3"" main_tree_to_execute=""Wander"">  
+"detect an obstacle, avoid it, and then changing color to green",two,138.71472597122192,"<root BTCPP_format=""3"" main_tree_to_execute=""Main"">  
+	<BehaviorTree ID=""Main"">    
+		<Sequence name=""Detect Obstacle"">      
+			<is_obstacle_detected/>      
+			<avoid_obstacle/>    
+		</Sequence>    
+		<Fallback name=""Change Color"">      
+			<change_color color=""green""/>    
+		</Fallback>  
+	</BehaviorTree>  
+	<TreeNodesModel>    
+		<Condition ID=""is_obstacle_detected""/>    
+		<Action ID=""avoid_obstacle""/>    
+		<Action ID=""change_color"">
+      	<input_port name=""color""/>
+    	</Action>
+	</TreeNodesModel>
+</root>",CodeLlama-7b-hf-Q4_K_M
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red",two,100.17355871200562,"<root BTCPP_format=""3"" main_tree_to_execute=""Wander"">  
 	<BehaviorTree ID=""Wander"">    
 		<Sequence name=""Wandering"">      
 			<move_randomly/>      
@@ -344,52 +361,66 @@ form_line: Action node: Direct the agent to form a line towards the center of th
 		</Sequence>  
 	</BehaviorTree>  
 	<TreeNodesModel>    
-		<Action ID=""move_randomly"" editable=""true""/>    
+		<Condition ID=""is_obstacle_detected""/>    
+		<Action ID=""avoid_obstacle""/>    
 		<Condition ID=""is_target_detected""/>    
-		<Condition ID=""is_path_clear""/>    
+		<Condition ID=""is_target_reached""/>    
+		<Action ID=""change_color""/>    
 		<Condition ID=""is_agent_in_nest""/>    
-		<Action ID=""continue_movement_agent"" editable=""true""/>    
-		<Action ID=""change_color"" editable=""true""/>    
-		<Condition ID=""is_target_reached""/>  
-	</TreeNodesModel>
-</root>",CodeLlama-7b-hf-Q4_K_M
-"check if path is clear, form a line at the center",two,60.41087102890015,"<root BTCPP_format=""3"" main_tree_to_execute=""Main"">  
-	<BehaviorTree ID=""Main"">    
-		<Sequence name=""Check Path and Line Formation"">      
-			<is_path_clear/>      
-			<Fallback name=""Form Line"">        
-				<form_line/>      
-			</Fallback>    
-		</Sequence>  
-	</BehaviorTree>  
-	<TreeNodesModel>    
+		<Action ID=""agent_movement_freeze""/>    
+		<Action ID=""continue_movement_agent""/>    
+		<Action ID=""move_randomly""/>    
 		<Condition ID=""is_path_clear""/>    
-		<Action ID=""form_line"" editable=""true""/>    
-		<Control ID=""Fallback"" editable=""true""/>    
-		<Control ID=""Sequence"" editable=""true""/>  
+		<Condition ID=""is_line_formed""/>    
+		<Action ID=""form_line""/>  
 	</TreeNodesModel>
 </root>",CodeLlama-7b-hf-Q4_K_M
-"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,76.41161394119263,"<root BTCPP_format=""3"" main_tree_to_execute=""FindGoal"">  
-	<BehaviorTree ID=""FindGoal"">    
-		<Sequence name=""Find Goal"">      
-			<is_target_detected/>      
-			<Fallback name=""Align with Swarm"">        
-				<align_with_swarm/>        
-			</Fallback>    
-		</Sequence>    
-		<Fallback name=""Move Randomly"">      
-			<move_randomly/>      
-		</Fallback>  
-	</BehaviorTree>  
-	<TreeNodesModel>    
-		<Condition ID=""is_target_detected""/>    
-		<Action ID=""align_with_swarm"" editable=""true""/>    
-		<Action ID=""move_randomly"" editable=""true""/>    
-		<Control ID=""Fallback"" editable=""true""/>    
-		<Control ID=""Sequence"" editable=""true""/>  
-	</TreeNodesModel>
-</root>",CodeLlama-7b-hf-Q4_K_M
-"detect target, freeze movement upon reaching it",two,128.60377097129822,"<root BTCPP_format=""3"" main_tree_to_execute=""Main"">  
+"check if path is clear, form a line at the center",two,59.96864175796509,"<root BTCPP_format=""3"" main_tree_to_execute=""Main"">  
+    	<BehaviorTree ID=""Main"">    
+    		<Sequence name=""Path Check"">      
+    			<is_path_clear/>      
+    			<form_line/>    
+    		</Sequence>    
+    		<Fallback name=""Line Formation"">      
+    			<is_agent_in_nest/>      
+    			<move_randomly/>    
+    		</Fallback>  
+    	</BehaviorTree>  
+    	<TreeNodesModel>    
+    		<Condition ID=""is_path_clear""/>    
+    		<Action ID=""form_line""/>    
+    		<Condition ID=""is_agent_in_nest""/>    
+    		<Action ID=""move_randomly""/>  
+    	</TreeNodesModel>
+    </root>",CodeLlama-7b-hf-Q4_K_M
+"find the goal, signal success by changing color to red, and align movement with other swarm agents",two,88.43552303314209,"<root BTCPP_format=""3"" main_tree_to_execute=""FindGoal"">  
+    	<BehaviorTree ID=""FindGoal"">    
+    		<Sequence name=""Find Goal"">      
+    			<is_target_detected/>      
+    			<Fallback name=""Align with Swarm"">        
+    				<align_with_swarm/>        
+    			</Fallback>    
+    			<Fallback name=""Move Randomly"">        
+    				<move_randomly/>        
+    			</Fallback>      
+    		</Sequence>    
+    		<Fallback name=""Form Line"">      
+    			<is_line_formed/>      
+    			<form_line/>    
+    		</Fallback>  
+    	</BehaviorTree>  
+    	<TreeNodesModel>    
+    		<Condition ID=""is_target_detected""/>    
+    		<Action ID=""align_with_swarm""/>    
+    		<Action ID=""move_randomly""/>    
+    		<Condition ID=""is_line_formed""/>    
+    		<Action ID=""form_line""/>    
+    		<Action ID=""change_color"" editable=""true"">
+      	<input_port name=""color""/>
+    		</Action>
+    	</TreeNodesModel>
+    </root>",CodeLlama-7b-hf-Q4_K_M
+"detect target, freeze movement upon reaching it",two,69.7449221611023,"<root BTCPP_format=""3"" main_tree_to_execute=""Main"">  
 	<BehaviorTree ID=""Main"">    
 		<Sequence name=""Detect Target"">      
 			<is_target_detected/>      
@@ -406,22 +437,8 @@ form_line: Action node: Direct the agent to form a line towards the center of th
 	</BehaviorTree>  
 	<TreeNodesModel>    
 		<Condition ID=""is_target_detected""/>    
-		<Action ID=""agent_movement_freeze"" editable=""true""/>    
-		<Action ID=""continue_movement_agent"" editable=""true""/>    
-		<Fallback ID=""Freeze Movement"" editable=""true""/>    
+		<Action ID=""agent_movement_freeze""/>    
+		<Action ID=""continue_movement_agent""/>    
 		<Condition ID=""is_target_reached""/>    
-		<Fallback ID=""Continue Movement"" editable=""true""/>    
-		<Sequence name=""Detect Target"" editable=""true"">      
-			<is_target_detected/>      
-			<Fallback name=""Freeze Movement"">        
-				<agent_movement_freeze/>        
-			</Fallback>    
-		</Sequence>    
-		<Sequence name=""Reach Target"" editable=""true"">      
-			<is_target_reached/>      
-			<Fallback name=""Continue Movement"">        
-				<continue_movement_agent/>        
-			</Fallback>    
-		</Sequence>  
 	</TreeNodesModel>
 </root>",CodeLlama-7b-hf-Q4_K_M

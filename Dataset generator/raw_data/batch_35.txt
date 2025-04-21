@@ -21,8 +21,8 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Sequence" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Sequence"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_obstacle_detected"/>
     <Action ID="patrol_area"/>
     <Action ID="avoid_obstacle"/>
@@ -61,8 +61,8 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Sequence" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Sequence"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_resource_low"/>
     <Action ID="monitor_environment"/>
     <Action ID="replenish_resource"/>

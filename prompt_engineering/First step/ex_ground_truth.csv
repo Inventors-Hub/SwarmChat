@@ -1,0 +1,81 @@
+Prompt,Behavior Tree
+"detect an obstacle, avoid it, and then flock safely with other agents","<root BTCPP_format=""3"" main_tree_to_execute=""ObstacleAvoidanceAndFlocking"">
+	<BehaviorTree ID=""ObstacleAvoidanceAndFlocking"">
+		<Sequence name=""Detect and Avoid Obstacle Then Flock"">
+			<is_obstacle_detected/>
+			<avoid_obstacle/>
+			<change_color color=""green""/>
+		</Sequence>
+	</BehaviorTree>
+	<TreeNodesModel>
+		<Condition ID=""is_obstacle_detected""/>
+		<Action ID=""avoid_obstacle""/>
+		<Action ID=""change_color"" editable=""true"">
+			<input_port name=""color""/>
+        </Action>
+	</TreeNodesModel>
+</root>"
+"wander randomly until a target is detected, approach it, and signal achievement by changing color to red","<root BTCPP_format=""3"" main_tree_to_execute=""WanderApproachAndSignal"">
+	<BehaviorTree ID=""WanderApproachAndSignal"">
+		<Sequence name=""Wander, Approach, and Signal"">
+			<Fallback name=""DetectTargetOrWander"">
+				<Sequence name=""TargetDetectedAndReached"">
+					<is_target_detected/>
+					<is_target_reached/>
+					<change_color color=""red""/>
+				</Sequence>
+			</Fallback>
+			<wander/>
+		</Sequence>
+	</BehaviorTree>
+	<TreeNodesModel>
+		<Condition ID=""is_target_detected""/>
+		<Condition ID=""is_target_reached""/>
+		<Action ID=""wander""/>
+		<Action ID=""change_color"" editable=""true"">
+			<input_port name=""color""/>
+        </Action>
+    </TreeNodesModel>
+	</root>"
+"check if path is clear, form a line at the center","<root BTCPP_format=""3"" main_tree_to_execute=""PathClearLineFormation"">
+	<BehaviorTree ID=""PathClearLineFormation"">
+		<Sequence name=""Clear Path and Form Line"">
+			<is_path_clear/>
+			<form_line/>
+		</Sequence>
+	</BehaviorTree>
+	<TreeNodesModel>
+		<Condition ID=""is_path_clear""/>
+		<Action ID=""form_line""/>
+	</TreeNodesModel>
+</root>"
+"find the goal, signal success by changing color to red, and align movement with other swarm agents","<root BTCPP_format=""3"" main_tree_to_execute=""GoalAchievementAndAlignment"">
+	<BehaviorTree ID=""GoalAchievementAndAlignment"">
+		<Sequence name=""Find Goal, Signal and Align"">
+			<is_target_detected/>
+			<is_target_reached/>
+			<change_color color=""red""/>
+			<align_with_swarm/>
+		</Sequence>
+	</BehaviorTree>
+	<TreeNodesModel>
+		<Condition ID=""is_target_detected""/>
+		<Condition ID=""is_target_reached""/>
+		<Action ID=""change_color""/>
+		<Action ID=""align_with_swarm""/>
+	</TreeNodesModel>
+</root>"
+"detect target, freeze movement upon reaching it","<root BTCPP_format=""3"" main_tree_to_execute=""TargetDetectionFreeze"">
+	<BehaviorTree ID=""TargetDetectionFreeze"">
+		<Sequence name=""Detect and Freeze"">
+			<is_target_detected/>
+			<is_target_reached/>
+			<agent_movement_freeze/>
+		</Sequence>
+	</BehaviorTree>
+	<TreeNodesModel>
+		<Condition ID=""is_target_detected""/>
+		<Condition ID=""is_target_reached""/>
+		<Action ID=""agent_movement_freeze""/>
+	</TreeNodesModel>
+</root>"

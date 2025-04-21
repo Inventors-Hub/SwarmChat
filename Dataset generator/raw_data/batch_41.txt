@@ -22,7 +22,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="ExploreMap">
   <BehaviorTree ID="ExploreMap">
-    <Selector name="Exploration Selector">
+    <Fallback name="Exploration Fallback">
       <Sequence name="Clear Path Mapping">
         <is_path_clear/>
         <move_forward/>
@@ -38,18 +38,18 @@ OUTPUT:
         <turn_left/>
       </Sequence>
       <wander/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
-    <Action ID="avoid_obstacle" editable="true"/>
+    <Control ID="Fallback"/>
+    <Action ID="avoid_obstacle"/>
     <Condition ID="is_obstacle_detected"/>
     <Condition ID="is_path_blocked"/>
     <Condition ID="is_path_clear"/>
-    <Action ID="move_forward" editable="true"/>
-    <Action ID="turn_left" editable="true"/>
-    <Action ID="update_map" editable="true"/>
-    <Action ID="wander" editable="true"/>
+    <Action ID="move_forward"/>
+    <Action ID="turn_left"/>
+    <Action ID="update_map"/>
+    <Action ID="wander"/>
   </TreeNodesModel>
 </root>
 
@@ -128,14 +128,14 @@ OUTPUT:
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_dirty_room"/>
-    <Action ID="start_cleaning" editable="true"/>
+    <Action ID="start_cleaning"/>
     <Condition ID="is_clean"/>
-    <Action ID="report_clean" editable="true"/>
+    <Action ID="report_clean"/>
     <Condition ID="is_battery_low"/>
-    <Action ID="return_to_base" editable="true"/>
-    <Action ID="charge_battery" editable="true"/>
-    <Sequence ID="Cleaning Sequence" editable="true"/>
-    <Fallback ID="Battery Check" editable="true"/>
+    <Action ID="return_to_base"/>
+    <Action ID="charge_battery"/>
+    <Sequence ID="Cleaning Sequence"/>
+    <Fallback ID="Battery Check"/>
   </TreeNodesModel>
 </root>
 
@@ -177,14 +177,14 @@ OUTPUT:
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="has_package"/>
-    <Action ID="navigate_to_destination" editable="true"/>
+    <Action ID="navigate_to_destination"/>
     <Condition ID="is_destination_reachable"/>
-    <Action ID="report_failure" editable="true"/>
-    <Action ID="deliver_package" editable="true"/>
-    <Action ID="confirm_delivery" editable="true"/>
-    <Sequence ID="Delivery Sequence" editable="true"/>
-    <Sequence ID="Destination Check" editable="true"/>
-    <Fallback ID="Failure Handling" editable="true"/>
+    <Action ID="report_failure"/>
+    <Action ID="deliver_package"/>
+    <Action ID="confirm_delivery"/>
+    <Sequence ID="Delivery Sequence"/>
+    <Sequence ID="Destination Check"/>
+    <Fallback ID="Failure Handling"/>
   </TreeNodesModel>
 </root>
 
@@ -212,7 +212,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="Surveillance">
   <BehaviorTree ID="Surveillance">
-    <Selector name="Intrusion Handling">
+    <Fallback name="Intrusion Handling">
       <Sequence name="Intrusion Detected">
         <detect_intrusion/>
         <sound_alarm/>
@@ -222,17 +222,17 @@ OUTPUT:
         <patrol_area/>
         <is_patrol_complete/>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="detect_intrusion"/>
-    <Action ID="sound_alarm" editable="true"/>
-    <Action ID="notify_security" editable="true"/>
-    <Action ID="patrol_area" editable="true"/>
+    <Action ID="sound_alarm"/>
+    <Action ID="notify_security"/>
+    <Action ID="patrol_area"/>
     <Condition ID="is_patrol_complete"/>
-    <Sequence ID="Intrusion Detected" editable="true"/>
-    <Sequence ID="Patrol" editable="true"/>
-    <Selector ID="Intrusion Handling" editable="true"/>
+    <Sequence ID="Intrusion Detected"/>
+    <Sequence ID="Patrol"/>
+    <Fallback ID="Intrusion Handling"/>
   </TreeNodesModel>
 </root>
 
@@ -262,7 +262,7 @@ OUTPUT:
   <BehaviorTree ID="BatteryManagement">
     <Sequence name="Battery Check Sequence">
       <is_battery_low/>
-      <Selector name="Charging Selector">
+      <Fallback name="Charging Fallback">
         <Sequence name="Charge Battery">
           <go_to_charging_station/>
           <charge_battery/>
@@ -272,22 +272,22 @@ OUTPUT:
           <notify_low_battery/>
           <sleep_mode/>
         </Sequence>
-      </Selector>
+      </Fallback>
       <continue_task/>
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_battery_low"/>
-    <Action ID="go_to_charging_station" editable="true"/>
-    <Action ID="charge_battery" editable="true"/>
+    <Action ID="go_to_charging_station"/>
+    <Action ID="charge_battery"/>
     <Condition ID="is_battery_charged"/>
-    <Action ID="continue_task" editable="true"/>
-    <Action ID="notify_low_battery" editable="true"/>
-    <Action ID="sleep_mode" editable="true"/>
-    <Sequence ID="Battery Check Sequence" editable="true"/>
-    <Sequence ID="Charge Battery" editable="true"/>
-    <Sequence ID="Handle Low Battery" editable="true"/>
-    <Selector ID="Charging Selector" editable="true"/>
+    <Action ID="continue_task"/>
+    <Action ID="notify_low_battery"/>
+    <Action ID="sleep_mode"/>
+    <Sequence ID="Battery Check Sequence"/>
+    <Sequence ID="Charge Battery"/>
+    <Sequence ID="Handle Low Battery"/>
+    <Fallback ID="Charging Fallback"/>
   </TreeNodesModel>
 </root>
 
@@ -315,7 +315,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="FireSafety">
   <BehaviorTree ID="FireSafety">
-    <Selector name="Fire Response Selector">
+    <Fallback name="Fire Response Fallback">
       <Sequence name="Fire Detected">
         <detect_fire/>
         <activate_sprinklers/>
@@ -326,19 +326,19 @@ OUTPUT:
         <evacuate_building/>
       </Sequence>
       <standby/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="detect_fire"/>
-    <Action ID="activate_sprinklers" editable="true"/>
-    <Action ID="notify_fire_department" editable="true"/>
+    <Action ID="activate_sprinklers"/>
+    <Action ID="notify_fire_department"/>
     <Condition ID="is_smoke_detected"/>
-    <Action ID="evacuate_building" editable="true"/>
+    <Action ID="evacuate_building"/>
     <Condition ID="check_fire_extinguish"/>
-    <Action ID="standby" editable="true"/>
-    <Sequence ID="Fire Detected" editable="true"/>
-    <Sequence ID="Smoke Check" editable="true"/>
-    <Selector ID="Fire Response Selector" editable="true"/>
+    <Action ID="standby"/>
+    <Sequence ID="Fire Detected"/>
+    <Sequence ID="Smoke Check"/>
+    <Fallback ID="Fire Response Fallback"/>
   </TreeNodesModel>
 </root>
 ###
@@ -381,8 +381,8 @@ OUTPUT:
     <Action ID="StartCharging"/>
     <Condition ID="MonitorBattery"/>
     <Action ID="ResumeTasks"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -429,8 +429,8 @@ OUTPUT:
     <Condition ID="CheckDestination"/>
     <Action ID="StopMovement"/>
     <Action ID="RecalculatePath"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -478,8 +478,8 @@ OUTPUT:
     <Condition ID="IsDestinationClear"/>
     <Action ID="DeliverCargo"/>
     <Action ID="Wait"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -527,8 +527,8 @@ OUTPUT:
     <Condition ID="IsUnderAttack"/>
     <Action ID="RequestBackup"/>
     <Action ID="PatrolArea"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -578,8 +578,8 @@ OUTPUT:
     <Action ID="StartMission"/>
     <Action ID="AbortMission"/>
     <Action ID="ReportStatus"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 ###
@@ -621,7 +621,7 @@ OUTPUT:
     </ReactiveSequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Condition ID="CheckBattery" editable="true"/>
+    <Condition ID="CheckBattery"/>
     <Action ID="MoveBase" editable="true">
       <input_port name="goal"/>
     </Action>
@@ -657,23 +657,23 @@ OUTPUT:
   <BehaviorTree ID="MapArea">
     <Sequence>
       <is_area_mapped/>
-      <Selector>
+      <Fallback>
         <Sequence>
           <is_path_blocked/>
-          <Selector>
+          <Fallback>
             <turn_left/>
             <turn_right/>
-          </Selector>
+          </Fallback>
         </Sequence>
         <Sequence>
           <move_forward/>
           <update_map/>
         </Sequence>
-      </Selector>
+      </Fallback>
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_area_mapped"/>
     <Condition ID="is_path_blocked"/>
     <Action ID="move_forward"/>
@@ -719,12 +719,12 @@ OUTPUT:
     </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Fallback" editable="true"/>
-    <Sequence ID="Sequence" editable="true"/>
-    <Condition ID="CheckTemperature" editable="true"/>
-    <Action ID="ActivateCooling" editable="true"/>
-    <Action ID="ScanArea" editable="true"/>
-    <Action ID="LogStatus" editable="true"/>
+    <Control ID="Fallback"/>
+    <Sequence ID="Sequence"/>
+    <Condition ID="CheckTemperature"/>
+    <Action ID="ActivateCooling"/>
+    <Action ID="ScanArea"/>
+    <Action ID="LogStatus"/>
   </TreeNodesModel>
 </root>
 
@@ -764,12 +764,12 @@ OUTPUT:
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Sequence" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
-    <Condition ID="DetectObstacle" editable="true"/>
-    <Action ID="EvadeObstacle" editable="true"/>
-    <Action ID="AlertBase" editable="true"/>
-    <Action ID="ContinuePath" editable="true"/>
+    <Control ID="Sequence"/>
+    <Control ID="Fallback"/>
+    <Condition ID="DetectObstacle"/>
+    <Action ID="EvadeObstacle"/>
+    <Action ID="AlertBase"/>
+    <Action ID="ContinuePath"/>
   </TreeNodesModel>
 </root>
 
@@ -785,7 +785,7 @@ CheckBatteryLevel: Condition node: Check if the battery level is low. Returns SU
 ReturnToBase: Action Node: Navigate the agent back to the base station. Always returns SUCCESS.; 
 RechargeBattery: Action Node: Recharge the agent’s battery. Always returns SUCCESS.; 
 PatrolArea: Action Node: Patrol a designated area. Always returns SUCCESS.; 
-Selector: Control Node: Selects the first child that succeeds.; 
+Fallback: Control Node: Selects the first child that succeeds.; 
 Sequence: Control Node: Executes children in order. Returns SUCCESS if all children succeed.
 }.
 to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
@@ -797,22 +797,22 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="BatteryManagement">
   <BehaviorTree ID="BatteryManagement">
-    <Selector>
+    <Fallback>
       <Sequence>
         <CheckBatteryLevel/>
         <ReturnToBase/>
         <RechargeBattery/>
       </Sequence>
       <PatrolArea/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
-    <Condition ID="CheckBatteryLevel" editable="true"/>
-    <Action ID="ReturnToBase" editable="true"/>
-    <Action ID="RechargeBattery" editable="true"/>
-    <Action ID="PatrolArea" editable="true"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
+    <Condition ID="CheckBatteryLevel"/>
+    <Action ID="ReturnToBase"/>
+    <Action ID="RechargeBattery"/>
+    <Action ID="PatrolArea"/>
   </TreeNodesModel>
 </root>
 
@@ -850,12 +850,12 @@ OUTPUT:
     </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
-    <Condition ID="DetectTarget" editable="true"/>
-    <Action ID="ApproachTarget" editable="true"/>
-    <Action ID="EngageTarget" editable="true"/>
-    <Action ID="SearchArea" editable="true"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
+    <Condition ID="DetectTarget"/>
+    <Action ID="ApproachTarget"/>
+    <Action ID="EngageTarget"/>
+    <Action ID="SearchArea"/>
   </TreeNodesModel>
 </root>
 
@@ -893,12 +893,12 @@ OUTPUT:
     </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
-    <Condition ID="CheckCommunication" editable="true"/>
-    <Action ID="SendStatusUpdate" editable="true"/>
-    <Action ID="ReceiveCommands" editable="true"/>
-    <Action ID="EmergencyProtocol" editable="true"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
+    <Condition ID="CheckCommunication"/>
+    <Action ID="SendStatusUpdate"/>
+    <Action ID="ReceiveCommands"/>
+    <Action ID="EmergencyProtocol"/>
   </TreeNodesModel>
 </root>
 
@@ -936,12 +936,12 @@ OUTPUT:
     </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
-    <Condition ID="CheckLoad" editable="true"/>
-    <Action ID="NavigateToDropOff" editable="true"/>
-    <Action ID="UnloadCargo" editable="true"/>
-    <Action ID="LoadCargo" editable="true"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
+    <Condition ID="CheckLoad"/>
+    <Action ID="NavigateToDropOff"/>
+    <Action ID="UnloadCargo"/>
+    <Action ID="LoadCargo"/>
   </TreeNodesModel>
 </root>
 
@@ -967,9 +967,9 @@ OUTPUT:
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="battery_low"/>
-    <Action ID="return_to_base" editable="true"/>
-    <Action ID="notify_operator" editable="true"/>
-    <Action ID="continue_operation" editable="true"/>
+    <Action ID="return_to_base"/>
+    <Action ID="notify_operator"/>
+    <Action ID="continue_operation"/>
   </TreeNodesModel>
 </root>
 
@@ -982,18 +982,18 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="CombatBehavior">
   <BehaviorTree ID="CombatBehavior">
-    <Selector name="Enemy Selector">
+    <Fallback name="Enemy Fallback">
       <Sequence name="Engage Enemy Sequence">
         <enemy_detected/>
         <attack_enemy/>
       </Sequence>
       <patrol_area/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="enemy_detected"/>
-    <Action ID="attack_enemy" editable="true"/>
-    <Action ID="patrol_area" editable="true"/>
+    <Action ID="attack_enemy"/>
+    <Action ID="patrol_area"/>
   </TreeNodesModel>
 </root>
 
@@ -1017,9 +1017,9 @@ OUTPUT:
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="dust_detected"/>
-    <Action ID="activate_cleaning" editable="true"/>
-    <Action ID="notify_maintenance" editable="true"/>
-    <Action ID="continue_monitoring" editable="true"/>
+    <Action ID="activate_cleaning"/>
+    <Action ID="notify_maintenance"/>
+    <Action ID="continue_monitoring"/>
   </TreeNodesModel>
 </root>
 
@@ -1045,9 +1045,9 @@ OUTPUT:
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="temperature_high"/>
-    <Action ID="activate_cooling" editable="true"/>
-    <Action ID="alert_team" editable="true"/>
-    <Action ID="maintain_operations" editable="true"/>
+    <Action ID="activate_cooling"/>
+    <Action ID="alert_team"/>
+    <Action ID="maintain_operations"/>
   </TreeNodesModel>
 </root>
 
@@ -1060,7 +1060,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="ObstacleAvoidance">
   <BehaviorTree ID="ObstacleAvoidance">
-    <Selector name="Obstacle Selector">
+    <Fallback name="Obstacle Fallback">
       <Sequence name="Avoid Obstacle Sequence">
         <obstacle_ahead/>
         <Sequence name="Navigate and Warn">
@@ -1069,13 +1069,13 @@ OUTPUT:
         </Sequence>
       </Sequence>
       <resume_path/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="obstacle_ahead"/>
-    <Action ID="navigate_around" editable="true"/>
-    <Action ID="signal_warning" editable="true"/>
-    <Action ID="resume_path" editable="true"/>
+    <Action ID="navigate_around"/>
+    <Action ID="signal_warning"/>
+    <Action ID="resume_path"/>
   </TreeNodesModel>
 </root>
 
@@ -1101,9 +1101,9 @@ OUTPUT:
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="package_lost"/>
-    <Action ID="initiate_search" editable="true"/>
-    <Action ID="notify_customer" editable="true"/>
-    <Action ID="continue_delivery" editable="true"/>
+    <Action ID="initiate_search"/>
+    <Action ID="notify_customer"/>
+    <Action ID="continue_delivery"/>
   </TreeNodesModel>
 </root>
 
@@ -1117,19 +1117,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="BatteryManagement">
   <BehaviorTree ID="BatteryManagement">
-    <Selector name="Main Selector">
+    <Fallback name="Main Fallback">
       <Sequence name="Return to Charging Sequence">
         <is_battery_low/>
         <return_to_charging_station/>
       </Sequence>
       <continue_operation/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_battery_low"/>
-    <Action ID="return_to_charging_station" editable="true"/>
-    <Action ID="continue_operation" editable="true"/>
+    <Action ID="return_to_charging_station"/>
+    <Action ID="continue_operation"/>
   </TreeNodesModel>
 </root>
 
@@ -1141,19 +1141,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="TargetEngagement">
   <BehaviorTree ID="TargetEngagement">
-    <Selector name="Engagement Selector">
+    <Fallback name="Engagement Fallback">
       <Sequence name="Engage Sequence">
         <is_target_detected/>
         <engage_target/>
       </Sequence>
       <patrol_area/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_target_detected"/>
-    <Action ID="engage_target" editable="true"/>
-    <Action ID="patrol_area" editable="true"/>
+    <Action ID="engage_target"/>
+    <Action ID="patrol_area"/>
   </TreeNodesModel>
 </root>
 
@@ -1165,19 +1165,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="CleaningProcess">
   <BehaviorTree ID="CleaningProcess">
-    <Selector name="Cleaning Selector">
+    <Fallback name="Cleaning Fallback">
       <Sequence name="Start Cleaning Sequence">
         <is_area_clear/>
         <start_cleaning/>
       </Sequence>
       <report_obstruction/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_area_clear"/>
-    <Action ID="start_cleaning" editable="true"/>
-    <Action ID="report_obstruction" editable="true"/>
+    <Action ID="start_cleaning"/>
+    <Action ID="report_obstruction"/>
   </TreeNodesModel>
 </root>
 
@@ -1189,19 +1189,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="SecurityMonitoring">
   <BehaviorTree ID="SecurityMonitoring">
-    <Selector name="Security Selector">
+    <Fallback name="Security Fallback">
       <Sequence name="Alert Sequence">
         <is_intruder_present/>
         <alert_security/>
       </Sequence>
       <maintain_watch/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_intruder_present"/>
-    <Action ID="alert_security" editable="true"/>
-    <Action ID="maintain_watch" editable="true"/>
+    <Action ID="alert_security"/>
+    <Action ID="maintain_watch"/>
   </TreeNodesModel>
 </root>
 
@@ -1213,19 +1213,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="TemperatureControl">
   <BehaviorTree ID="TemperatureControl">
-    <Selector name="Temperature Selector">
+    <Fallback name="Temperature Fallback">
       <Sequence name="Cooling Sequence">
         <is_temperature_high/>
         <activate_cooling_system/>
       </Sequence>
       <continue_normal_operation/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_temperature_high"/>
-    <Action ID="activate_cooling_system" editable="true"/>
-    <Action ID="continue_normal_operation" editable="true"/>
+    <Action ID="activate_cooling_system"/>
+    <Action ID="continue_normal_operation"/>
   </TreeNodesModel>
 </root>
 
@@ -1237,19 +1237,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="FuelManagement">
   <BehaviorTree ID="FuelManagement">
-    <Selector name="Fuel Selector">
+    <Fallback name="Fuel Fallback">
       <Sequence name="Refuel Sequence">
         <is_fuel_low/>
         <refuel_vehicle/>
       </Sequence>
       <continue_drive/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_fuel_low"/>
-    <Action ID="refuel_vehicle" editable="true"/>
-    <Action ID="continue_drive" editable="true"/>
+    <Action ID="refuel_vehicle"/>
+    <Action ID="continue_drive"/>
   </TreeNodesModel>
 </root>
 
@@ -1261,19 +1261,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="HazardAvoidance">
   <BehaviorTree ID="HazardAvoidance">
-    <Selector name="Hazard Selector">
+    <Fallback name="Hazard Fallback">
       <Sequence name="Avoid Hazard Sequence">
         <is_hazard_detected/>
         <navigate_around_hazard/>
       </Sequence>
       <proceed_forward/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_hazard_detected"/>
-    <Action ID="navigate_around_hazard" editable="true"/>
-    <Action ID="proceed_forward" editable="true"/>
+    <Action ID="navigate_around_hazard"/>
+    <Action ID="proceed_forward"/>
   </TreeNodesModel>
 </root>
 
@@ -1285,19 +1285,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="ResourceCollection">
   <BehaviorTree ID="ResourceCollection">
-    <Selector name="Resource Selector">
+    <Fallback name="Resource Fallback">
       <Sequence name="Collect Resource Sequence">
         <is_resource_available/>
         <collect_resource/>
       </Sequence>
       <wait_for_resource/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_resource_available"/>
-    <Action ID="collect_resource" editable="true"/>
-    <Action ID="wait_for_resource" editable="true"/>
+    <Action ID="collect_resource"/>
+    <Action ID="wait_for_resource"/>
   </TreeNodesModel>
 </root>
 
@@ -1309,19 +1309,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="MissionManagement">
   <BehaviorTree ID="MissionManagement">
-    <Selector name="Mission Selector">
+    <Fallback name="Mission Fallback">
       <Sequence name="Celebrate Sequence">
         <is_mission_complete/>
         <celebrate_success/>
       </Sequence>
       <continue_mission/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_mission_complete"/>
-    <Action ID="celebrate_success" editable="true"/>
-    <Action ID="continue_mission" editable="true"/>
+    <Action ID="celebrate_success"/>
+    <Action ID="continue_mission"/>
   </TreeNodesModel>
 </root>
 
@@ -1333,19 +1333,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="LoadingProcess">
   <BehaviorTree ID="LoadingProcess">
-    <Selector name="Loading Selector">
+    <Fallback name="Loading Fallback">
       <Sequence name="Offload Sequence">
         <is_storage_full/>
         <offload_goods/>
       </Sequence>
       <continue_loading/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_storage_full"/>
-    <Action ID="offload_goods" editable="true"/>
-    <Action ID="continue_loading" editable="true"/>
+    <Action ID="offload_goods"/>
+    <Action ID="continue_loading"/>
   </TreeNodesModel>
 </root>
 
@@ -1357,19 +1357,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="EmergencyManagement">
   <BehaviorTree ID="EmergencyManagement">
-    <Selector name="Emergency Selector">
+    <Fallback name="Emergency Fallback">
       <Sequence name="Emergency Response Sequence">
         <is_emergency/>
         <initiate_emergency_protocol/>
       </Sequence>
       <continue_normal_operations/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_emergency"/>
-    <Action ID="initiate_emergency_protocol" editable="true"/>
-    <Action ID="continue_normal_operations" editable="true"/>
+    <Action ID="initiate_emergency_protocol"/>
+    <Action ID="continue_normal_operations"/>
   </TreeNodesModel>
 </root>
 
@@ -1381,19 +1381,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="DataProcessing">
   <BehaviorTree ID="DataProcessing">
-    <Selector name="Data Selector">
+    <Fallback name="Data Fallback">
       <Sequence name="Process Data Sequence">
         <is_data_available/>
         <process_data/>
       </Sequence>
       <wait_for_data/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_data_available"/>
-    <Action ID="process_data" editable="true"/>
-    <Action ID="wait_for_data" editable="true"/>
+    <Action ID="process_data"/>
+    <Action ID="wait_for_data"/>
   </TreeNodesModel>
 </root>
 ###
@@ -1405,7 +1405,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="BatteryManagement">
   <BehaviorTree ID="BatteryManagement">
-    <Selector>
+    <Fallback>
       <Sequence>
         <is_battery_low/>
         <recharge_battery/>
@@ -1414,15 +1414,15 @@ OUTPUT:
         <continue_mission/>
         <report_status/>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_battery_low"/>
-    <Action ID="recharge_battery" editable="true"/>
-    <Action ID="continue_mission" editable="true"/>
-    <Action ID="report_status" editable="true"/>
-    <Control ID="Selector" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Action ID="recharge_battery"/>
+    <Action ID="continue_mission"/>
+    <Action ID="report_status"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -1435,22 +1435,22 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="EnemyEncounter">
   <BehaviorTree ID="EnemyEncounter">
-    <Selector>
+    <Fallback>
       <Sequence>
         <is_enemy_nearby/>
         <evade_enemy/>
         <alert_allies/>
       </Sequence>
       <patrol_area/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_enemy_nearby"/>
-    <Action ID="evade_enemy" editable="true"/>
-    <Action ID="alert_allies" editable="true"/>
-    <Action ID="patrol_area" editable="true"/>
-    <Control ID="Selector" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Action ID="evade_enemy"/>
+    <Action ID="alert_allies"/>
+    <Action ID="patrol_area"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -1463,7 +1463,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="ResourceManagement">
   <BehaviorTree ID="ResourceManagement">
-    <Selector>
+    <Fallback>
       <Sequence>
         <is_resource_available/>
         <gather_resources/>
@@ -1473,16 +1473,16 @@ OUTPUT:
         <wait_for_resources/>
         <proceed_with_task/>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_resource_available"/>
-    <Action ID="gather_resources" editable="true"/>
-    <Action ID="notify_team" editable="true"/>
-    <Action ID="wait_for_resources" editable="true"/>
-    <Action ID="proceed_with_task" editable="true"/>
-    <Control ID="Selector" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Action ID="gather_resources"/>
+    <Action ID="notify_team"/>
+    <Action ID="wait_for_resources"/>
+    <Action ID="proceed_with_task"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -1495,7 +1495,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="TerrainAdaptation">
   <BehaviorTree ID="TerrainAdaptation">
-    <Selector>
+    <Fallback>
       <Sequence>
         <is_terrain_slippery/>
         <adjust_speed/>
@@ -1505,16 +1505,16 @@ OUTPUT:
         <maintain_speed/>
         <deactivate_sensors/>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_terrain_slippery"/>
-    <Action ID="adjust_speed" editable="true"/>
-    <Action ID="activate_sensors" editable="true"/>
-    <Action ID="maintain_speed" editable="true"/>
-    <Action ID="deactivate_sensors" editable="true"/>
-    <Control ID="Selector" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Action ID="adjust_speed"/>
+    <Action ID="activate_sensors"/>
+    <Action ID="maintain_speed"/>
+    <Action ID="deactivate_sensors"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -1527,7 +1527,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="TaskManagement">
   <BehaviorTree ID="TaskManagement">
-    <Selector>
+    <Fallback>
       <Sequence>
         <is_task_complete/>
         <initiate_next_task/>
@@ -1537,16 +1537,16 @@ OUTPUT:
         <wait_for_completion/>
         <handle_exceptions/>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_task_complete"/>
-    <Action ID="initiate_next_task" editable="true"/>
-    <Action ID="log_completion" editable="true"/>
-    <Action ID="wait_for_completion" editable="true"/>
-    <Action ID="handle_exceptions" editable="true"/>
-    <Control ID="Selector" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Action ID="initiate_next_task"/>
+    <Action ID="log_completion"/>
+    <Action ID="wait_for_completion"/>
+    <Action ID="handle_exceptions"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -1559,7 +1559,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="AreaSecurity">
   <BehaviorTree ID="AreaSecurity">
-    <Selector>
+    <Fallback>
       <Sequence>
         <is_area_secure/>
         <deploy_security_measures/>
@@ -1569,16 +1569,16 @@ OUTPUT:
         <alert_security_team/>
         <halt_operations/>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_area_secure"/>
-    <Action ID="deploy_security_measures" editable="true"/>
-    <Action ID="start_data_collection" editable="true"/>
-    <Action ID="alert_security_team" editable="true"/>
-    <Action ID="halt_operations" editable="true"/>
-    <Control ID="Selector" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Action ID="deploy_security_measures"/>
+    <Action ID="start_data_collection"/>
+    <Action ID="alert_security_team"/>
+    <Action ID="halt_operations"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 ###
@@ -1590,18 +1590,18 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="BatteryManagement">
   <BehaviorTree ID="BatteryManagement">
-    <Selector name="Battery Selector">
+    <Fallback name="Battery Fallback">
       <Sequence name="Return to Base Sequence">
         <is_battery_low/>
         <return_to_base/>
       </Sequence>
       <continue_mission/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_battery_low"/>
-    <Action ID="return_to_base" editable="true"/>
-    <Action ID="continue_mission" editable="true"/>
+    <Action ID="return_to_base"/>
+    <Action ID="continue_mission"/>
   </TreeNodesModel>
 </root>
 
@@ -1626,9 +1626,9 @@ OUTPUT:
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_obstacle_detected"/>
-    <Action ID="navigate_around" editable="true"/>
-    <Action ID="resume_path" editable="true"/>
-    <Action ID="continue_moving_forward" editable="true"/>
+    <Action ID="navigate_around"/>
+    <Action ID="resume_path"/>
+    <Action ID="continue_moving_forward"/>
   </TreeNodesModel>
 </root>
 
@@ -1642,19 +1642,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="PackageHandling">
   <BehaviorTree ID="PackageHandling">
-    <Selector name="Package Selector">
+    <Fallback name="Package Fallback">
       <Sequence name="Pickup Sequence">
         <is_package_available/>
         <pick_up_package/>
         <notify_operator message="Package picked up successfully."/>
       </Sequence>
       <search_for_package/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_package_available"/>
-    <Action ID="pick_up_package" editable="true"/>
-    <Action ID="search_for_package" editable="true"/>
+    <Action ID="pick_up_package"/>
+    <Action ID="search_for_package"/>
     <Action ID="notify_operator" editable="true">
       <input_port name="message"/>
     </Action>
@@ -1671,19 +1671,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="AreaMonitoring">
   <BehaviorTree ID="AreaMonitoring">
-    <Selector name="Area Selector">
+    <Fallback name="Area Fallback">
       <Sequence name="Deploy Drone Sequence">
         <is_area_clear/>
         <deploy_drone/>
         <report_status message="Drone deployed successfully."/>
       </Sequence>
       <scan_area/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_area_clear"/>
-    <Action ID="deploy_drone" editable="true"/>
-    <Action ID="scan_area" editable="true"/>
+    <Action ID="deploy_drone"/>
+    <Action ID="scan_area"/>
     <Action ID="report_status" editable="true">
       <input_port name="message"/>
     </Action>
@@ -1700,18 +1700,18 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="SecurityPatrol">
   <BehaviorTree ID="SecurityPatrol">
-    <Selector name="Enemy Selector">
+    <Fallback name="Enemy Fallback">
       <Sequence name="Engage Enemy Sequence">
         <is_enemy_detected/>
         <engage_enemy/>
       </Sequence>
       <patrol_area/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_enemy_detected"/>
-    <Action ID="engage_enemy" editable="true"/>
-    <Action ID="patrol_area" editable="true"/>
+    <Action ID="engage_enemy"/>
+    <Action ID="patrol_area"/>
   </TreeNodesModel>
 </root>
 
@@ -1856,19 +1856,19 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="TrafficControl">
   <BehaviorTree ID="TrafficControl">
-    <Selector name="Traffic Selector">
+    <Fallback name="Traffic Fallback">
       <Sequence name="Green Light Sequence">
         <detect_traffic_light/>
         <proceed_vehicle/>
       </Sequence>
       <stop_vehicle/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="detect_traffic_light"/>
-    <Action ID="proceed_vehicle" editable="true"/>
-    <Action ID="stop_vehicle" editable="true"/>
+    <Action ID="proceed_vehicle"/>
+    <Action ID="stop_vehicle"/>
   </TreeNodesModel>
 </root>
 
@@ -1898,23 +1898,23 @@ OUTPUT:
   <BehaviorTree ID="SearchAndRescue">
     <Sequence>
       <is_search_complete/>
-      <Selector>
+      <Fallback>
         <Sequence>
           <move_to_next_area/>
           <scan_for_survivors/>
-          <Selector>
+          <Fallback>
             <Sequence>
               <is_survivor_detected/>
               <call_for_rescue/>
             </Sequence>
             <mark_area_searched/>
-          </Selector>
+          </Fallback>
         </Sequence>
-      </Selector>
+      </Fallback>
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Action ID="call_for_rescue"/>
     <Condition ID="is_search_complete"/>
     <Condition ID="is_survivor_detected"/>
@@ -1948,7 +1948,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="BatteryManagement">
   <BehaviorTree ID="BatteryManagement">
-    <Selector>
+    <Fallback>
       <Sequence>
         <battery_low/>
         <return_to_base/>
@@ -1956,17 +1956,17 @@ OUTPUT:
       </Sequence>
       <Sequence>
         <continue_operation/>
-        <Selector>
+        <Fallback>
           <Sequence>
             <is_obstacle_detected/>
             <avoid_obstacle/>
           </Sequence>
-        </Selector>
+        </Fallback>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="battery_low"/>
     <Action ID="return_to_base"/>
     <Action ID="charge_battery"/>
@@ -2002,17 +2002,17 @@ OUTPUT:
     <Sequence>
       <weather_good/>
       <start_delivery/>
-      <Selector>
+      <Fallback>
         <Sequence>
           <is_package_delivered/>
           <notify_sender/>
         </Sequence>
         <return_to_depot/>
-      </Selector>
+      </Fallback>
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Sequence" editable="true"/>
+    <Control ID="Sequence"/>
     <Condition ID="weather_good"/>
     <Action ID="start_delivery"/>
     <Condition ID="is_package_delivered"/>
@@ -2045,25 +2045,25 @@ OUTPUT:
 <root BTCPP_format="3" main_tree_to_execute="DeliveryManagement">
   <BehaviorTree ID="DeliveryManagement">
     <Sequence>
-      <Selector>
+      <Fallback>
         <Sequence>
           <inventory_full/>
           <unload_cargo/>
         </Sequence>
         <continue_delivery/>
-      </Selector>
-      <Selector>
+      </Fallback>
+      <Fallback>
         <Sequence>
           <is_destination_reached/>
           <deliver_package/>
         </Sequence>
         <request_assistance/>
-      </Selector>
+      </Fallback>
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Sequence" editable="true"/>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Sequence"/>
+    <Control ID="Fallback"/>
     <Condition ID="inventory_full"/>
     <Action ID="unload_cargo"/>
     <Action ID="continue_delivery"/>
@@ -2097,25 +2097,25 @@ OUTPUT:
 <root BTCPP_format="3" main_tree_to_execute="TemperatureControl">
   <BehaviorTree ID="TemperatureControl">
     <Sequence>
-      <Selector>
+      <Fallback>
         <Sequence>
           <temperature_high/>
           <activate_cooling_system/>
         </Sequence>
         <monitor_temperature/>
-      </Selector>
-      <Selector>
+      </Fallback>
+      <Fallback>
         <Sequence>
           <is_system_overheated/>
           <shut_down_system/>
           <send_alert/>
         </Sequence>
-      </Selector>
+      </Fallback>
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Sequence" editable="true"/>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Sequence"/>
+    <Control ID="Fallback"/>
     <Condition ID="temperature_high"/>
     <Action ID="activate_cooling_system"/>
     <Action ID="monitor_temperature"/>
@@ -2149,25 +2149,25 @@ OUTPUT:
 <root BTCPP_format="3" main_tree_to_execute="EnergyManagement">
   <BehaviorTree ID="EnergyManagement">
     <Sequence>
-      <Selector>
+      <Fallback>
         <Sequence>
           <energy_level_low/>
           <initiate_energy_saving_mode/>
         </Sequence>
         <perform_tasks/>
-      </Selector>
-      <Selector>
+      </Fallback>
+      <Fallback>
         <Sequence>
           <is_task_critical/>
           <prioritize_task/>
         </Sequence>
         <log_event/>
-      </Selector>
+      </Fallback>
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Sequence" editable="true"/>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Sequence"/>
+    <Control ID="Fallback"/>
     <Condition ID="energy_level_low"/>
     <Action ID="initiate_energy_saving_mode"/>
     <Action ID="perform_tasks"/>
@@ -2202,26 +2202,26 @@ OUTPUT:
   <BehaviorTree ID="CleaningProcess">
     <Sequence>
       <navigate_to_area/>
-      <Selector>
+      <Fallback>
         <Sequence>
           <area_clean/>
         </Sequence>
         <Sequence>
           <start_cleaning/>
-          <Selector>
+          <Fallback>
             <Sequence>
               <is_object_obstructing/>
               <remove_obstruction/>
             </Sequence>
-          </Selector>
+          </Fallback>
         </Sequence>
-      </Selector>
+      </Fallback>
       <report_status/>
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Sequence" editable="true"/>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Sequence"/>
+    <Control ID="Fallback"/>
     <Action ID="navigate_to_area"/>
     <Condition ID="area_clean"/>
     <Action ID="start_cleaning"/>
@@ -2312,23 +2312,23 @@ OUTPUT:
   <BehaviorTree ID="MapArea">
     <Sequence>
       <is_area_mapped/>
-      <Selector>
+      <Fallback>
         <Sequence>
           <is_path_blocked/>
-          <Selector>
+          <Fallback>
             <turn_left/>
             <turn_right/>
-          </Selector>
+          </Fallback>
         </Sequence>
         <Sequence>
           <move_forward/>
           <update_map/>
         </Sequence>
-      </Selector>
+      </Fallback>
     </Sequence>
   </BehaviorTree>
   <TreeNodesModel>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Fallback"/>
     <Condition ID="is_area_mapped"/>
     <Condition ID="is_path_blocked"/>
     <Action ID="move_forward"/>
@@ -2353,7 +2353,7 @@ It is CRITICAL to use only the following behaviors structured as a dictionary:
   is_intruder_detected: Condition node: Detect if an intruder is present. Returns SUCCESS if detected, FAILURE otherwise.;
   engage_intruder: Action Node: Engage the intruder. Always returns SUCCESS.;
   log_event: Action Node: Log the detected event. Always returns SUCCESS.;
-  Selector: Control Node: Selects the first child that succeeds.
+  Fallback: Control Node: Selects the first child that succeeds.
 }`  
 to construct behavior tree in XML format to the following command, including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
 
@@ -2364,7 +2364,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="BatteryAndPatrol">
   <BehaviorTree ID="BatteryAndPatrol">
-    <Selector>
+    <Fallback>
       <Sequence>
         <is_battery_low/>
         <Sequence>
@@ -2374,15 +2374,15 @@ OUTPUT:
       </Sequence>
       <Sequence>
         <patrol_area/>
-        <Selector>
+        <Fallback>
           <Sequence>
             <is_intruder_detected/>
             <engage_intruder/>
             <log_event/>
           </Sequence>
-        </Selector>
+        </Fallback>
       </Sequence>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_battery_low"/>
@@ -2392,8 +2392,8 @@ OUTPUT:
     <Condition ID="is_intruder_detected"/>
     <Action ID="engage_intruder"/>
     <Action ID="log_event"/>
-    <Control ID="Selector" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -2424,7 +2424,7 @@ OUTPUT:
 <root BTCPP_format="3" main_tree_to_execute="EnemyEngagement">
   <BehaviorTree ID="EnemyEngagement">
     <Sequence>
-      <Selector>
+      <Fallback>
         <Sequence>
           <is_enemy_near/>
           <Sequence>
@@ -2433,7 +2433,7 @@ OUTPUT:
           </Sequence>
         </Sequence>
         <patrol_route/>
-      </Selector>
+      </Fallback>
       <Sequence>
         <is_enemy_near/>
         <Sequence>
@@ -2453,8 +2453,8 @@ OUTPUT:
     <Condition ID="is_alert_mode"/>
     <Action ID="enter_alert_mode"/>
     <Action ID="exit_alert_mode"/>
-    <Control ID="Sequence" editable="true"/>
-    <Control ID="Selector" editable="true"/>
+    <Control ID="Sequence"/>
+    <Control ID="Fallback"/>
     <Decorator ID="Inverter"/>
   </TreeNodesModel>
 </root>
@@ -2473,7 +2473,7 @@ It is CRITICAL to use only the following behaviors structured as a dictionary:
   return_to_base: Action Node: Navigate back to the base. Always returns SUCCESS.;
   deposit_resources: Action Node: Deposit collected resources at the base. Always returns SUCCESS.;
   is_resource_available: Condition node: Check if resources are available in the vicinity. Returns SUCCESS if available, FAILURE otherwise.;
-  Selector: Control Node: Selects the first child that succeeds.;
+  Fallback: Control Node: Selects the first child that succeeds.;
   Sequence: Control Node: Executes child nodes in sequence.
 }`  
 to construct behavior tree in XML format to the following command. Including in the behavior tree a behavior that is not in the provided dictionary can result in damage, therefore you are not allowed to do so, AVOID AT ALL COSTS.
@@ -2485,7 +2485,7 @@ OUTPUT:
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="3" main_tree_to_execute="ResourceCollection">
   <BehaviorTree ID="ResourceCollection">
-    <Selector>
+    <Fallback>
       <Sequence>
         <Inverter>
           <is_inventory_full/>
@@ -2499,7 +2499,7 @@ OUTPUT:
         </Sequence>
       </Sequence>
       <patrol_area/>
-    </Selector>
+    </Fallback>
   </BehaviorTree>
   <TreeNodesModel>
     <Condition ID="is_inventory_full"/>
@@ -2508,8 +2508,8 @@ OUTPUT:
     <Action ID="return_to_base"/>
     <Action ID="deposit_resources"/>
     <Condition ID="is_resource_available"/>
-    <Control ID="Selector" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
     <Decorator ID="Inverter"/>
     <Action ID="patrol_area"/>
   </TreeNodesModel>
@@ -2562,8 +2562,8 @@ OUTPUT:
     <Action ID="follow_path"/>
     <Action ID="wait"/>
     <Action ID="clear_obstacle"/>
-    <Control ID="Fallback" editable="true"/>
-    <Control ID="Sequence" editable="true"/>
+    <Control ID="Fallback"/>
+    <Control ID="Sequence"/>
   </TreeNodesModel>
 </root>
 
@@ -2615,8 +2615,8 @@ OUTPUT:
     <Action ID="initiate_scan"/>
     <Action ID="report_status"/>
     <Action ID="idle"/>
-    <Control ID="Sequence" editable="true"/>
-    <Control ID="Fallback" editable="true"/>
+    <Control ID="Sequence"/>
+    <Control ID="Fallback"/>
   </TreeNodesModel>
 </root>
 
