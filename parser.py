@@ -1,7 +1,17 @@
+"""
+Parse an XML <BehaviorTree> into an in-memory tree of Node objects,
+then convert that into a py_trees Behavior via a set of wrappers.
+
+Key functions:
+    parse_behavior_trees(xml_file: str) -> List[Node]
+    build_behavior(node: Node, subtree_mapping: Dict[str,Node]) -> pt.behaviour.Behaviour
+Custom classes:
+    Node, FunctionAction, FunctionControl, etc.
+"""
+
 import xml.etree.ElementTree as ET
 from typing import List, Dict
 import py_trees as pt
-# from simulator_env import SwarmAgent
 
 ########################################################################
 # 1. XML Parsing Classes and Functions

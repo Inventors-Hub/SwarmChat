@@ -1,16 +1,30 @@
+"""
+Wraps a Llama-based guard for text→safety classification.
+
+Functions:
+    SafetyChecker(model_path: str, n_ctx: int = 1024)
+        Initializes the checker with the given GGUF model and context size.
+
+    check(text: str, override_safe: bool = False) -> str
+        Returns "Safe" or "Unsafe: Violated categories: ..." by classifying input text against policy categories.
+"""
+
+
 from llama_cpp import Llama
 
 
 # Load the Llama model for safety classification
 model_path = r"G:\Inventors Hub Projects\SwarmChat\model\llama-guard-3-8b-q4_k_m.gguf"
-llm = Llama(model_path=model_path, n_ctx=1024)
+
+
 
 
 def check_safety(text, checkbox):
-
+    
     if checkbox:
         return "Safe"
-
+    
+    llm = Llama(model_path=model_path, n_ctx=1024)
     categories = {
         "S1": "Violent Crimes.",
         "S2": "Non-Violent Crimes.",
@@ -57,6 +71,3 @@ def check_safety(text, checkbox):
     else:
         unsafe_categories = categories[response.split("unsafe", 1)[-1].strip()]
         return f"Unsafe: This prompt is categorized as '{unsafe_categories}'"
-
-        # unsafe_categories = categories[response.split("unsafe", 1)[-1].strip()]
-        # return f"Unsafe: This prompt categorized as '{unsafe_categories}'"

@@ -1,3 +1,18 @@
+"""SwarmChat front-end interface.
+
+Defines a Gradio GUI for:
+  - recording/translating audio
+  - translating text
+  - running safety checks
+  - generating BT XML
+  - streaming the swarm simulation
+
+Classes:
+    GradioStreamer: Manages the background simulator thread and frame streaming.
+Functions:
+    create_gradio_interface: Build and configure the Gradio Blocks interface.
+    stop_gradio_interface: Interrupt the Gradio flow when safety fails.
+"""
 import gradio as gr
 from pygame import Vector2
 import time
@@ -7,11 +22,21 @@ from simulator_env import StreamableSimulation, SwarmAgent, MyConfig, MyWindow
 
 import speech_processing
 import text_processing
-# import safety_module
+import safety_module
 import bt_generator
 
 
 class GradioStreamer:
+    """
+    Singleton that drives the SwarmChat simulation in a background thread
+    and provides a 30 FPS image stream to Gradio.
+
+    Attributes:
+        latest_frame (np.ndarray | None): Last rendered frame.
+        running (bool): Controls the simulation loop.
+        sim (StreamableSimulation | None): The Pygame/py-trees sim instance.
+        sim_thread (Thread | None): Background thread reference.
+    """
     _instance = None
     
     def __new__(cls):
@@ -33,61 +58,57 @@ class GradioStreamer:
         self.latest_frame = frame
 
     def run_simulation(self):
-            # Instantiate simulation and agents here:
+        """Main loop: steps the sim, grabs frames, enqueues them, stops after 2 minutes."""
+        
+        nest_pos = Vector2(450, 400)
+        target_pos = Vector2(300, 200)
+        agent_images_paths = ["./images/white.png", "./images/green.png", "./images/red circle.png"]
+        config = MyConfig(radius=250, visualise_chunks=True, movement_speed=2)
+        self.sim = StreamableSimulation(config=config)
+        loaded_agent_images = self.sim._load_image(agent_images_paths)
+
+        # Create agents (each agent builds its own BT in its __init__)
+        for _ in range(50):
+            agents_pos = Vector2(450, 400)
+            agent = SwarmAgent(
+                images=loaded_agent_images,
+                simulation=self.sim,
+                pos=agents_pos,
+                nest_pos=nest_pos,
+                target_pos=target_pos
+            )
+            self.sim._agents.add(agent)
+            self.sim._all.add(agent)
+        # (Optionally spawn obstacles and sites.)
+        self.sim.spawn_obstacle("./images/rect_obst.png", 350, 50)
+        self.sim.spawn_obstacle("./images/rect_obst (1).png", 100, 350)
+
+        self.sim.spawn_site("./images/rect.png", 300, 200)
+        self.sim.spawn_site("./images/nest.png", 450, 400)
+
+
+        start_time = time.time()  
+        
+        while self.running:
+            self.sim.tick()
             
-            nest_pos = Vector2(450, 400)
-            target_pos = Vector2(300, 200)
-            agent_images_paths = ["./images/white.png", "./images/green.png", "./images/red circle.png"]
-            config = MyConfig(radius=250, visualise_chunks=True, movement_speed=2)
-            self.sim = StreamableSimulation(config=config)
-            loaded_agent_images = self.sim._load_image(agent_images_paths)
+            if not self.sim.frame_queue.empty():
+                frame = self.sim.frame_queue.get()
+                self.update_frame(frame)    
 
-            # Create agents (each agent builds its own BT in its __init__)
-            for _ in range(50):
-                agents_pos = Vector2(450, 400)
-                agent = SwarmAgent(
-                    images=loaded_agent_images,
-                    simulation=self.sim,
-                    pos=agents_pos,
-                    nest_pos=nest_pos,
-                    target_pos=target_pos
-                )
-                self.sim._agents.add(agent)
-                self.sim._all.add(agent)
-            # (Optionally spawn obstacles and sites.)
-            self.sim.spawn_obstacle("./images/rect_obst.png", 350, 50)
-            self.sim.spawn_obstacle("./images/rect_obst (1).png", 100, 350)
-
-            self.sim.spawn_site("./images/rect.png", 300, 200)
-            self.sim.spawn_site("./images/nest.png", 450, 400)
-
-
-            start_time = time.time()  # Record the start time
-            # while self.sim.running:
-            #     self.sim.tick()
-            #     for agent in self.sim._agents:
-            #         agent.bt.tick_once()  # Continuously update BTs
-            #     if not self.sim.frame_queue.empty():
-            #         frame = self.sim.frame_queue.get()
-            #         self.update_frame(frame)
-            #     time.sleep(1/30)
-            
-            while self.running:
-                self.sim.tick()
-                
-                if not self.sim.frame_queue.empty():
-                    frame = self.sim.frame_queue.get()
-                    self.update_frame(frame)    
-
-                time.sleep(1/30)  # Maintain a frame rate of ~30 FPS
-                # Stop after 1 minute
-                if time.time() - start_time >= 120:
-                    print("Simulation stopped after 1 minute.")
-                    break
+            time.sleep(1/30)  # Maintain a frame rate of ~30 FPS
+            # Stop after 1 minute
+            if time.time() - start_time >= 120:
+                print("Simulation stopped after 1 minute.")
+                break
 
             
 
     def stream(self):
+        """
+        Generator that yields the latest frame at ~30 Hz for Gradio’s `streaming=True`.
+        Yields None until the sim produces frames.
+        """
         while True:
             if self.sim is not None and self.latest_frame is not None:
                 yield self.latest_frame
@@ -100,9 +121,9 @@ class GradioStreamer:
     def start_simulation(self):
         """Start the simulation, creating a new thread if necessary."""
         if not self.sim_thread or not self.sim_thread.is_alive():
-            self.running = True      # Reset running flag
-            self.quit = False        # Reset quit flag
-            self.latest_frame = None # Clear out the old frame
+            self.running = True      
+            self.quit = False        
+            self.latest_frame = None 
             self.sim_thread = threading.Thread(target=self.run_simulation, daemon=True)
             self.sim_thread.start()
 
@@ -118,7 +139,10 @@ class GradioStreamer:
 
 
     def stop_simulation(self):
-        print("Stopping Simulation...")
+        """
+        Gracefully halts the simulation thread, clears queues, and resets state.
+        Called when the user presses “Stop” or a safety violation occurs.
+        """
         self.running = False
         self.quit = True
         if self.sim:
@@ -133,22 +157,6 @@ class GradioStreamer:
             print("Simulation thread terminated.")
         self.latest_frame = None  # Clear the displayed frame
         print("Simulation stopped successfully.")
-
-
-
-
-            
-
-def test(temp):
-    return "test"
-
-def test_safe(temp, checkbox):
-    return "Safe"
-
-def test_LLM_generate_BT(temp):
-    print(temp)
-    return None
-
 
 
 
@@ -169,52 +177,68 @@ def create_gradio_interface():
         streamer.stop_simulation()
         return gr.update(visible=False)
     
-    # behaviors = bt_generator.call_behaviors()       
-    # formatted_behaviors = "\n".join(f"- **{name}**: {doc.split('Returns:')[0].strip()}" for name, doc in behaviors.items())
-    formatted_behaviors = "Test"
+    behaviors = bt_generator.call_behaviors()       
+    formatted_behaviors = "\n".join(
+        f"- **{name}**: {doc.split('Returns:')[0].strip()}"
+        for name, doc in sorted(
+            behaviors.items(),
+            key=lambda item: item[0].lower()
+                )
+            )
+
 
     # Gradio Interface
     with gr.Blocks() as demo:
-        gr.Markdown("# 🎙️ SwarmChat: Unified Audio and Text Processing for Human-Swarm Interaction")
-        gr.Markdown("""
-        SwarmChat enables intuitive communication with swarm robotics through natural language. 
-        Utilize this interface to translate audio and process text for effective human-swarm interaction.
-        """)    
+        gr.Markdown(
+            """
+        # 🐝 **SwarmChat:** Enabling Human–Swarm Interaction and Robot Control via Natural Language
+        Easily talk to virtual robots, and see the result live.  
+        """
+        )
+        gr.Markdown(
+            """
+        **How it works**
+
+        1.  Speak or type a task in *any EU language* (e.g. “Find the target, then line up by colour”).
+        2.  Press **Start** to launch the simulator. Use **Stop** to halt & reset.
+        3.  SwarmChat translates your command, runs a safety check, and auto-builds a behaviour tree (BT).          
+
+        > The BT XML is shown on the right so you can copy / save it for real robots.
+        """
+        )  
         with gr.Tabs():
             # Tab for microphone input
             with gr.Tab("Microphone Input"):
-                gr.Markdown("## Record and Translate Audio")
+                gr.Markdown("## 🎙️ Voice mode")
                 gr.Markdown("""
-                Use your microphone to record audio instructions for swarms. The system will translate your 
-                natural language commands into English while ensuring content safety.
+                Use your microphone to record audio instructions for the swarm. The system translates them into a robot-executable BT.
                 """)
                 with gr.Row():
                     with gr.Column():
                         microphone_input = gr.Audio(sources=["microphone"], type="filepath", label="🎙️ Record Audio")
                         safety_checkbox = gr.Checkbox(label="Turn off Safety Model")                        
                     with gr.Column():
-                        output_text_audio = gr.Textbox(label="📄 Translated Instructions" )
+                        output_text_audio = gr.Textbox(label="📄 Translated Instructions to English" )
                         safty_check_audio = gr.Textbox(label="✅ Safety Check")
                         
                 
-                translate_button_audio = gr.Button("Send Audio")
+                translate_button_audio = gr.Button("Start")
 
                 simulation_output = gr.Image(label="Live Stream", streaming=True, visible=False)
-                stop_button = gr.Button("Stop Simulation")
+                stop_button = gr.Button("Stop")
                 with gr.Row():
                     with gr.Column():
-                        gr.Markdown(f"### Available Behaviors\n{formatted_behaviors}")
+                        gr.Markdown(f"""**🛠 The available behaviours.**\n{formatted_behaviors}\n\nThese are the only low-level actions/conditions the model is allowed to use yet.""")
+
                     with gr.Column():
                         generated_BT_audio = gr.Textbox(label="Generated behavior tree")
                 
                 translate_button_audio.click(
                     fn=speech_processing.translate_audio,
-                    # fn=test,
                     inputs=microphone_input,
                     outputs=output_text_audio
                 ).then(
-                    # fn=safety_module.check_safety, 
-                    fn=test_safe,
+                    fn=safety_module.check_safety, 
                     inputs=[output_text_audio,safety_checkbox], 
                     outputs=safty_check_audio
                 ).then(
@@ -223,7 +247,6 @@ def create_gradio_interface():
                     outputs=None
                 ).success(
                     fn=bt_generator.generate_behavior_tree,
-                    # fn=test_LLM_generate_BT,
                     inputs=output_text_audio, 
                     outputs=generated_BT_audio
                 ).success(                    
@@ -231,44 +254,41 @@ def create_gradio_interface():
                     outputs=simulation_output
                 )
 
-                # stop_button.click(fn=on_stop, outputs=simulation_output)
-            # stop_button.click(fn=on_stop, outputs=simulation_output)#.then(js="window.location.reload()")
-            stop_button.click(fn=on_stop,outputs=simulation_output)#.then(js="window.location.reload()")
+
+            stop_button.click(fn=on_stop,outputs=simulation_output)
             demo.load(fn=streamer.stream, outputs=simulation_output)
 
             # Tab for text input
             with gr.Tab("📝 Text Input"):
-                gr.Markdown("## Process Text Commands")
+                gr.Markdown("## 📝 Text mode")
                 gr.Markdown("""
-                Enter text instructions for swarm control or natural language processing. 
-                This tool translates and processes your text for safe execution by swarms.
+                Enter text-based instructions for the swarm. The system translates them into a robot-executable BT.
                 """)
                 with gr.Row():
                     with gr.Column():
                         text_input = gr.Textbox(lines=4, placeholder="Enter your instructions here...", label="📝 Input Text")
                         safety_checkbox_text = gr.Checkbox(label="Turn off Safety Model")                        
                     with gr.Column():
-                        output_text_text = gr.Textbox(label="📄 Processed Commands", lines=2)
+                        output_text_text = gr.Textbox(label="📄 Translated Instructions to English", lines=2)
                         safty_check_text = gr.Textbox(label="✅ Safety Check")
 
-                process_button_text = gr.Button("Send Text")
+                process_button_text = gr.Button("Start")
 
                 simulation_output = gr.Image(label="Live Stream", streaming=True, visible=False)
-                stop_button = gr.Button("Stop Simulation")
+                stop_button = gr.Button("Stop")
                 with gr.Row():
                     with gr.Column():
-                        gr.Markdown(f"### Available Behaviors\n{formatted_behaviors}")
+                        gr.Markdown(f"""**🛠 The available behaviours.**\n{formatted_behaviors}\n\nThese are the only low-level actions/conditions the model is allowed to use yet.""")
+
                     with gr.Column():
                         generated_BT_text = gr.Textbox(label="Generated behavior tree")
 
                 process_button_text.click(
                     fn=text_processing.translate_text,
-                    # fn=test,
                     inputs=text_input,
                     outputs=output_text_text
                 ).then(
-                    # fn=safety_module.check_safety, 
-                    fn=test_safe,
+                    fn=safety_module.check_safety, 
                     inputs=[output_text_text,safety_checkbox_text], 
                     outputs=safty_check_text
                 ).then(
@@ -277,15 +297,13 @@ def create_gradio_interface():
                     outputs=None
                 ).success(
                     fn=bt_generator.generate_behavior_tree,
-                    # fn=test_LLM_generate_BT,
                     inputs=output_text_text, 
                     outputs=generated_BT_text
                 ).success(                    
                     fn=on_translate_or_process,
                     outputs=simulation_output
                 )
-                stop_button.click(fn=on_stop,outputs=simulation_output)#.then(fn=reload_page,outputs=None ,js="window.location.reload()")
-                # stop_button.click(fn=on_stop, outputs=simulation_output, js="window.location.reload()")
+                stop_button.click(fn=on_stop,outputs=simulation_output)
                 demo.load(fn=streamer.stream, outputs=simulation_output)
     
     return demo

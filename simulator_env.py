@@ -1,3 +1,16 @@
+"""
+Headless, streamable swarm-robot simulator based on PyGame + py_trees.
+
+Defines:
+  - MyConfig / MyWindow: swap in custom window sizes & visualization flags.
+  - SwarmAgent: wraps an Agent with a behavior tree loaded from `tree.xml`.
+  - StreamableSimulation: extends HeadlessSimulation to capture frames into a FIFO.
+
+Key classes:
+    SwarmAgent: Implements all low-level Actions/Conditions (flocking, obstacle-avoid, etc.)
+    StreamableSimulation: Offers get_frame(), tick(), and a frame_queue.
+"""
+
 import math
 import time
 import pygame as pg
@@ -35,6 +48,12 @@ class MyConfig(Config):
 
 
 class SwarmAgent(Agent):
+    """
+    A single swarm-robot with:
+      - perceptions (position, obstacles, nest/target flags)
+      - py_trees behavior tree loaded from XML
+      - action/condition implementations as methods
+    """
     def __init__(self, images, simulation, pos, nest_pos, target_pos):
         super().__init__(images=images, simulation=simulation)
         # Ensure the agent gets the configuration from the simulation.
@@ -91,10 +110,6 @@ class SwarmAgent(Agent):
             return True
         return False
 
-
-    # def update(self):
-    #     self.bt.tick_once()
-    #     # self.root_node.run(self)
 
     def say(self, message: str):
         """
@@ -330,18 +345,6 @@ class SwarmAgent(Agent):
             self.pos += direction     
         return pt.common.Status.SUCCESS
     
-    # def task_completed(self):
-    #     """
-    #     Action node: Signal that the agent has completed its designated task. Returns: Always returns True, indicating that the task completion action was executed.
-    #     """
-    #     self.state = "completed"
-    #     return pt.common.Status.SUCCESS
-    
-
-
-
-
-
 
 
 
@@ -382,10 +385,7 @@ class StreamableSimulation(HeadlessSimulation):
         except Queue.Full:
             print("Frame queue is full. Dropping frame.")
 
-    # def _load_image(self, path: str) -> pg.surface.Surface:
-    #     """Load an image from the given path."""
-    #     return pg.image.load(path)
-    
+
     def _load_image(self, paths):
         """Load one or more images from given paths."""
         if isinstance(paths, str):  # If it's a single string, load normally

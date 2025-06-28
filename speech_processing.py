@@ -1,15 +1,26 @@
+"""
+Load SeamlessM4Tv2 for on-the-fly speech→English translation.
+
+Functions:
+    translate_audio (str) -> str:  
+        Takes a WAV file path, returns an English transcript or an error message.
+"""
+
 from transformers import SeamlessM4Tv2Model, AutoProcessor
 import numpy as np
 import torch
 from pydub import AudioSegment
 
-# Load processor and model
-processor = AutoProcessor.from_pretrained("facebook/seamless-m4t-v2-large")
-model = SeamlessM4Tv2Model.from_pretrained("facebook/seamless-m4t-v2-large")
+
 
 def translate_audio(audio_file):
+    
+    # Load processor and model
+    processor = AutoProcessor.from_pretrained("facebook/seamless-m4t-v2-large")
+    model = SeamlessM4Tv2Model.from_pretrained("facebook/seamless-m4t-v2-large")
     if audio_file is None:
-        return "No audio file detected. Please try again."
+        raise "No audio file detected. Please try again."
+        # return "No audio file detected. Please try again."
     
     try:
         # Set the device (use GPU if available)

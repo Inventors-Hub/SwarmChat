@@ -36,6 +36,7 @@ def generate_behavior_tree(task_prompt: str, llm: Llama) -> str:
     return response
 
 
+
 def write_results(prompt: dict, generation_time: float, behavior_tree: str, model_name: str, prompt_type: str, filename: str):
     """
     Logs the prompt, prompt type, generation time, behavior tree, and model name to a CSV file.
@@ -62,13 +63,20 @@ def write_results(prompt: dict, generation_time: float, behavior_tree: str, mode
 
 
 def construct_prompt(prompt: str, prompt_type: str) -> str:
+    # behaviors = call_behaviors()
+    # behaviors_text = "\n".join(f"{name}: {doc}" for name, doc in behaviors.items())
 
-    plan_prompt = f"""
-
-<s>
+    plan_prompt = f"""Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 SYSTEM: {prompt["SYSTEM"]}
 INSTRUCTIONS: {prompt["INSTRUCTIONS"]}
-USER COMMAND: {prompt["USER COMMAND"]}
+USER COMMAND: {prompt["USER COMMAND"]} Take another step back and think of the xml structure and the behavior you used.
+The output MUST follow this XML structure exactly, including:
+- A root element with < root BTCPP_format and main_tree_to_execute attributes.
+- A <BehaviorTree> element with an inner structure of Sequences, Fallback, Conditions, and Actions.
+- A <TreeNodesModel> section listing all node models.
+- No additional text or commentary outside the XML.
+Output only the XML behavior tree without extra text.
+
 OUTPUT:
     
     """
@@ -77,12 +85,12 @@ OUTPUT:
     if prompt_type == "zero":
         return plan_prompt
     elif prompt_type == "one":
-        path = r"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\prompt_engineering\second step\prompt_types\One_shot.txt"
+        path = r"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\finetuning\prompt_types\One_shot.txt"
         with open(path, "r", encoding="utf-8") as file:
             file_content = file.read()
         return f"{file_content} {plan_prompt}"
     elif prompt_type == "two":
-        path = r"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\prompt_engineering\second step\prompt_types\Two Shot.txt"
+        path = r"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\finetuning\prompt_types\Two Shot.txt"
         with open(path, "r", encoding="utf-8") as file:
             file_content = file.read()
         return f"{file_content} {plan_prompt}"
@@ -103,7 +111,7 @@ def main(llm: Llama, model_path: str, prompt_type: str, scenario: str, scenario_
     # save_behavior_tree(tree_xml, file_name=xml_filename)
 
     # Log the results to a CSV file named based on the model.
-    csv_filename = rf"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\prompt_engineering\second step\resultes\{model_base}_log.csv"
+    csv_filename = rf"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\finetuning\resultes\{model_base}_log.csv"
     write_results(scenario, elapsed_time, tree_xml, model_base, prompt_type, csv_filename)
 
     print(f"Saved XML to {xml_filename} (Time taken: {elapsed_time:.2f}s)")
@@ -122,20 +130,24 @@ def read_jsonl(path):
 
 # Example usage:
 if __name__ == "__main__":
-    path = r"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\prompt_engineering\second step\validation_data.jsonl"
-    scenarios = read_jsonl(path)
+    
+    
 
+    path = r"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\finetuning\validation_data.jsonl"
+    scenarios = read_jsonl(path)
+    # print(construct_prompt(scenarios[0], "one"))
 
     model_paths = [
-    r"G:\Inventors Hub Projects\SwarmChat\model\Falcon3-10B-Instruct-q4_k_m.gguf",
-    r"G:\Inventors Hub Projects\SwarmChat\model\Mistral-7B-Instruct-v0.3.Q4_K_M.gguf",
-    r"G:\Inventors Hub Projects\SwarmChat\model\Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf",
+    r"G:\Inventors Hub Projects\SwarmChat\finetuned models\Falcon3-10B-Instruct-BehaviorTree-1epochs.Q4_K_M.gguf",
+    r"G:\Inventors Hub Projects\SwarmChat\finetuned models\Falcon3-10B-Instruct-BehaviorTree-3epochs.Q4_K_M.gguf",
+    r"G:\Inventors Hub Projects\SwarmChat\finetuned models\Falcon3-10B-Instruct-BehaviorTree-5epochs.Q4_K_M.gguf",
+    r"G:\Inventors Hub Projects\SwarmChat\finetuned models\Falcon3-10B-Instruct-BehaviorTree-8epochs.Q4_K_M.gguf",
+    r"G:\Inventors Hub Projects\SwarmChat\finetuned models\Falcon3-10B-Instruct-BehaviorTree-10epochs.Q4_K_M.gguf",
     ]
-
+    print(os.path.exists(model_paths[0]))  # should be True
 
     for model in model_paths:
         llm = Llama(model_path=model, n_ctx=1024*4)
         for prompt_type in ['zero','one','two']:
             for idx, scenario in enumerate(scenarios):
                 main(llm, model, prompt_type, scenario, scenario_idx=idx)
-    

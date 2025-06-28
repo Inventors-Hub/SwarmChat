@@ -1,19 +1,21 @@
-<root BTCPP_format="3" main_tree_to_execute="FormLine">
-        <BehaviorTree ID="FormLine">
-            <Sequence name="Form Line Sequence">
-                <is_agent_in_nest/>
-                <agent_movement_freeze/>
-                <form_line/>
-                <continue_movement_agent/>
-            </Sequence>
-        </BehaviorTree>
-        <TreeNodesModel>
-            <Condition ID="is_agent_in_nest"/>
-            <Action ID="agent_movement_freeze"/>
-            <Action ID="form_line"/>
-            <Action ID="continue_movement_agent"/>
-            <Action ID="change_color" editable="true">
-                <input_port name="color"/>
-            </Action>
-        </TreeNodesModel>
-    </root>
+<root BTCPP_format="3" main_tree_to_execute="FoodSearchAndColorChange">  
+	<BehaviorTree ID="FoodSearchAndColorChange">    
+		<Fallback name="Main Decision">      
+			<Sequence name="Find Food Sequence">        
+				<is_target_detected/>        
+				<change_color color="green"/>      
+			</Sequence>      
+			<Sequence name="No Food Sequence">        
+				<move_randomly/>      
+			</Sequence>    
+		</Fallback>  
+	</BehaviorTree>  
+	<TreeNodesModel>    
+		<Condition ID="is_target_detected"/>    
+		<Action ID="change_color"/>    
+		<Action ID="move_randomly"/>  
+		<Action ID="find_food" editable="true">
+      	<input_port name="food_location"/>
+    	</Action>
+	</TreeNodesModel>
+</root>

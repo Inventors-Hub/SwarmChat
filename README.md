@@ -1,6 +1,8 @@
-# SwarmChat: Unified Audio, Text, and Simulation Environment for Human-Swarm Interaction
+# SwarmChat: Enabling Intuitive Swarm Robotics with Natural Language
 
 SwarmChat is an innovative project that enables intuitive communication with swarm robotics through natural language. This system integrates advanced audio transcription, text processing, and safety mechanisms with a live simulation environment that visualizes a swarm of agents executing behavior trees.
+
+🚀 This project is Funded by the European Union’s [UTTER programme](https://he-utter.eu/), in collaboration with the UTTER consortium.
 
 ## Features
 
@@ -13,12 +15,12 @@ SwarmChat is an innovative project that enables intuitive communication with swa
 - **Text Input Processing**:
 
   - Enter text commands for swarm control.
-  - Translate text using EuroLLM (EuroLLM-9B-Instruct-Q4_K_M.gguf).
+  - Translate text using `EuroLLM` (EuroLLM-9B-Instruct).
   - Detect unsafe or inappropriate content with an integrated safety module.
 
 - **Safety Module**:
 
-  - Utilizes a fine-tuned LLaMA-based model (llama-guard-3-8b-q4_k_m.gguf) for safety classification.
+  - Utilizes `Llama-Guard` model (Llama-Guard-3-8B) for safety classification.
   - Identifies unsafe content across predefined categories (e.g., violent crimes, privacy violations, hate speech).
   - Ensures commands comply with safety standards.
 
@@ -30,7 +32,7 @@ SwarmChat is an innovative project that enables intuitive communication with swa
 
 - **Behavior Tree Generator**:
 
-  - DeepSeek leverages a Llama-based model to dynamically generate behavior trees in XML format.
+  - `Falcon3-10B-Instruct-BehaviorTree` model to dynamically generate behavior trees in XML format.
   - Automatically extracts available behaviors from the SwarmAgent class and constructs a detailed prompt using a predefined XML template.
   - Generates and saves new behavior tree configurations (updating tree.xml) based on user-specified tasks.
 
@@ -55,10 +57,10 @@ SwarmChat is an innovative project that enables intuitive communication with swa
 
 - **AI Models**:
 
-  - **Speech Processing**: `facebook/seamless-m4t-v2-large` for audio transcription and translation.
-  - **Text Processing**: EuroLLM (EuroLLM-9B-Instruct-Q4_K_M.gguf) for text translation.
-  - **Safety Classification**: LLaMA Guard (llama-guard-3-8b-q4_k_m.gguf) for content safety assessment.
-  - **Behavior Tree Generation**: DeepSeek (using a Llama-based model DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf) for creating and updating behavior tree configurations.
+  - **Speech Processing**: [Seamless-m4t-v2-large](https://huggingface.co/facebook/seamless-m4t-v2-large) for audio transcription and translation.
+  - **Text Processing**: [EuroLLM-9B-Instruct](https://huggingface.co/utter-project/EuroLLM-9B-Instruct) for text translation.
+  - **Safety Classification**: [Llama-Guard-3-8B](https://huggingface.co/meta-llama/Llama-Guard-3-8B) for content safety assessment.
+  - **Behavior Tree Generation**: [Falcon3-10B-Instruct-BehaviorTree](https://huggingface.co/Inventors-Hub/Falcon3-10B-Instruct-BehaviorTree-3-epochs) for creating and updating behavior trees.
 
 - **Behavior Trees**:
   - Agents utilize behavior trees—parsed from XML and built with `py_trees`—to dictate their actions within the simulation.
@@ -80,7 +82,7 @@ SwarmChat is an innovative project that enables intuitive communication with swa
 
 - Place the EuroLLM model file (`EuroLLM-9B-Instruct-Q4_K_M.gguf`) at the specified path in `text_processing.py`.
 - Place the LLaMA Guard model file (`llama-guard-3-8b-q4_k_m.gguf`) at the specified path in `safety_module.py`.
-- Place the DeepSeek model file (`DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf`) at the specified path in `bt_generator.py`.
+- Place the DeepSeek model file (`Falcon3-10B-Instruct-BehaviorTree-3-epochs-GGUF`) at the specified path in `bt_generator.py`.
 
 4. **Run the Application**:
    ```bash
@@ -99,13 +101,18 @@ SwarmChat is an innovative project that enables intuitive communication with swa
   Implements audio transcription and translation using the `facebook/seamless-m4t-v2-large` model.
 
 - **text_processing.py**  
-  Translates text commands using EuroLLM (EuroLLM-9B-Instruct-Q4_K_M.gguf).
+  Translates text commands using `EuroLLM` (EuroLLM-9B-Instruct).
 
 - **safety_module.py**  
-  Utilizes LLaMA Guard to assess the safety of incoming commands, ensuring compliance with safety policies.
+  Utilizes `LLaMA Guard` to assess the safety of incoming commands, ensuring compliance with safety policies.
 
 - **bt_generator.py**  
-  Dynamically generates behavior trees in XML format by extracting behaviors from the SwarmAgent class, constructing a prompt, and querying a Llama-based model. The generated XML is saved to `tree.xml` for simulation use.
+  Dynamically generates behavior trees in XML format by extracting behaviors from the SwarmAgent class, constructing a prompt, and querying `Falcon3-10B-Instruct-BehaviorTree` model. The generated XML is saved to `tree.xml` for simulation use.
 
 - **simulator_env.py**  
   Powers the simulation environment, manages agent behaviors using XML-defined behavior trees, and handles real-time simulation updates.
+
+## Acknowledgments
+
+This work was funded by the European Union under the [UTTER programme](https://he-utter.eu/).  
+We gratefully acknowledge the support of the entire UTTER consortium.

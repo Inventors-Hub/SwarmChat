@@ -5,9 +5,10 @@ import time
 import textwrap
 import re
 from llama_cpp import Llama
+import pandas as  pd
 
 # Add the parent directory to sys.path
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
@@ -44,6 +45,7 @@ def generate_behavior_tree(task_prompt: str, llm: Llama) -> str:
     """
     Generates a behavior tree for the provided task prompt by calling the Llama model.
     """
+    print(task_prompt)
     output = llm(
         task_prompt,
         temperature=0,
@@ -56,23 +58,35 @@ def generate_behavior_tree(task_prompt: str, llm: Llama) -> str:
     return response
 
 
-def write_results(prompt: str, generation_time: float, behavior_tree: str, model_name: str, prompt_type: str, filename: str):
+def write_results(prompt: str, generation_time: float, behavior_tree: str, model_name: str, prompt_type: str, filename: str, ground_truth_xml: str, translator: str, ground_truth_prompt: str):
     """
     Logs the prompt, prompt type, generation time, behavior tree, and model name to a CSV file.
     """
     file_path = os.path.join(os.getcwd(), filename)
     file_exists = os.path.isfile(file_path)
-    fieldnames = ['Prompt', 'Prompt Type', 'Time', 'Behavior Tree', 'Model Name']
+    fieldnames = [
+        'translater',
+        'original Prompt',
+        'Translated Prompt',
+        'BT Model generator',
+        'Prompt Type',
+        'Time',
+        'Behavior Tree',
+        'Ground Truth BT'
+    ]
     with open(file_path, mode='a', newline='', encoding='utf-8') as file:
          writer = csv.DictWriter(file, fieldnames=fieldnames)
          if not file_exists:
              writer.writeheader()
          data_row = {
-             'Prompt': prompt,
+             'translater':translator,
+             'original Prompt': ground_truth_prompt,
+             'Translated Prompt': prompt,             
+             'BT Model generator': model_name,
              'Prompt Type': prompt_type,
              'Time': generation_time,
              'Behavior Tree': behavior_tree,
-             'Model Name': model_name
+             'Ground Truth BT': ground_truth_xml
          }
          writer.writerow(data_row)
 
@@ -109,7 +123,7 @@ def construct_prompt(prompt: str, prompt_type: str) -> str:
     else:
         raise ValueError("Unknown prompt type provided.")
 
-def main(llm: Llama, model_path: str, prompt_type: str, scenario: str, scenario_idx: int = 0):
+def main(llm, model_path, prompt_type, scenario, scenario_idx=0, ground_truth_xml=None,ground_truth_prompt=None, translate=None):
     prompt = construct_prompt(scenario, prompt_type)
     start_time = time.time()
     response = generate_behavior_tree(prompt, llm)
@@ -122,40 +136,44 @@ def main(llm: Llama, model_path: str, prompt_type: str, scenario: str, scenario_
     # save_behavior_tree(tree_xml, file_name=xml_filename)
 
     # Log the results to a CSV file named based on the model.
-    csv_filename = rf"C:\Users\moham\Desktop\SwarmChat_github\SwarmChat\prompt_engineering\First step\resultes\{model_base}_log.csv"
-    write_results(scenario, elapsed_time, tree_xml, model_base, prompt_type, csv_filename)
+    csv_filename = rf"./system_eval/results/{model_base}seamless_log.csv"
+    write_results(scenario, elapsed_time, tree_xml, model_base, prompt_type, csv_filename, ground_truth_xml, ground_truth_prompt, translate)
 
     print(f"Saved XML to {xml_filename} (Time taken: {elapsed_time:.2f}s)")
 
+def csv_read(path):
+    data = pd.read_csv(path)
+    return data
+
+
+
 # Example usage:
 if __name__ == "__main__":
-    # scenarios = ["form a line.", "find target change color to green"]
-    scenarios = [
-    "detect an obstacle, avoid it, and then changing color to green",
-    "wander randomly until a target is detected, approach it, and signal achievement by changing color to red",
-    "check if path is clear, form a line at the center",
-    "find the goal, signal success by changing color to red, and align movement with other swarm agents",
-    "detect target, freeze movement upon reaching it"
-    ]
+    
+    path = r"./system_eval\results\seamless-m4t-v2-large-results.csv"
+    scenario_ground_truth_path = r"C:\Users\moham\Desktop\New folder (21)\SwarmChat\prompt_engineering\First step\ex_ground_truth.csv"
+    scenarios = csv_read(path)
+    scenario_ground_truth = csv_read(scenario_ground_truth_path)
 
     model_paths = [
-    r"G:\Inventors Hub Projects\SwarmChat\model\deepseek-coder-6.7b-instruct.Q4_K_M.gguf",
-    r"G:\Inventors Hub Projects\SwarmChat\model\DeepSeek-R1-Distill-llama-8B-Q4_K_M.gguf",
-    r"G:\Inventors Hub Projects\SwarmChat\model\DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf",
-    r"G:\Inventors Hub Projects\SwarmChat\models\EuroLLM-9B-Instruct-Q4_K_M.gguf",
-    r"G:\Inventors Hub Projects\SwarmChat\model\Falcon3-10B-Instruct-q4_k_m.gguf",
-    r"G:\Inventors Hub Projects\SwarmChat\models\phi-4-Q4_K_M.gguf",
-    r"G:\Inventors Hub Projects\SwarmChat\models\CodeLlama-7b-hf-Q4_K_M.gguf",
-    r"G:\Inventors Hub Projects\SwarmChat\model\Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf",
-    r"G:\Inventors Hub Projects\SwarmChat\models\deepseek-coder-7b-base-v1.5.Q4_K_M.gguf",
-    r"G:\Inventors Hub Projects\SwarmChat\model\Mistral-7B-Instruct-v0.3.Q4_K_M.gguf",    
-    r"G:\Inventors Hub Projects\SwarmChat\model\Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf",
+
+    r"G:\Inventors Hub Projects\SwarmChat\finetuned models\Falcon3-10B-Instruct-BehaviorTree-3epochs.Q4_K_M.gguf",
+
     ]
+
 
 
     for model in model_paths:
         llm = Llama(model_path=model, n_ctx=1024*4)
         for prompt_type in ['zero','one','two']:
-            for idx, scenario in enumerate(scenarios):
-                main(llm, model, prompt_type, scenario, scenario_idx=idx)
-    
+            for idx, scenario in enumerate(scenarios["Output"]):
+                main(
+                    llm,
+                    model,
+                    prompt_type,
+                    scenario,
+                    scenario_idx=idx,
+                    ground_truth_xml=scenario_ground_truth["Behavior Tree"][idx//9],
+                    ground_truth_prompt=scenario_ground_truth["Prompt"][idx//9],
+                    translate="seamless"
+                )

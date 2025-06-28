@@ -1,0 +1,41 @@
+<s>
+<<SYS>>You are a helpful, respectful, and honest AI assistant. Your task is to generate well-structured XML code for behavior trees based on the provided instructions.<</SYS>>
+INSTRUCTIONS: It is CRITICAL to use only the following behaviors structured as a dictionary: {
+  is_battery_low: Condition node: Check if the battery level is low. Returns SUCCESS if low, FAILURE otherwise.; 
+  charge_battery: Action Node: Initiate battery charging. Always returns SUCCESS.; 
+  patrol_area: Action Node: Patrol the designated area. Always returns SUCCESS.;
+  report_status: Action Node: Send a status report to the base. Always returns SUCCESS.; 
+  return_to_patrol: Action Node: Return to patrol route. Always returns SUCCESS.
+  is_intruder_detected: Condition node: Check if an intruder is detected. Returns SUCCESS if detected, FAILURE otherwise.;
+  sound_alarm: Action Node: Activate the alarm system. Always returns SUCCESS.;
+  notify_security: Action Node: Send notification to security team. Always returns SUCCESS.;
+  perform_scan: Action Node: Perform a security scan of the area. Always returns SUCCESS.;
+  continue_patrol: Action Node: Continue patrolling the perimeter. Always returns SUCCESS.}. 
+  To construct a behavior tree in XML format for the following command. If any behavior outside the provided dictionary is used, output (Sorry, I can't do the task).
+USER COMMAND: generate behavior tree to "if battery is low, charge the battery; otherwise, patrol the area and report status". Take a step back and think deeply about the behavior you need for this command. Then think of the XML structure and the behavior you used.
+OUTPUT:
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="3" main_tree_to_execute="BatteryManagement">  
+	<BehaviorTree ID="BatteryManagement">    
+		<Fallback name="High-Level Decision">      
+			<Sequence name="Low Battery Sequence">        
+				<is_battery_low/>        
+				<charge_battery/>      
+			</Sequence>      
+			<Sequence name="Normal Operation Sequence">        
+				<patrol_area/>        
+				<report_status/>      
+			</Sequence>    
+		</Fallback>  
+	</BehaviorTree>  
+	<TreeNodesModel>    
+		<Condition ID="is_battery_low"/>    
+		<Action ID="charge_battery"/>    
+		<Action ID="patrol_area"/>    
+		<Action ID="report_status"/>  
+		<Action ID="change_color" editable="true">
+      	<input_port name="color"/>
+    	</Action>
+	</TreeNodesModel>
+</root>
+</s>
