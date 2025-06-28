@@ -38,4 +38,3 @@ def translate_text(text):
     translated_text = output.get("choices", [{}])[0].get("text", "").strip()
 
     return translated_text
-
